@@ -151,6 +151,12 @@ public abstract class BD {
 			 * 
 			 * suprimmer un materiel neuf 
 			 */
+			
+			public fr.mezo.obyke.workclass.MaterielNeuf[] getAll() {
+				fr.mezo.obyke.workclass.MaterielNeuf [] res;
+				
+				return res;
+			}
 		}
 		
 		public static abstract class MaterielOccasion{
