@@ -140,7 +140,7 @@ public abstract class BD {
 	
 	public static abstract class Materiel{
 		
-		public static abstract class MaterielNeuf{
+		public static abstract class MaterielNeufData{
 			/*
 			 * recuperer tout les materiel neuf
 			 * recuperer un materiel neuf precis
@@ -153,13 +153,15 @@ public abstract class BD {
 			 */
 			
 			public fr.mezo.obyke.workclass.MaterielNeuf[] getAll() {
-				fr.mezo.obyke.workclass.MaterielNeuf [] res;
+				fr.mezo.obyke.workclass.MaterielNeuf [] res =;
+				
+				
 				
 				return res;
 			}
 		}
 		
-		public static abstract class MaterielOccasion{
+		public static abstract class MaterielOccasionData{
 			/*
 			 * recuperer tout les materiel occasion
 			 * recuperer un materiel occasion precis
@@ -173,7 +175,7 @@ public abstract class BD {
 		}
 	}
 	
-	public static abstract class Centre{
+	public static abstract class CentreData{
 		/*
 		 * récuperer tout les Centre
 		 * récuperer tout les Centre de type hotel
@@ -192,7 +194,7 @@ public abstract class BD {
 		
 	}
 	
-	public static abstract class CommandeService{
+	public static abstract class CommandeServiceData{
 		/*
 		 * récupérer les commande service en attente (qui non pas de technicien)
 		 * recupérer les commande service en attente d'un technitien (qui on un technicien precis mais valide=false)
@@ -206,7 +208,7 @@ public abstract class BD {
 		 */
 	}
 	
-	public static abstract class Technicien{
+	public static abstract class TechnicienData{
 		/*
 		 * recuperer tout les Technicien
 		 * recuperer un Technicien précis
@@ -220,7 +222,7 @@ public abstract class BD {
 		 */
 	}
 	
-	public static abstract class Garantie{
+	public static abstract class GarantieData{
 		/*
 		 * recuper toute les Garantie
 		 * recuper une Garantie precise
@@ -233,7 +235,7 @@ public abstract class BD {
 		 */
 	}
 	
-	public static abstract class Service{
+	public static abstract class ServiceData{
 		/*
 		 * Recuper tout les Service
 		 * Recuper un service precis
