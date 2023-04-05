@@ -153,7 +153,7 @@ public abstract class BD {
 			 */
 			
 			public fr.mezo.obyke.workclass.MaterielNeuf[] getAll() {
-				fr.mezo.obyke.workclass.MaterielNeuf [] res =;
+				fr.mezo.obyke.workclass.MaterielNeuf [] res =null;
 				
 				
 				
