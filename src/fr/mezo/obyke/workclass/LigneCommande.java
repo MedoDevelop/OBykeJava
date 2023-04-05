@@ -1,5 +1,60 @@
 package fr.mezo.obyke.workclass;
 
-public class LigneCommande {
+import java.sql.SQLException;
 
+import fr.mezo.obyke.data.BD;
+import fr.mezo.obyke.data.DateSimp;
+
+public class LigneCommande {
+		
+	private int idMateriel;
+	private int idCentre;
+	private int idGarantie;
+	
+	private DateSimp dateCommande;
+	
+	public LigneCommande(int materielID,int centreID,int garantieID,DateSimp dateCommande) {
+		this.setIdMateriel(materielID);
+		this.setIdCentre(centreID);
+		this.setIdGarantie(garantieID);
+		this.setDateCommande(dateCommande);
+	}
+
+	public int getIdMateriel() {
+		return idMateriel;
+	}
+
+	private void setIdMateriel(int idMateriel) {
+		this.idMateriel = idMateriel;
+	}
+
+	public int getIdCentre() {
+		return idCentre;
+	}
+
+	private void setIdCentre(int idCentre) {
+		this.idCentre = idCentre;
+	}
+
+	public int getIdGarantie() {
+		return idGarantie;
+	}
+
+	private void setIdGarantie(int idGarantie) {
+		this.idGarantie = idGarantie;
+	}
+
+	public DateSimp getDateCommande() {
+		return dateCommande;
+	}
+
+	private void setDateCommande(DateSimp NVdateCommande) {
+		this.dateCommande = NVdateCommande;
+		try {
+			BD.LigneCommandeData.Set(this.idMateriel, NVdateCommande, this.idCentre, this.idGarantie);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
