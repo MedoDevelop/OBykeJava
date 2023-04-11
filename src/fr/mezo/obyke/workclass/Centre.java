@@ -15,7 +15,7 @@ public class Centre {
 	private String typeCentre;
 	private String mdp;
 	
-	public Centre(int id, String deno,String nomdir,String prenomdir, String tel,String mail, String type,String login,String mdp) {
+	public Centre(int id, String deno,String nomdir,String prenomdir, String tel,String mail, String type, String mdp) {
 		this.setIdCentre(id);
 		this.setDenomination(deno);
 		this.setNomDir(nomdir);

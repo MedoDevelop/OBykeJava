@@ -10,7 +10,7 @@ public class MaterielOccasion extends Materiel {
 	private DateSimp dateAchat;
 	private double prixAchat;
 	
-	private MaterielOccasion(int id,String coloris,double prixVente,DateSimp dateMisVente,String categ,DateSimp dateVendus,DateSimp dateAchat,double prixAchat) {
+	public MaterielOccasion(int id,String coloris,double prixVente,DateSimp dateMisVente,String categ,DateSimp dateVendus,DateSimp dateAchat,double prixAchat) {
 		super(id,coloris,prixVente,dateMisVente,categ,dateVendus);
 		this.setDateAchat(dateAchat);
 		this.setPrixAchat(prixAchat);
