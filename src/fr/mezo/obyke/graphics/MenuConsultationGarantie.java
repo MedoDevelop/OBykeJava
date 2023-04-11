@@ -18,6 +18,8 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 
 	public MenuConsultationGarantie(int lineLeft,int lineRight) {
 		super(lineLeft,lineRight);
+		
+		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
 		JButton button2= new JButton("Supprimer");
 		

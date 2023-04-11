@@ -21,7 +21,7 @@ public class Formulaire extends JPanel {
 	private JPanel firstBottom;
 	private JPanel middleBottom;
 	private JPanel secondBottom;
-	private JPanel principal;
+	protected JPanel principal;
 	private JLabel label;
 	
 	

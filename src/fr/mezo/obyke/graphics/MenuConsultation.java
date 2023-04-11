@@ -21,18 +21,18 @@ public class MenuConsultation extends JPanel {
 	private JPanel principal;
 	private JPanel leftCentral;
 	private JPanel leftTop;
-	private JPanel leftBottom;
+	private static JPanel leftBottom;
 	private JPanel rightCentral;
 	private JPanel rightTop;
 	private JPanel rightBottom;
 	private JLabel labelLeft;
 	private JLabel labelRight;
-	private JTable table;
 	
 	
-	public MenuConsultation(Object[] data,String [] entetes, String leftTitle, String rightTitle) {
+	public MenuConsultation(String leftTitle, String rightTitle) {
 		
 		super(new BorderLayout(60,60));
+		
 		//Stratégie de placement
 		JPanel lesPanels[]= {new JPanel(),new JPanel(),new JPanel(),new JPanel()};
 		for(JPanel unPanel : lesPanels) {
@@ -97,10 +97,7 @@ public class MenuConsultation extends JPanel {
 		//Création de la bordure
 		this.leftCentral.setBorder(BorderFactory.createLineBorder(Color.GRAY,2));
 		this.rightCentral.setBorder(BorderFactory.createLineBorder(Color.GRAY,2));
-		
-		this.table = new JTable((Object[][]) data,entetes);
 		 
-		this.leftBottom.add(new JScrollPane(this.table), BorderLayout.CENTER);
 		
 		this.add(this.principal,BorderLayout.CENTER);
 
@@ -111,11 +108,11 @@ public class MenuConsultation extends JPanel {
 		public static Font getFontSize(int size) {
 			return new Font("Helvetica",Font.PLAIN,size);
 		}
+	
 		
-		//Fonction d'ajout panneau droit
-		/*public void addRightSide(MenuConsultationDroit menuDroit) {
-			this.right.add(menuDroit,BorderLayout.CENTER);
-		}*/
+		public static void addJTable(JTable table) {
+			leftBottom.add(new JScrollPane(table), BorderLayout.CENTER);
+		}
 		
 		//Ajout du formulaire correspondant dans la partie droite du panneau
 		public void addMenuDroit(MenuConsultationDroit menu) {

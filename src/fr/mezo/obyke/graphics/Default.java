@@ -16,7 +16,6 @@ public class Default extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	JPanel p = new JPanel();
-	
 	public Default() {
 		
 		//Taille fenêtre par défaut
@@ -114,11 +113,23 @@ public class Default extends JFrame {
         
         JMenu vente = new JMenu("VENTE");
         
-        JMenuItem enregVente = new JMenuItem("Enregistrement");
-        JMenuItem consulVente= new JMenuItem("Consultation");
+        JMenu venteMatOccas = new JMenu("Matériel d'occasion");
+        JMenu venteMatNeuf = new JMenu("Matériel neuf");
         
-        vente.add(enregVente);
-        vente.add(consulVente);
+        JMenuItem enregVenteMatOccas = new JMenuItem("Enregistrement");
+        JMenuItem consulVenteMatOccas= new JMenuItem("Consultation");
+        
+        JMenuItem enregVenteMatNeuf = new JMenuItem("Enregistrement");
+        JMenuItem consulVenteMatNeuf= new JMenuItem("Consultation");
+        
+        venteMatOccas.add(enregVenteMatOccas);
+        venteMatOccas.add(consulVenteMatOccas);
+        
+        venteMatNeuf.add(enregVenteMatNeuf);
+        venteMatNeuf.add(consulVenteMatNeuf);
+        
+        vente.add(venteMatOccas);
+        vente.add(venteMatNeuf);
         
         mb.add(centre);
         mb.add(rdv);
@@ -135,37 +146,59 @@ public class Default extends JFrame {
 		enregH.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement d'Hôtel")));
 		enregI.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement d'Institut")));
 		
+		enregRdv.addActionListener((e) -> this.addForm(new FormRdv(5,5,"Enregistrement d'un RDV")));
+		
 		enregMatOccas.addActionListener((e) -> this.addForm(new FormMaterielOccasion(4,4,"Enregistrement Matériel d'Occasion")));
 		enregMatNeufs.addActionListener((e) -> this.addForm(new FormMaterielNeuf(4,4,"Enregistrement Matériel Neuf")));
 		enregGaranties.addActionListener((e) -> this.addForm(new FormGarantie(3,3,"Enregistrement Garantie")));
 		
 		enregServ.addActionListener((e) -> this.addForm(new FormServices(4,5,"Service")));
 		
-		MenuConsultation menuLic = new MenuConsultation(j,entetes,"Liste des Licenciés","Licencié");
+		MenuConsultation menuVenteMatOccas = new MenuConsultation("Liste du matériel d'occasion possédé","Matériel d'Occasion");
+		menuVenteMatOccas.addMenuDroit(new MenuVenteMatOccas(7,0));
+		enregVenteMatOccas.addActionListener((e) -> this.addMenuConsultation(menuVenteMatOccas));
+		
+		MenuConsultation menuVenteMatNeuf = new MenuConsultation("Liste du matériel neuf possédé","Matériel Neuf");
+		menuVenteMatNeuf.addMenuDroit(new MenuVenteMatNeuf(6,0));
+		enregVenteMatNeuf.addActionListener((e) -> this.addMenuConsultation(menuVenteMatNeuf));
+		
+		MenuConsultation menuConsulVenteMatOccas = new MenuConsultation("Liste du matériel d'occasion en vente","Matériel d'Occasion");
+		menuConsulVenteMatOccas.addMenuDroit(new MenuConsultationVenteMatOccas(7,0));
+		consulVenteMatOccas.addActionListener((e) -> this.addMenuConsultation(menuConsulVenteMatOccas));
+		
+		MenuConsultation menuConsulVenteMatNeuf = new MenuConsultation("Liste du matériel neuf en vente","Matériel Neuf");
+		menuConsulVenteMatNeuf.addMenuDroit(new MenuConsultationVenteMatNeuf(6,0));
+		consulVenteMatNeuf.addActionListener((e) -> this.addMenuConsultation(menuConsulVenteMatNeuf));
+		
+		MenuConsultation menuLic = new MenuConsultation("Liste des Licenciés","Licencié");
 		menuLic.addMenuDroit(new MenuConsultationCentre(3,3));
 		consulL.addActionListener((e) -> this.addMenuConsultation(menuLic));
 		
-		MenuConsultation menuInst = new MenuConsultation(j,entetes,"Liste des Instituts","Institut");
+		MenuConsultation menuInst = new MenuConsultation("Liste des Instituts","Institut");
 		menuInst.addMenuDroit(new MenuConsultationCentre(3,3));
 		consulI.addActionListener((e) -> this.addMenuConsultation(menuInst));
 		
-		MenuConsultation menuHot = new MenuConsultation(j,entetes,"Liste des Hôtels","Hôtel");
+		MenuConsultation menuHot = new MenuConsultation("Liste des Hôtels","Hôtel");
 		menuHot.addMenuDroit(new MenuConsultationCentre(3,3));
 		consulH.addActionListener((e) -> this.addMenuConsultation(menuHot));
 		
-		MenuConsultation menuMatOccas = new MenuConsultation(j,entetes,"Liste du matériel D'occasion","Matériel d'Occasion");
-		menuMatOccas.addMenuDroit(new MenuConsultationMaterielOccasion(4,4));
+		MenuConsultation menuRdv = new MenuConsultation("Liste des RDV","Rendez-vous");
+		menuRdv.addMenuDroit(new MenuConsultationRdv(5,5));
+		consulRdv.addActionListener((e) -> this.addMenuConsultation(menuRdv));
+		
+		MenuConsultation menuMatOccas = new MenuConsultation("Liste du matériel D'occasion","Matériel d'Occasion");
+		menuMatOccas.addMenuDroit(new MenuConsultationMaterielOccasion(5,5));
 		consulMatOccas.addActionListener((e) -> this.addMenuConsultation(menuMatOccas));
 		
-		MenuConsultation menuMatNeuf = new MenuConsultation(j,entetes,"Liste du matériel Neuf","Matériel Neuf");
-		menuMatNeuf.addMenuDroit(new MenuConsultationMaterielNeuf(4,4));
+		MenuConsultation menuMatNeuf = new MenuConsultation("Liste du matériel Neuf","Matériel Neuf");
+		menuMatNeuf.addMenuDroit(new MenuConsultationMaterielNeuf(5,5));
 		consulMatNeufs.addActionListener((e) -> this.addMenuConsultation(menuMatNeuf));
 		
-		MenuConsultation menuServ = new MenuConsultation(j,entetes,"Liste des Services","Service");
+		MenuConsultation menuServ = new MenuConsultation("Liste des Services","Service");
 		menuServ.addMenuDroit(new MenuConsultationServices(5,5));
 		consulServ.addActionListener((e) -> this.addMenuConsultation(menuServ));
 		
-		MenuConsultation menuGarantie = new MenuConsultation(j,entetes,"Liste des Garanties","Garantie");
+		MenuConsultation menuGarantie = new MenuConsultation("Liste des Garanties","Garantie");
 		menuGarantie.addMenuDroit(new MenuConsultationGarantie(3,3));
 		consulGaranties.addActionListener((e) -> this.addMenuConsultation(menuGarantie));
 
@@ -214,6 +247,12 @@ public class Default extends JFrame {
 		this.repaint();
 		this.add(menuConsultation,BorderLayout.CENTER);
 		
+	}
+	
+	//Méthode d'ajout de formulaire à la fenêtre
+	public void clear() {
+		this.getContentPane().removeAll();
+		this.repaint();
 	}
 	
 

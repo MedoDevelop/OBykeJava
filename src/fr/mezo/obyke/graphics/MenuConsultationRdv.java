@@ -9,41 +9,42 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MenuConsultationCentre extends MenuConsultationDroit {
+public class MenuConsultationRdv extends MenuConsultationDroit {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public MenuConsultationCentre(int lineLeft,int lineRight) {
+	public MenuConsultationRdv(int lineLeft,int lineRight) {
 		super(lineLeft,lineRight);
 		
 		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
 		JButton button2= new JButton("Supprimer");
 		
+		this.addTopSpace();
+		
 		button1.addActionListener((e) -> EditConfirmation());
 		button2.addActionListener((e) -> DeleteConfirmation());
-		
-		this.addTopSpace();
 		
 		JTextField deno=new JTextField(15);
 		JTextField nomDir=new JTextField(15);
 		JTextField prenomDir=new JTextField(15);
 		JTextField tel=new JTextField(15);
 		JTextField mail=new JTextField(15);
-		
-		JComboBox type=new JComboBox();
-		type.setPreferredSize(new Dimension(162,28));
+		JTextField date=new JTextField(15);
+		JTextField heure=new JTextField(15);
+		heure.setText("00:00");
 		
 		this.addLeft(new InputField("Dénomination : ",deno));
 		this.addLeft(new InputField("Nom du Directeur : ",nomDir));
 		this.addLeft(new InputField("Prénom du Directeur : ",prenomDir));
+		this.addLeft(new InputField("Téléphone : ",tel));
+		this.addLeft(new InputField("Mail : ",mail));
 		
-		this.addRight(new InputField("Téléphone : ",tel));
-		this.addRight(new InputField("Mail : ",mail));
-		this.addRight(new InputField("Type : ",type));
+		this.addRight(new InputField("Date du RDV : ",date));
+		this.addRight(new InputField("Heure du RDV : ",heure));
 		
 		this.addFirstBottomSpace();
 		this.addFirstBottomSpace();
@@ -54,11 +55,7 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 		this.addSecondBottomSpace();
 		this.addSecondBottom(button2);
 		this.addSecondBottomSpace();
-		
 	
-	
-		
-		
 	}
 
 }
