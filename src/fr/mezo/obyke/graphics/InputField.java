@@ -41,7 +41,10 @@ public class InputField extends JPanel{
 		this.add(p1);
 		this.add(p2);
 		
-		
+	}
+	
+	public Component getComponent() {
+		return this.field;
 	}
 	
 

@@ -9,14 +9,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
+public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public MenuConsultationMaterielOccasion(int lineLeft,int lineRight) {
+	public MenuConsultationMaterielNeuf(int lineLeft,int lineRight) {
 		super(lineLeft,lineRight);
 		JButton button1= new JButton("Modifier");
 		JButton button2= new JButton("Supprimer");
@@ -51,7 +51,7 @@ public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
 		this.addFirstBottomSpace();
 		this.addFirstBottomSpace();
 		this.addFirstBottomSpace();
-	
+		
 		this.addSecondBottomSpace();
 		this.addSecondBottom(button1);
 		this.addSecondBottomSpace();

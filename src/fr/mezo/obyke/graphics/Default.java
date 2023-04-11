@@ -57,11 +57,11 @@ public class Default extends JFrame {
         licencies.add(enregL);
         licencies.add(consulL);
         
-        hotels.add(enregL);
-        hotels.add(consulL);
+        hotels.add(enregH);
+        hotels.add(consulH);
         
-        instituts.add(enregL);
-        instituts.add(consulL);
+        instituts.add(enregI);
+        instituts.add(consulI);
         
         centre.add(licencies);
         centre.add(hotels);
@@ -131,13 +131,43 @@ public class Default extends JFrame {
 		String []entetes= {"TEST1","test2"};
 		
 		//Ajout des évènements
+		enregL.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement de Licencié")));
+		enregH.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement d'Hôtel")));
+		enregI.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement d'Institut")));
+		
 		enregMatOccas.addActionListener((e) -> this.addForm(new FormMaterielOccasion(4,4,"Enregistrement Matériel d'Occasion")));
+		enregMatNeufs.addActionListener((e) -> this.addForm(new FormMaterielNeuf(4,4,"Enregistrement Matériel Neuf")));
+		enregGaranties.addActionListener((e) -> this.addForm(new FormGarantie(3,3,"Enregistrement Garantie")));
 		
 		enregServ.addActionListener((e) -> this.addForm(new FormServices(4,5,"Service")));
 		
-		MenuConsultation m = new MenuConsultation(j,entetes,"Liste du matériel D'occasion","Matériel d'Occasion");
-		m.addMenuDroit(new MenuConsultationMaterielOccasion(4,4));
-		consulMatOccas.addActionListener((e) -> this.addMenuConsultation(m));
+		MenuConsultation menuLic = new MenuConsultation(j,entetes,"Liste des Licenciés","Licencié");
+		menuLic.addMenuDroit(new MenuConsultationCentre(3,3));
+		consulL.addActionListener((e) -> this.addMenuConsultation(menuLic));
+		
+		MenuConsultation menuInst = new MenuConsultation(j,entetes,"Liste des Instituts","Institut");
+		menuInst.addMenuDroit(new MenuConsultationCentre(3,3));
+		consulI.addActionListener((e) -> this.addMenuConsultation(menuInst));
+		
+		MenuConsultation menuHot = new MenuConsultation(j,entetes,"Liste des Hôtels","Hôtel");
+		menuHot.addMenuDroit(new MenuConsultationCentre(3,3));
+		consulH.addActionListener((e) -> this.addMenuConsultation(menuHot));
+		
+		MenuConsultation menuMatOccas = new MenuConsultation(j,entetes,"Liste du matériel D'occasion","Matériel d'Occasion");
+		menuMatOccas.addMenuDroit(new MenuConsultationMaterielOccasion(4,4));
+		consulMatOccas.addActionListener((e) -> this.addMenuConsultation(menuMatOccas));
+		
+		MenuConsultation menuMatNeuf = new MenuConsultation(j,entetes,"Liste du matériel Neuf","Matériel Neuf");
+		menuMatNeuf.addMenuDroit(new MenuConsultationMaterielNeuf(4,4));
+		consulMatNeufs.addActionListener((e) -> this.addMenuConsultation(menuMatNeuf));
+		
+		MenuConsultation menuServ = new MenuConsultation(j,entetes,"Liste des Services","Service");
+		menuServ.addMenuDroit(new MenuConsultationServices(5,5));
+		consulServ.addActionListener((e) -> this.addMenuConsultation(menuServ));
+		
+		MenuConsultation menuGarantie = new MenuConsultation(j,entetes,"Liste des Garanties","Garantie");
+		menuGarantie.addMenuDroit(new MenuConsultationGarantie(3,3));
+		consulGaranties.addActionListener((e) -> this.addMenuConsultation(menuGarantie));
 
         this.setJMenuBar(mb);
 	}
@@ -185,5 +215,6 @@ public class Default extends JFrame {
 		this.add(menuConsultation,BorderLayout.CENTER);
 		
 	}
+	
 
 }

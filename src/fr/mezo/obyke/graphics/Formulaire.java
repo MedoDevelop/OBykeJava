@@ -134,13 +134,15 @@ public class Formulaire extends JPanel {
 	}
 		
 	//Ajout d'un espace dans le panneau du bas
-	public void addFirstBottomSpace(JPanel unPanel) {
+	public void addFirstBottomSpace() {
+		JPanel unPanel=new JPanel();
 		this.firstBottom.add(unPanel);
 		unPanel.setOpaque(false);
 	}
 	
 	//Ajout d'un espace dans le second panneau du bas
-	public void addSecondBottomSpace(JPanel unPanel) {
+	public void addSecondBottomSpace() {
+		JPanel unPanel=new JPanel();
 		this.secondBottom.add(unPanel);
 		unPanel.setOpaque(false);
 	}
@@ -151,7 +153,8 @@ public class Formulaire extends JPanel {
 	}
 	
 	//Ajout d'un espace dans le panneau du bas
-	public void addTopSpace(JPanel unPanel) {
+	public void addTopSpace() {
+		JPanel unPanel=new JPanel();
 		this.top.add(unPanel);
 		unPanel.setOpaque(false);
 	}
@@ -171,5 +174,8 @@ public class Formulaire extends JPanel {
 		this.left.setBorder(BorderFactory.createLineBorder(Color.GRAY,2));
 		this.right.setBorder(BorderFactory.createLineBorder(Color.GRAY,2));
 	}
+	
+	
+	
 
 }

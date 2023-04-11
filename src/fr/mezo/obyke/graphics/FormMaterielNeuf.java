@@ -8,12 +8,11 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class FormMaterielOccasion extends Formulaire {
+public class FormMaterielNeuf extends Formulaire {
 	
-	public FormMaterielOccasion(int lineLeft,int lineRight,String title) {
+	public FormMaterielNeuf(int lineLeft,int lineRight,String title) {
 		
 		super(lineLeft,lineRight,title);
-
 		this.addTopSpace();
 		this.addTopSpace();
 		
@@ -42,7 +41,7 @@ public class FormMaterielOccasion extends Formulaire {
 		JButton button1= new JButton("Annuler");
 		JButton button2= new JButton("Autre Matériel");
 		JButton button3= new JButton("Valider");
-
+		
 		this.addSecondBottomSpace();
 		this.addSecondBottom(button1);
 		this.addSecondBottom(button2);
