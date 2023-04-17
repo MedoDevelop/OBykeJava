@@ -57,4 +57,39 @@ public class LigneCommande {
 			e.printStackTrace();
 		}
 	}
+	
+	public Centre getLeCentre() {
+		try {
+			return BD.CentreData.Get(this.idCentre);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Garantie getLaGarantie() {
+		try {
+			return BD.GarantieData.Get(this.idGarantie);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Materiel getLeMateriel() {
+		try {
+			Materiel leMateriel = null;
+			leMateriel = BD.MaterielData.MaterielNeufData.Get(this.idMateriel);
+			if(leMateriel == null) {
+				leMateriel = BD.MaterielData.MaterielOccasionData.Get(this.idMateriel);
+			}
+			return leMateriel;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
