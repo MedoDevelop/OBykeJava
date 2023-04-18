@@ -19,9 +19,7 @@ public class MenuConsultationVenteMatNeuf extends MenuConsultationDroit {
 
 	public MenuConsultationVenteMatNeuf(int lineLeft,int lineRight) {
 		super(lineLeft,lineRight);
-
 		
-
 		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
 		JButton button2= new JButton("Supprimer");

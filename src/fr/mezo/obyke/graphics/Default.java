@@ -237,15 +237,19 @@ public class Default extends JFrame {
 	//Méthode d'ajout de formulaire à la fenêtre
 	public void addForm(Formulaire unForm) {
 		this.getContentPane().removeAll();
-		this.repaint();
 		this.add(unForm,BorderLayout.CENTER);
+		this.invalidate();
+		this.validate();
+		this.repaint();
 	}
 	
 	//Méthode d'ajout de formulaire à la fenêtre
 	public void addMenuConsultation(MenuConsultation menuConsultation) {
 		this.getContentPane().removeAll();
-		this.repaint();
 		this.add(menuConsultation,BorderLayout.CENTER);
+		this.invalidate();
+		this.validate();
+		this.repaint();
 		
 	}
 	
