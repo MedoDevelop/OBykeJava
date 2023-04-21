@@ -3,6 +3,7 @@ package fr.mezo.obyke.graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -16,7 +17,7 @@ public class Default extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	JPanel p = new JPanel();
-	public Default() {
+	public Default() throws SQLException {
 		
 		//Taille fenêtre par défaut
 		super("Gestion O'Byke");
@@ -34,37 +35,18 @@ public class Default extends JFrame {
         this.setLayout(new BorderLayout());  
 	}
 	
-	public void createMenu() {
+	public void createMenu() throws SQLException {
 		
 		//Création du menu et de ses différents sous-menu
         JMenuBar mb = new JMenuBar();
         
         JMenu centre = new JMenu("CENTRE");
+       
+        JMenuItem enregCentre= new JMenuItem("Enregistrement");
+        JMenuItem consulCentre= new JMenuItem("Consultation");
         
-        JMenu licencies = new JMenu("Licenciés");
-        JMenu hotels = new JMenu("Hôtels");
-        JMenu instituts = new JMenu("Instituts");
-        
-        JMenuItem enregL = new JMenuItem("Enregistrement");
-        JMenuItem enregH= new JMenuItem("Enregistrement");
-        JMenuItem enregI= new JMenuItem("Enregistrement");
-        
-        JMenuItem consulL = new JMenuItem("Consultation");
-        JMenuItem consulH= new JMenuItem("Consultation");
-        JMenuItem consulI= new JMenuItem("Consultation");
-        
-        licencies.add(enregL);
-        licencies.add(consulL);
-        
-        hotels.add(enregH);
-        hotels.add(consulH);
-        
-        instituts.add(enregI);
-        instituts.add(consulI);
-        
-        centre.add(licencies);
-        centre.add(hotels);
-        centre.add(instituts);
+        centre.add(enregCentre);
+        centre.add(consulCentre);
         
         JMenu rdv = new JMenu("RDV");
         
@@ -142,9 +124,7 @@ public class Default extends JFrame {
 		String []entetes= {"TEST1","test2"};
 		
 		//Ajout des évènements
-		enregL.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement de Licencié")));
-		enregH.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement d'Hôtel")));
-		enregI.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement d'Institut")));
+		enregCentre.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement du Centre")));
 		
 		enregRdv.addActionListener((e) -> this.addForm(new FormRdv(5,5,"Enregistrement d'un RDV")));
 		
@@ -170,18 +150,11 @@ public class Default extends JFrame {
 		menuConsulVenteMatNeuf.addMenuDroit(new MenuConsultationVenteMatNeuf(6,0));
 		consulVenteMatNeuf.addActionListener((e) -> this.addMenuConsultation(menuConsulVenteMatNeuf));
 		
-		MenuConsultation menuLic = new MenuConsultation("Liste des Licenciés","Licencié");
-		menuLic.addMenuDroit(new MenuConsultationCentre(3,3));
-		consulL.addActionListener((e) -> this.addMenuConsultation(menuLic));
-		
-		MenuConsultation menuInst = new MenuConsultation("Liste des Instituts","Institut");
-		menuInst.addMenuDroit(new MenuConsultationCentre(3,3));
-		consulI.addActionListener((e) -> this.addMenuConsultation(menuInst));
-		
-		MenuConsultation menuHot = new MenuConsultation("Liste des Hôtels","Hôtel");
-		menuHot.addMenuDroit(new MenuConsultationCentre(3,3));
-		consulH.addActionListener((e) -> this.addMenuConsultation(menuHot));
-		
+		MenuConsultation menuCentre = new MenuConsultation("Liste des Centres","Centre");
+		menuCentre.addMenuDroit(new MenuConsultationCentre(3,3));
+		consulCentre.addActionListener((e) -> this.addMenuConsultation(menuCentre));
+
+
 		MenuConsultation menuRdv = new MenuConsultation("Liste des RDV","Rendez-vous");
 		menuRdv.addMenuDroit(new MenuConsultationRdv(5,5));
 		consulRdv.addActionListener((e) -> this.addMenuConsultation(menuRdv));
@@ -253,11 +226,15 @@ public class Default extends JFrame {
 		
 	}
 	
-	//Méthode d'ajout de formulaire à la fenêtre
+	//Méthode qui vide la fenêtre
 	public void clear() {
 		this.getContentPane().removeAll();
 		this.repaint();
 	}
 	
+	public JFrame getDefault()
+	{
+		return this;
+	}
 
 }

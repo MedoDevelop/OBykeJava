@@ -94,4 +94,24 @@ public class PropositionAchat {
 		}
 	}
 	
+	public Technicien getLeTechnicien() {
+		try {
+			return BD.TechnicienData.Get(this.idTech);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Centre getLeCentre() {
+		try {
+			return BD.CentreData.Get(this.idCentre);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

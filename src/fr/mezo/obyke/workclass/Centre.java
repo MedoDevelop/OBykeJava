@@ -29,6 +29,10 @@ public class Centre {
 	public int getIdCentre() {
 		return idCentre;
 	}
+	
+	public String toString() {
+		return denomination;
+	}
 
 	private void setIdCentre(int idCentre) {
 		this.idCentre = idCentre;

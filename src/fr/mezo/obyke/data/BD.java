@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
@@ -182,7 +183,6 @@ public abstract class BD {
 					BD.executeREQ(requete);
 				}
 			}catch (Exception e) {
-				// TODO: handle exception
 				System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		        System.exit(0);
 			}
@@ -222,8 +222,7 @@ public abstract class BD {
 			 * suprimmer un materiel neuf 
 			 */
 			
-			public MaterielNeuf[] GetAll() {
-				MaterielNeuf[] res = null;
+			public ArrayList<MaterielNeuf> GetAll() {
 				
 				String req = "SELECT * FROM Materiel m JOIN MaterielNeuf mn ON m.idMateriel=mn.idMateriel";
 				int id;
@@ -231,14 +230,8 @@ public abstract class BD {
 				double prixVente;
 				long dateMisVente, dateVendus;
 				ResultSet result = BD.resultREQ(req);
+				ArrayList<MaterielNeuf> res = new ArrayList<MaterielNeuf>();
 				try {
-					res = new MaterielNeuf[result.getRow()];
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
-					int index = 0;
 					while(result.next()) {
 						id = result.getInt("idMateriel");
 						coloris = result.getString("coloris");
@@ -246,11 +239,9 @@ public abstract class BD {
 						dateMisVente = result.getLong("dateMisVente");
 						categ = result.getString("categ");
 						dateVendus = result.getLong("dateVendus");
-						res[index] = new MaterielNeuf(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus));
-						index++;
+						res.add(new MaterielNeuf(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus)));
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				return res;
@@ -285,7 +276,6 @@ public abstract class BD {
 				try {
 					id = BD.newIDMateriel();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				PreparedStatement pstmt = BD.newPreparedSmt(req);
@@ -327,8 +317,8 @@ public abstract class BD {
 				 * 
 				 * suprimmer un materiel occasion 
 				 */
-			public static MaterielOccasion[] GetAll() {
-				MaterielOccasion[] res = null;
+			public static ArrayList<MaterielOccasion> GetAll() {
+				
 				
 				String req = "SELECT * FROM Materiel m JOIN MaterielOccasion mn ON m.idMateriel=mn.idMateriel";
 				int id;
@@ -336,14 +326,8 @@ public abstract class BD {
 				double prixVente,prixAchat;
 				long dateMisVente, dateVendus, dateAchat;
 				ResultSet result = BD.resultREQ(req);
+				ArrayList<MaterielOccasion> res = new ArrayList<MaterielOccasion>();
 				try {
-					res = new MaterielOccasion[result.getRow()];
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
-					int index = 0;
 					while(result.next()) {
 						id = result.getInt("idMateriel");
 						coloris = result.getString("coloris");
@@ -353,11 +337,9 @@ public abstract class BD {
 						dateVendus = result.getLong("dateVendus");
 						dateAchat = result.getLong("dateAchat");
 						prixAchat = result.getDouble("prixAchat");
-						res[index] = new MaterielOccasion(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),DateSimp.of(dateAchat),prixAchat);
-						index++;
+						res.add(new MaterielOccasion(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),DateSimp.of(dateAchat),prixAchat));
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				return res;
@@ -394,7 +376,6 @@ public abstract class BD {
 				try {
 					id = BD.newIDMateriel();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				PreparedStatement pstmt = BD.newPreparedSmt(req);
@@ -465,17 +446,16 @@ public abstract class BD {
 		 * Ajouter un centre
 		 * 
 		 * Mettre ajour les infos d'un centre
-		 * 
+		 * [(
 		 * supprimer un centre
 		 */
 		
-		public static Centre[] GetAll() throws SQLException {
+		public static ArrayList<Centre> GetAll() throws SQLException {
 			String req = "SELECT * FROM Centre";
 			ResultSet result = BD.resultREQ(req);
 			int idCentre;
-			String denom,nomDir,prenomDir,telephone,mail,typeCentre,login,mdp;
-			Centre[] res = new Centre[BD.getNbRow(result)];
-			int i=0;
+			String denom,nomDir,prenomDir,telephone,mail,typeCentre,mdp;
+			ArrayList<Centre> res = new ArrayList<Centre>();
 			while(result.next()) {
 				idCentre = result.getInt("idCentre");
 				denom = result.getString("denomination");
@@ -485,8 +465,7 @@ public abstract class BD {
 				mail = result.getString("mail");
 				typeCentre = result.getString("typeCentre");
 				mdp = result.getString("mdp");
-				res[i] = new Centre(idCentre,denom,nomDir,prenomDir,telephone,mail,typeCentre,mdp);
-				i++;
+				res.add(new Centre(idCentre,denom,nomDir,prenomDir,telephone,mail,typeCentre,mdp));
 			}
 			return res;
 		}
@@ -497,8 +476,7 @@ public abstract class BD {
 			pstmt.setInt(1, id);
 			ResultSet result = BD.resultREQ(pstmt);
 			Centre centre = null;
-			int idCentre;
-			String denom,nomDir,prenomDir,telephone,mail,typeCentre,login,mdp;
+			String denom,nomDir,prenomDir,telephone,mail,typeCentre,mdp;
 			if(result.next()) {
 				id = result.getInt("idCentre");
 				denom = result.getString("denomination");
@@ -513,15 +491,14 @@ public abstract class BD {
 			return centre;
 		}
 		
-		private static Centre[] GetCentreByType(String type) throws SQLException{
+		private static ArrayList<Centre> GetCentreByType(String type) throws SQLException{
 			String req = "SELECT * FROM Centre WHERE typeCentre=?";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setString(1, type);
 			ResultSet result = BD.resultREQ(pstmt);
-			Centre[] res = new Centre[BD.getNbRow(result)];
+			ArrayList<Centre> res = new ArrayList<Centre>();
 			int id;
-			String denom,nomDir,prenomDir,telephone,mail,typeCentre,login,mdp;
-			int i=0;
+			String denom,nomDir,prenomDir,telephone,mail,typeCentre,mdp;
 			while(result.next()) {
 				id = result.getInt("idCentre");
 				denom = result.getString("denomination");
@@ -531,21 +508,20 @@ public abstract class BD {
 				mail = result.getString("mail");
 				typeCentre = result.getString("typeCentre");
 				mdp = result.getString("mdp");
-				res[i] = new Centre(id,denom,nomDir,prenomDir,telephone,mail,typeCentre,mdp);
-				i++;
+				res.add(new Centre(id,denom,nomDir,prenomDir,telephone,mail,typeCentre,mdp));
 			}
 			return res;
 		}
 		
-		public static Centre[] GetCentreHotel() throws SQLException {
+		public static ArrayList<Centre> GetCentreHotel() throws SQLException {
 			return BD.CentreData.GetCentreByType("Licencié");
 		}
 		
-		public static Centre[] GetCentreLicencie() throws SQLException {
+		public static ArrayList<Centre> GetCentreLicencie() throws SQLException {
 			return BD.CentreData.GetCentreByType("Hotel");		
 		}
 		
-		public static Centre[] GetCentreInstituts() throws SQLException {
+		public static ArrayList<Centre> GetCentreInstituts() throws SQLException {
 			return BD.CentreData.GetCentreByType("Institut");
 		}
 		
@@ -556,7 +532,6 @@ public abstract class BD {
 			try {
 				id = BD.newIDCentre();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			pstmt.setInt(1, id);
@@ -572,7 +547,7 @@ public abstract class BD {
 		}
 		
 		public static void Set(int id, String deno, String nomDir, String prenomDir, String telephone, String mail, String typeCentre, String mdp) throws SQLException {
-			String req = "UPDATE Centre SET denomination=?, nomDir=?, prenomDir=?, telephone=?, mail=?, typeCentre=?, login=?, mdp=? WHERE idCentre=?";
+			String req = "UPDATE Centre SET denomination=?, nomDir=?, prenomDir=?, telephone=?, mail=?, typeCentre=?, mdp=? WHERE idCentre=?";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setInt(8, id);
 			pstmt.setString(1, deno);
@@ -605,13 +580,12 @@ public abstract class BD {
 		 * supprimer un technicien
 		 */
 		
-		public static Technicien[] GetAll() throws SQLException {
+		public static ArrayList<Technicien> GetAll() throws SQLException {
 			String req = "SELECT * FROM Technicien;";
 			ResultSet result = BD.resultREQ(req);
 			int id;
 			String nom,prenom,mail,telephone,mdp;
-			Technicien[] techs = new Technicien[BD.getNbRow(result)];
-			int i = 0;
+			ArrayList<Technicien> res = new ArrayList<Technicien>();
 			while(result.next()) {
 				id = result.getInt("idTech");
 				nom = result.getString("nom");
@@ -619,10 +593,9 @@ public abstract class BD {
 				mail = result.getString("mail");
 				telephone = result.getString("telephone");
 				mdp = result.getString("mdp");
-				techs[i] = new Technicien(id,nom,prenom,mail,telephone,mdp);
-				i++;
+				res.add(new Technicien(id,nom,prenom,mail,telephone,mdp));
 			}
-			return techs;
+			return res;
 		}
 		
 		public static Technicien Get(int id) throws SQLException {
@@ -630,11 +603,9 @@ public abstract class BD {
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setInt(1, id);
 			ResultSet result = BD.resultREQ(pstmt);
-			int idTech;
 			String nom,prenom,mail,telephone,mdp;
 			Technicien tech = null;
 			if(result.next()) {
-				idTech = result.getInt("idTech");
 				nom = result.getString("nom");
 				prenom = result.getString("prenom");
 				mail = result.getString("mail");
@@ -652,7 +623,6 @@ public abstract class BD {
 			try {
 				id = BD.newIDTechnicien();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			pstmt.setInt(1, id);
@@ -696,21 +666,19 @@ public abstract class BD {
 		 * supprimer une garantie
 		 */
 		
-		public static Garantie[] GetAll() throws SQLException {
+		public static ArrayList<Garantie> GetAll() throws SQLException {
 			String req = "SELECT * FROM Garantie;";
 			ResultSet result = BD.resultREQ(req);
 			int idGarantie,duree;//Duree en mois
 			String libelle;
 			double prix;
-			Garantie[] res = new Garantie[result.getRow()];
-			int i = 0;
+			ArrayList<Garantie> res = new ArrayList<Garantie>();
 			while(result.next()) {
 				idGarantie = result.getInt("idGarantie");
 				libelle = result.getString("libelle");
 				prix = result.getDouble("prix");
 				duree = result.getInt("duree");
-				res[i] = new Garantie(idGarantie,libelle,prix,duree);
-				i++;
+				res.add(new Garantie(idGarantie,libelle,prix,duree));
 			}
 			return res;
 		}
@@ -741,7 +709,6 @@ public abstract class BD {
 			try {
 				id = BD.newIDGarantie();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			pstmt.setInt(1,id);
@@ -781,14 +748,13 @@ public abstract class BD {
 		 * Supprimer un service
 		 */
 		
-		public static Service[] GetAll() throws SQLException {
+		public static ArrayList<Service> GetAll() throws SQLException {
 			String req = "SELECT * FROM Service;";
 			ResultSet result = resultREQ(req);
 			int id;
 			String typeService, denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur;
 			long dateAchat,dateDepot;
-			Service[] res = new Service[BD.getNbRow(result)];
-			int i = 0;
+			ArrayList<Service> res = new ArrayList<Service>();
 			while(result.next()) {
 				id = result.getInt("idService");
 				typeService = result.getString("typeService");
@@ -802,8 +768,7 @@ public abstract class BD {
 				fournisseur = result.getString("fournisseur");
 				dateAchat = result.getLong("dateAchat");
 				dateDepot = result.getLong("dateDepot");
-				res[i] = new Service(id,typeService,denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur,DateSimp.of(dateAchat),DateSimp.of(dateDepot));
-				i++;
+				res.add(new Service(id,typeService,denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur,DateSimp.of(dateAchat),DateSimp.of(dateDepot)));
 			}
 			return res;
 		}
@@ -816,7 +781,6 @@ public abstract class BD {
 			String typeService, denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur;
 			long dateAchat,dateDepot;
 			Service res = null;
-			int i = 0;
 			if(result.next()) {
 				typeService = result.getString("typeService");
 				denomination = result.getString("denomination");
@@ -830,7 +794,6 @@ public abstract class BD {
 				dateAchat = result.getLong("dateAchat");
 				dateDepot = result.getLong("dateDepot");
 				res = new Service(id,typeService,denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur,DateSimp.of(dateAchat),DateSimp.of(dateDepot));
-				i++;
 			}
 			return res;
 		}
@@ -842,7 +805,6 @@ public abstract class BD {
 			try {
 				id = BD.newIDService();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			pstmt.setInt(1, id);
@@ -899,13 +861,12 @@ public abstract class BD {
 		 * Supprimer une porposition Achat
 		 */
 		
-		public static PropositionAchat[] GetAll() throws SQLException {
+		public static ArrayList<PropositionAchat> GetAll() throws SQLException {
 			String req = "SELECT * FROM PropositionAchat;";
 			ResultSet result = BD.resultREQ(req);
 			int id,idTech,idCentre;
 			String anneeFab,categ,coloris;
-			PropositionAchat[] res = new PropositionAchat[result.getRow()];
-			int i = 0;
+			ArrayList<PropositionAchat> res = new ArrayList<PropositionAchat>();
 			while(result.next()) {
 				id = result.getInt("idProposition");
 				anneeFab = result.getString("aneeFabrication");
@@ -913,8 +874,7 @@ public abstract class BD {
 				coloris = result.getString("coloris");
 				idTech = result.getInt("idTech");
 				idCentre = result.getInt("idCentre");
-				res[i] = new PropositionAchat(id,anneeFab,categ,coloris,idTech,idCentre);
-				i++;
+				res.add(new PropositionAchat(id,anneeFab,categ,coloris,idTech,idCentre));
 			}
 			return res;
 		}
@@ -945,7 +905,6 @@ public abstract class BD {
 			try {
 				id = BD.newIDPropositionAchat();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			pstmt.setInt(1, id);
@@ -991,20 +950,18 @@ public abstract class BD {
 		 * Supprimer une ligne commande 
 		 */
 		
-		public static LigneCommande[] GetAll() throws SQLException {
+		public static ArrayList<LigneCommande> GetAll() throws SQLException {
 			String req = "SELECT * FROM LigneCommande;";
 			ResultSet result = BD.resultREQ(req);
-			LigneCommande[] res = new LigneCommande[BD.getNbRow(result)];
+			ArrayList<LigneCommande> res = new ArrayList<LigneCommande>();
 			int idMateriel,idCentre,idGarantie;
 			Long dateCommande;
-			int i=0;
 			while(result.next()) {
 				idMateriel = result.getInt("idMateriel");
 				idCentre = result.getInt("idCentre");
 				idGarantie = result.getInt("idGarantie");
 				dateCommande = result.getLong("dateCommande");
-				res[i] = new LigneCommande(idMateriel,idCentre,idGarantie,DateSimp.of(dateCommande));
-				i++;
+				res.add(new LigneCommande(idMateriel,idCentre,idGarantie,DateSimp.of(dateCommande)));
 			}
 			return res;
 		}
@@ -1057,10 +1014,12 @@ public abstract class BD {
 	}
 	
 	public static int getNbRow(ResultSet rst) throws SQLException {
-		rst.last();
-		int res = rst.getRow();
+		int rowCount = 0;
+		while (rst.next()) {
+		    rowCount = rst.getRow();
+		}
 		rst.absolute(0);
-		return res;
+		return rowCount;
 	}
 	
 	public static String[] GetTypesCentre() {
@@ -1123,7 +1082,6 @@ public abstract class BD {
 		try {
 			pstmt = BD.c.prepareStatement(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return pstmt;
@@ -1172,11 +1130,9 @@ public abstract class BD {
 	      System.out.println("Année : " + annee);*/
 		BD.init();
 		try {
-
-			BD.LigneCommandeData.Add(350606, DateSimp.of(5,4,2023), 205669, 161849);
-			BD.LigneCommandeData.Add(131055, DateSimp.of(8,4,2023), 205669, 161849);
+			ArrayList<Centre> centres = BD.CentreData.GetAll();
+			System.out.println(centres.toString());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -112,6 +113,9 @@ public abstract class MenuConsultationDroit extends JPanel{
 	      
 	    }
 	}
+	
+	
+	
 	
 
 }

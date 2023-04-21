@@ -1,15 +1,16 @@
 package fr.mezo.obyke.graphics;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import fr.mezo.obyke.data.BD;
 
 public class FormCentre extends Formulaire {
 	
@@ -24,7 +25,7 @@ public class FormCentre extends Formulaire {
 		JTextField tel=new JTextField(20);
 		JTextField mail=new JTextField(20);
 		
-		JComboBox type=new JComboBox();
+		JComboBox<String> type=new JComboBox<String>(BD.GetTypesCentre());
 		type.setPreferredSize(new Dimension(212,28));
 
 		this.addTopSpace();
@@ -53,12 +54,12 @@ public class FormCentre extends Formulaire {
 		});
 		
 		button2.addActionListener((e) -> {
-			this.SaveData(type.getSelectedItem(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText());
+			this.SaveData(type.getItemAt(type.getSelectedIndex()),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText());
 			this.Cancel(type,deno,nomDir,prenomDir,tel,mail);
 		});
 		
 		button3.addActionListener((e) -> {
-			this.SaveData(type.getSelectedItem(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText());
+			this.SaveData(type.getItemAt(type.getSelectedIndex()),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText());
 			this.Clear();
 		});
 		
@@ -72,19 +73,31 @@ public class FormCentre extends Formulaire {
 	}
 	
 	//Fonction de sauvegardes des données
-	public void SaveData(Object type,String deno,String nomDir,String prenomDir,String tel,String mail) {
+	public void SaveData(String type,String deno,String nomDir,String prenomDir,String tel,String mail) {
+		
+		try {
+			BD.CentreData.Add(deno,nomDir,prenomDir,tel, mail,type,"");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.Messages();
+		
 		
 	}
 	
 	//Fonction qui supprime la valeur des champs
 	public void Cancel(JComboBox type,JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail) {
-		type.setSelectedItem(0);
-		deno.setText("");
+		type.setSelectedIndex(0);
+		JTextField[] jtf = {deno,nomDir,prenomDir,tel,mail};
+		for(JTextField j : jtf) {
+			j.setText("");
+		}
+		/*deno.setText("");
 		nomDir.setText("");
 		prenomDir.setText("");
 		tel.setText("");
-		mail.setText("");
+		mail.setText("");*/
 	}
 	
 	//Fonction qui affiche le succès ou l'échec de l'ajout
