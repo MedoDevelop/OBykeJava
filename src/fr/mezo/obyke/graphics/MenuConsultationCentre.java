@@ -79,7 +79,14 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 		});
 		
 		
-		button2.addActionListener((e) -> DeleteConfirmation());
+		button2.addActionListener((e) -> {
+			try {
+				DeleteConfirmation();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		
 		setInput(deno,nomDir,prenomDir,tel,mail,type);
 		
@@ -123,18 +130,17 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 		    if(res == JOptionPane.YES_OPTION)
 		    {
 		      BD.CentreData.Set(this.getId(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText(),type.getItemAt(type.getSelectedIndex()).toString(),"");
-		      setTable();
-		      MenuConsultation.updateTable(this.table);
-		      
+		      updateTable();
 		    }
 		}
 		
-		public void DeleteConfirmation() {
+		public void DeleteConfirmation() throws SQLException {
 			int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir supprimer cette ligne?");
 		    
 		    if(res == JOptionPane.YES_OPTION)
 		    {
-		      
+		    	BD.CentreData.Delete(this.getId());
+		    	updateTable();
 		    }
 		}
 	
@@ -158,6 +164,23 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 				this.tableModel.addColumn(uneEntete);
 			
 			}
+			//Compteur pour l'ajout des lignes
+			int i=0;
+			
+			//Récupération des données de la base que l'on ajoute dans une liste
+			ArrayList<Centre>centres=new ArrayList<Centre>(BD.CentreData.GetAll());
+			for(Centre c : centres) {
+				this.tableModel.insertRow(i,new Object[]{c.getIdCentre(),c.getTypeCentre(),c.getDenomination(),c.getNomDir(),c.getPrenomDir(),c.getMail(),c.getTelephone()});
+				i++;
+			}
+			//Initialisation de la JTable
+			this.table=new JTable(this.tableModel);
+		}
+		
+		public void updateTable() throws SQLException {
+			//On enlève toutes les lignes du tableau
+			this.tableModel.setRowCount(0);
+			 
 			//Compteur pour l'ajout des lignes
 			int i=0;
 			

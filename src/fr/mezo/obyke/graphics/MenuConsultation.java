@@ -119,11 +119,6 @@ public class MenuConsultation extends JPanel {
 			this.rightBottom.add(menu);
 		}
 		
-		public static void updateTable(JTable table) {
-			leftBottom.removeAll();
-			addJTable(table);
-			
-		}
 	
 
 }

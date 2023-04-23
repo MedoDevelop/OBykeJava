@@ -23,8 +23,8 @@ public class MenuConsultationVenteMatOccas extends MenuConsultationDroit {
 		JButton button1= new JButton("Vendre");
 		JButton button2= new JButton("Supprimer");
 		
-		button1.addActionListener((e) -> EditConfirmation());
-		button2.addActionListener((e) -> DeleteConfirmation());
+		//button1.addActionListener((e) -> EditConfirmation());
+		//button2.addActionListener((e) -> DeleteConfirmation());
 		
 		this.addTopSpace();
 		
