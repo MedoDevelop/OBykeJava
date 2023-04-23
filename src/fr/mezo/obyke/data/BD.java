@@ -561,7 +561,7 @@ public abstract class BD {
 		}
 		
 		public static void Delete(int id ) throws SQLException {
-			String req = "DELETE Centre WHERE idCentre=?";
+			String req = "DELETE FROM Centre WHERE idCentre=?";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setInt(1, id);
 			BD.executeREQ(pstmt);
@@ -647,7 +647,7 @@ public abstract class BD {
 		}
 		
 		public static void Delete(int id) throws SQLException {
-			String req = "DELETE Technicien WHERE idTech=?;";
+			String req = "DELETE FROM Technicien WHERE idTech=?;";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setInt(1, id);
 			BD.executeREQ(pstmt);
@@ -729,7 +729,7 @@ public abstract class BD {
 		}
 		
 		public static void Delete(int id) throws SQLException {
-			String req = "DELETE Garantie WHERE idGarantie=?";
+			String req = "DELETE FROM Garantie WHERE idGarantie=?";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setInt(1, id);
 			BD.executeREQ(pstmt);
@@ -841,7 +841,7 @@ public abstract class BD {
 		}
 		
 		public static void Delete(int id) throws SQLException {
-			String req = "DELETE Service WHERE idService=?;";
+			String req = "DELETE FROM Service WHERE idService=?;";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setInt(1, id);
 			BD.executeREQ(pstmt);
@@ -929,7 +929,7 @@ public abstract class BD {
 		}
 		
 		public static void Delete(int id) throws SQLException {
-			String req = "DELETE PropositionAchat WHERE idProposition=?;";
+			String req = "DELETE FROM PropositionAchat WHERE idProposition=?;";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setInt(1, id);
 			BD.executeREQ(pstmt);
@@ -1005,7 +1005,7 @@ public abstract class BD {
 		}
 		
 		public static void Delete(int id) throws SQLException {
-			String req = "DELETE LigneCommande WHERE idMateriel=?";
+			String req = "DELETE FROM LigneCommande WHERE idMateriel=?";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setInt(1, id);
 			BD.executeREQ(pstmt);

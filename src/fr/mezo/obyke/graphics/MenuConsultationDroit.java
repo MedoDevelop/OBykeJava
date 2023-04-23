@@ -96,23 +96,7 @@ public abstract class MenuConsultationDroit extends JPanel{
 			this.top.add(component);
 		}
 	
-	public void DeleteConfirmation() {
-		int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir supprimer cette ligne?");
-	    
-	    if(res == JOptionPane.YES_OPTION)
-	    {
-	      
-	    }
-	}
 	
-	public void EditConfirmation() {
-		int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir modifier cette ligne?");
-	    
-	    if(res == JOptionPane.YES_OPTION)
-	    {
-	      
-	    }
-	}
 	
 	
 	

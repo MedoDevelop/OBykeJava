@@ -23,7 +23,7 @@ public class MenuVenteMatNeuf extends MenuConsultationDroit {
 		JButton button1= new JButton("Vendre");
 		JButton button2= new JButton("Annuler");
 		
-		button1.addActionListener((e) -> EditConfirmation());
+		//button1.addActionListener((e) -> EditConfirmation());
 		
 		this.addTopSpace();
 		

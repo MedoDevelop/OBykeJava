@@ -25,8 +25,8 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 		
 		this.addTopSpace();
 		
-		button1.addActionListener((e) -> EditConfirmation());
-		button2.addActionListener((e) -> DeleteConfirmation());
+		//button1.addActionListener((e) -> EditConfirmation());
+		//button2.addActionListener((e) -> DeleteConfirmation());
 		
 		JTextField deno=new JTextField(15);
 		JTextField nomDir=new JTextField(15);
