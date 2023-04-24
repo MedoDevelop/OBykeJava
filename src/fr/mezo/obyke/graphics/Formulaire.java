@@ -2,6 +2,7 @@ package fr.mezo.obyke.graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -46,8 +47,9 @@ public class Formulaire extends JPanel {
 		this.left=new JPanel(new GridLayout(lineLeft,1));
 		this.right=new JPanel(new GridLayout(lineRight,1));
 		this.center=new JPanel(new GridLayout(1,2));
-		this.top=new JPanel(new GridLayout(2,3));
-		this.bottom=new JPanel(new BorderLayout());
+		//this.top=new JPanel(new GridLayout(2,3));
+		this.top=new JPanel(new FlowLayout(FlowLayout.CENTER,0,10));
+		this.bottom=new JPanel(new FlowLayout(FlowLayout.CENTER,0,10));
 		this.middleBottom=new JPanel(new GridLayout(1,1));
 		this.bottomCentral=new JPanel(new GridLayout(3,1));
 		this.firstBottom=new JPanel(new GridLayout(1,3));

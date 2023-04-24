@@ -3,6 +3,7 @@ package fr.mezo.obyke.graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -10,6 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import fr.mezo.obyke.data.BD;
+import fr.mezo.obyke.data.DateSimp;
 
 public class FormMaterielNeuf extends Formulaire {
 	
@@ -26,11 +30,10 @@ public class FormMaterielNeuf extends Formulaire {
 		JTextField prixAchat=new JTextField(20);
 		JTextField dateAchat=new JTextField(20);
 		
-		JComboBox categ=new JComboBox();
+		JComboBox<String> categ=new JComboBox<String>(BD.GetMaterielCategorie());
 		categ.setPreferredSize(new Dimension(212,28));
 		
-		JComboBox garantie=new JComboBox();
-		garantie.setPreferredSize(new Dimension(212,28));
+		
 		
 		JTextField coloris=new JTextField(20);
 		JTextField prixVente=new JTextField(20);
@@ -55,18 +58,24 @@ public class FormMaterielNeuf extends Formulaire {
 		JButton button3= new JButton("Valider");
 		
 		button1.addActionListener((e) -> {
-			this.Cancel(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente,garantie);
+			this.Cancel(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente);
 		
 		});
 		
 		button2.addActionListener((e) -> {
-			this.SaveData(categ.getSelectedItem(),societe.getText(),annee.getText(),prixAchat.getText(),dateAchat.getText(),coloris.getText(),prixVente.getText(),dateMiseVente.getText(),garantie.getSelectedItem());
-			this.Cancel(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente,garantie);
+			JTextField[] tab = {societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente};
+			if(Main.AllFieldFilled(tab)) {
+				this.SaveData(categ.getItemAt(categ.getSelectedIndex()),societe.getText(),annee.getText(),prixAchat.getText(),dateAchat.getText(),coloris.getText(),prixVente.getText(),dateMiseVente.getText());
+				this.Cancel(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente);
+			}
 		});
 		
 		button3.addActionListener((e) -> {
-			this.SaveData(categ.getSelectedItem(),societe.getText(),annee.getText(),prixAchat.getText(),dateAchat.getText(),coloris.getText(),prixVente.getText(),dateMiseVente.getText(),garantie.getSelectedItem());
-			this.Clear();
+			JTextField[] tab = {societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente};
+			if(Main.AllFieldFilled(tab)) {
+				this.SaveData(categ.getItemAt(categ.getSelectedIndex()),societe.getText(),annee.getText(),prixAchat.getText(),dateAchat.getText(),coloris.getText(),prixVente.getText(),dateMiseVente.getText());
+				this.Clear();
+			}
 		});
 		
 		this.addSecondBottomSpace();
@@ -77,13 +86,22 @@ public class FormMaterielNeuf extends Formulaire {
 	}
 	
 	//Fonction de sauvegardes des données
-	public void SaveData(Object categ,String societe,String annee,String prixAchat,String dateAchat,String coloris,String prixVente,String dateMiseVente,Object garantie) {
-		this.Messages();
+	public void SaveData(String categ,String societe,String annee,String prixAchat,String dateAchat,String coloris,String prixVente,String dateMiseVente) {
 		
+		double prixV = Double.parseDouble(prixVente);
+		double prixA = Double.parseDouble(prixAchat);
+		try {
+			//coloris, prixV, DateSimp.of(dateMiseVente), categ, DateSimp.of(20, 2, 2000), DateSimp.of(dateAchat), prixA
+			BD.MaterielData.MaterielNeufData.Add(coloris,prixV,DateSimp.of(dateMiseVente),categ,DateSimp.now());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.Messages();
 	}
 	
 	//Fonction qui supprime la valeur des champs
-	public void Cancel(JComboBox categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente,JComboBox garantie) {
+	public void Cancel(JComboBox categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
 		categ.setSelectedItem(0);
 		societe.setText("");
 		annee.setText("");
@@ -92,7 +110,7 @@ public class FormMaterielNeuf extends Formulaire {
 		coloris.setText("");
 		prixVente.setText("");
 		dateMiseVente.setText("");
-		garantie.setSelectedItem(0);
+		//garantie.setSelectedItem(0);
 		
 	}
 	

@@ -107,7 +107,7 @@ public class FormMaterielOccasion extends Formulaire {
 				double prixV = Double.parseDouble(prixVente);
 				double prixA = Double.parseDouble(prixAchat);
 				try {
-					BD.MaterielData.MaterielOccasionData.Add(coloris, prixV, DateSimp.of(dateMiseVente), categ, DateSimp.of(20, 2, 2000), DateSimp.of(dateAchat), prixA);
+					BD.MaterielData.MaterielOccasionData.Add(coloris, prixV, DateSimp.of(dateMiseVente), categ, DateSimp.now(), DateSimp.of(dateAchat), prixA);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

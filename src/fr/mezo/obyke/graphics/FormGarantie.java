@@ -3,6 +3,7 @@ package fr.mezo.obyke.graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -10,6 +11,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import fr.mezo.obyke.data.BD;
 
 public class FormGarantie extends Formulaire {
 	
@@ -45,17 +48,22 @@ public class FormGarantie extends Formulaire {
 		//Ajout des évènements sur les boutons
 		button1.addActionListener((e) -> {
 			this.Cancel(lib,prix,duree);
-		
 		});
 		
 		button2.addActionListener((e) -> {
-			this.SaveData(lib.getText(),prix.getText(),duree.getText());
-			this.Cancel(lib,prix,duree);
+			JTextField[] tab = {lib,prix,duree};
+			if(Main.AllFieldFilled(tab)) {
+				this.SaveData(lib.getText(),prix.getText(),duree.getText());
+				this.Cancel(lib,prix,duree);
+			}
 		});
 		
 		button3.addActionListener((e) -> {
-			this.SaveData(lib.getText(),prix.getText(),duree.getText());
-			this.Clear();
+			JTextField[] tab = {lib,prix,duree};
+			if(Main.AllFieldFilled(tab)) {
+				this.SaveData(lib.getText(),prix.getText(),duree.getText());
+				this.Clear();
+			}
 		});
 		
 		this.addSecondBottomSpace();
@@ -68,8 +76,15 @@ public class FormGarantie extends Formulaire {
 	
 	//Fonction de sauvegardes des données
 	public void SaveData(String lib,String prix,String duree) {
+		double prixG = Double.parseDouble(prix);
+		int durreAn = Integer.parseInt(duree);
+		try {
+			BD.GarantieData.Add(lib, prixG, durreAn);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.Messages();
-		
 	}
 	
 	//Fonction qui supprime la valeur des champs

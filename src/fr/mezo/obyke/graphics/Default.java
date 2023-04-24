@@ -27,12 +27,14 @@ public class Default extends JFrame {
         //Center la fenêtre
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setVisible(true);
+        
         this.setContentPane(new Background("./ressources/aquabike2.png"));
         
         //Création du Menu
         createMenu();
         this.setLayout(new BorderLayout());  
+        
+        this.setVisible(true);
 	}
 	
 	public void createMenu() throws SQLException {

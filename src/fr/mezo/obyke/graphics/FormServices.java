@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import fr.mezo.obyke.data.BD;
+
 public class FormServices extends Formulaire {
 	
 	public FormServices(int lineLeft,int lineRight,String title) {
@@ -19,7 +21,7 @@ public class FormServices extends Formulaire {
 		//Mise en place formulaire
 		this.addTopSpace();
 		
-		JComboBox type=new JComboBox();
+		JComboBox<String> type=new JComboBox<String>(BD.GetTypeService());
 		type.setPreferredSize(new Dimension(212,28));
 		
 		this.addTop(new InputField("Type Service : ",type));
@@ -31,7 +33,7 @@ public class FormServices extends Formulaire {
 		JTextField prenomDir=new JTextField(20);
 		JTextField tel=new JTextField(20);
 		
-		JComboBox categ=new JComboBox();
+		JComboBox<String> categ=new JComboBox<String>(BD.GetMaterielCategorie());
 		categ.setPreferredSize(new Dimension(212,28));
 		
 		JTextField marque=new JTextField(20);
@@ -85,8 +87,10 @@ public class FormServices extends Formulaire {
 	
 	//Fonction de sauvegardes des données
 	public void SaveData(Object type,String deno,String nomDir,String prenomDir,String tel,Object categ,String marque,String fournisseur,String dateAchat,String dateDepot) {
-		this.Messages();
 		
+		
+		
+		this.Messages();
 	}
 	
 	//Fonction qui supprime la valeur des champs
