@@ -29,6 +29,7 @@ public class DateSimp {
 		return new DateSimp(timestamp);
 	}
 	
+	
 	public static DateSimp of(int jour,int mois,int annee) {
 		LocalDate ldate = LocalDate.of(annee,mois,jour);
 
@@ -38,6 +39,14 @@ public class DateSimp {
         // Obtenir le timestamp Unix en secondes à partir de l'objet LocalDateTime
         long timestamp = ldateTime.toEpochSecond(java.time.ZoneOffset.UTC) * 1000;
         return new DateSimp(timestamp);
+	}
+	
+	public static DateSimp of(String date) {
+		String[] parts = date.split("/");
+        int jour = Integer.parseInt(parts[0]);
+        int mois = Integer.parseInt(parts[1]);
+        int annee = Integer.parseInt(parts[2]);
+        return DateSimp.of(jour, mois, annee);
 	}
 	
 	public int getJour() {

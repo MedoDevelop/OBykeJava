@@ -46,9 +46,9 @@ public class FormMaterielNeuf extends Formulaire {
 		this.addRight(new InputField("Prix Vente : ",prixVente));
 		this.addRight(new InputField("Date Mise en Vente : ",dateMiseVente));
 		
-		this.addFirstBottomSpace();
+		/*this.addFirstBottomSpace();
 		this.addFirstBottom(new InputField("Garantie : ",garantie));
-		this.addFirstBottomSpace();
+		this.addFirstBottomSpace();*/
 		
 		JButton button1= new JButton("Annuler");
 		JButton button2= new JButton("Autre Matériel");

@@ -5,6 +5,8 @@ import javax.swing.Timer;
 
 public class Alert {
 	
+	//Permet d'ouvrir une alerte qui va se fermer toute seulement au bout de quelques secondes
+	
 	public Alert(float s,String msg) {
 		int delay =  (int) (s * 1000); // delay in milliseconds (conver second in msilliseconds)
 		Timer timer = new Timer(delay, e -> {
@@ -18,7 +20,7 @@ public class Alert {
     public static void main(String[] args) {
     	new Alert(1.5f,"Ceci est une alert temporaire de 1.5s"); 
     	System.out.println("fin 1.5");
-    	new Alert(3, "test 3");
-    	System.out.println("Ceci est une alert temporaire de 3s");
+    	new Alert(3, "Ceci est une alert temporaire de 3s");
+    	System.out.println("fin 3");
     }
 }

@@ -125,13 +125,16 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 		}
 		
 		public void EditConfirmation(JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail,JComboBox<String> type) throws SQLException {
-			int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir modifier cette ligne?");
-		    
-		    if(res == JOptionPane.YES_OPTION)
-		    {
-		      BD.CentreData.Set(this.getId(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText(),type.getItemAt(type.getSelectedIndex()).toString(),"");
-		      updateTable();
-		    }
+			JTextField[] tab = {deno,nomDir,prenomDir,tel,mail};
+			if(Main.AllFieldFilled(tab)) {//On vérifie qu'il n'a pas de champs vident
+				int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir modifier cette ligne?");
+			    
+			    if(res == JOptionPane.YES_OPTION)
+			    {
+			      BD.CentreData.Set(this.getId(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText(),type.getItemAt(type.getSelectedIndex()).toString(),"");
+			      updateTable();
+			    }
+			}
 		}
 		
 		public void DeleteConfirmation() throws SQLException {

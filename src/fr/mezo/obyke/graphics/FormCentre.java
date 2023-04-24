@@ -2,6 +2,7 @@ package fr.mezo.obyke.graphics;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
@@ -10,6 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Controller.MailKeyLister;
+import Controller.NamesKeyLister;
+import Controller.TelephoneKeyListerner;
 import fr.mezo.obyke.data.BD;
 
 public class FormCentre extends Formulaire {
@@ -20,10 +24,18 @@ public class FormCentre extends Formulaire {
 		
 		//Mise en place formulaire
 		JTextField deno=new JTextField(20);
+		
 		JTextField nomDir=new JTextField(20);
+		nomDir.addKeyListener(new NamesKeyLister(nomDir));
+		
 		JTextField prenomDir=new JTextField(20);
+		prenomDir.addKeyListener(new NamesKeyLister(prenomDir));
+		
 		JTextField tel=new JTextField(20);
+		tel.addKeyListener(new TelephoneKeyListerner(tel));
+		
 		JTextField mail=new JTextField(20);
+		mail.addKeyListener(new MailKeyLister(mail));
 		
 		JComboBox<String> type=new JComboBox<String>(BD.GetTypesCentre());
 		type.setPreferredSize(new Dimension(212,28));
@@ -54,13 +66,20 @@ public class FormCentre extends Formulaire {
 		});
 		
 		button2.addActionListener((e) -> {
-			this.SaveData(type.getItemAt(type.getSelectedIndex()),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText());
+			JTextField[] tab = {deno,nomDir,prenomDir,tel,mail};
+			if(Main.AllFieldFilled(tab)) {//On vérifie que les champs ne sont pas vide
+				this.SaveData(type.getItemAt(type.getSelectedIndex()),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText());				
+			}
 			this.Cancel(type,deno,nomDir,prenomDir,tel,mail);
 		});
 		
 		button3.addActionListener((e) -> {
-			this.SaveData(type.getItemAt(type.getSelectedIndex()),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText());
-			this.Clear();
+			JTextField[] tab = {deno,nomDir,prenomDir,tel,mail};
+			if(Main.AllFieldFilled(tab)) {
+				this.SaveData(type.getItemAt(type.getSelectedIndex()),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText());
+				this.Clear();
+			}
+			
 		});
 		
 		this.addSecondBottomSpace();

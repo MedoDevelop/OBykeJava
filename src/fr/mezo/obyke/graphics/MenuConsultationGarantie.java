@@ -50,9 +50,6 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 		this.addSecondBottom(button2);
 		this.addSecondBottomSpace();
 		
-	
-	
-		
 		
 	}
 
