@@ -1,14 +1,11 @@
 package fr.mezo.obyke.graphics;
 
 import java.awt.Dimension;
-<<<<<<< HEAD
 import java.sql.SQLException;
-=======
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
->>>>>>> 29e9c88dbdbab1997281ecc908a5dbc48bea3bd3
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -226,10 +223,5 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 				this.table=new JTable(this.tableModel);
 			}
 
-	@Override
-	public void setTable() throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

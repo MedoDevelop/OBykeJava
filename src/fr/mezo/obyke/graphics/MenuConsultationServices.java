@@ -1,14 +1,10 @@
 package fr.mezo.obyke.graphics;
 
 import java.awt.Dimension;
-<<<<<<< HEAD
-import java.sql.SQLException;
-=======
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
->>>>>>> 29e9c88dbdbab1997281ecc908a5dbc48bea3bd3
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
-import fr.mezo.obyke.workclass.Centre;
 import fr.mezo.obyke.workclass.Service;
 
 public class MenuConsultationServices extends MenuConsultationDroit {
@@ -178,6 +173,7 @@ public class MenuConsultationServices extends MenuConsultationDroit {
 				this.id=unId;
 			}
 			
+			
 			public void setTable() throws SQLException {
 				//Mise en place de la JTable
 				this.tableModel = new DefaultTableModel();
@@ -218,11 +214,5 @@ public class MenuConsultationServices extends MenuConsultationDroit {
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
 			}
-
-	@Override
-	public void setTable() throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

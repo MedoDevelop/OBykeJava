@@ -44,7 +44,6 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 		//button1.addActionListener((e) -> EditConfirmation());
 		//button2.addActionListener((e) -> DeleteConfirmation());
 		
-<<<<<<< HEAD
 		//Mise ajour de la table 
 		try {
 			this.setTable();
@@ -53,8 +52,6 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 			e.printStackTrace();
 		}
 		//Fin mise ajour table
-=======
->>>>>>> 29e9c88dbdbab1997281ecc908a5dbc48bea3bd3
 		
 		this.addTopSpace();
 		
@@ -207,30 +204,5 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
 			}
-
-
-	@Override
-	public void setTable() throws SQLException {
-		// TODO Auto-generated method stub
-		String[] entete = {"Id","Libelle","Prix","Duree en mois"};
-		ArrayList<Garantie> lesGaranties = new ArrayList<Garantie>();
-		try {
-			lesGaranties = BD.GarantieData.GetAll();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String[][] datas = new String[lesGaranties.size()][4];
-		for(int i=0;i<lesGaranties.size();i++) {
-			datas[i][0] = String.valueOf(lesGaranties.get(i).getId());
-			datas[i][1] = lesGaranties.get(i).getLibelle();
-			datas[i][2] = String.valueOf(lesGaranties.get(i).getPrix());
-			datas[i][3] = String.valueOf(lesGaranties.get(i).getDuree());
-		}
-		
-		JTable table = new JTable(datas,entete);
-		MenuConsultation.addJTable(table);
-	}
 
 }
