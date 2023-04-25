@@ -10,6 +10,10 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Controller.DateKeyListener;
+import Controller.MailKeyLister;
+import Controller.NamesKeyLister;
+import Controller.TelephoneKeyListerner;
 import fr.mezo.obyke.data.BD;
 
 public class FormServices extends Formulaire {
@@ -30,8 +34,13 @@ public class FormServices extends Formulaire {
 		
 		JTextField deno=new JTextField(20);
 		JTextField nomDir=new JTextField(20);
+		nomDir.addKeyListener(new NamesKeyLister(nomDir));
+		
 		JTextField prenomDir=new JTextField(20);
+		prenomDir.addKeyListener(new NamesKeyLister(prenomDir));
+		
 		JTextField tel=new JTextField(20);
+		tel.addKeyListener(new TelephoneKeyListerner(tel));
 		
 		JComboBox<String> categ=new JComboBox<String>(BD.GetMaterielCategorie());
 		categ.setPreferredSize(new Dimension(212,28));
@@ -39,7 +48,10 @@ public class FormServices extends Formulaire {
 		JTextField marque=new JTextField(20);
 		JTextField fournisseur=new JTextField(20);
 		JTextField dateAchat=new JTextField(20);
+		dateAchat.addKeyListener(new DateKeyListener(dateAchat));
+		
 		JTextField dateDepot=new JTextField(20);
+		dateDepot.addKeyListener(new DateKeyListener(dateDepot));
 		
 		this.addLeft(new InputField("Dénomination : ",deno));
 		this.addLeft(new InputField("Nom du Directeur : ",nomDir));
@@ -53,6 +65,8 @@ public class FormServices extends Formulaire {
 		this.addRight(new InputField("Date Dépôt : ",dateDepot));
 		
 		JTextField mail=new JTextField(20);
+		mail.addKeyListener(new MailKeyLister(mail));
+		
 		this.addFirstBottomSpace();
 		this.addFirstBottom(new InputField("Mail : ",mail));
 		this.addFirstBottomSpace();
@@ -68,13 +82,19 @@ public class FormServices extends Formulaire {
 		});
 		
 		button2.addActionListener((e) -> {
-			this.SaveData(type.getSelectedItem(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),categ.getSelectedItem(),marque.getText(),fournisseur.getText(),dateAchat.getText(),dateDepot.getText());
-			this.Cancel(type,deno,nomDir,prenomDir,tel,categ,marque,fournisseur,dateAchat,dateDepot);
+			JTextField[] tab = {deno,nomDir,prenomDir,tel,marque,fournisseur,dateAchat,dateDepot};
+			if(Main.AllFieldFilled(tab)) {
+				this.SaveData(type.getSelectedItem(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),categ.getSelectedItem(),marque.getText(),fournisseur.getText(),dateAchat.getText(),dateDepot.getText());
+				this.Cancel(type,deno,nomDir,prenomDir,tel,categ,marque,fournisseur,dateAchat,dateDepot);
+			}
 		});
 		
 		button3.addActionListener((e) -> {
-			this.SaveData(type.getSelectedItem(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),categ.getSelectedItem(),marque.getText(),fournisseur.getText(),dateAchat.getText(),dateDepot.getText());
-			this.Clear();
+			JTextField[] tab = {deno,nomDir,prenomDir,tel,marque,fournisseur,dateAchat,dateDepot};
+			if(Main.AllFieldFilled(tab)) {
+				this.SaveData(type.getSelectedItem(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),categ.getSelectedItem(),marque.getText(),fournisseur.getText(),dateAchat.getText(),dateDepot.getText());
+				this.Clear();
+			}
 		});
 		
 		this.addSecondBottomSpace();

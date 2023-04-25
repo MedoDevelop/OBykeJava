@@ -3,12 +3,16 @@ package fr.mezo.obyke.graphics;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import fr.mezo.obyke.data.BD;
+import fr.mezo.obyke.workclass.Garantie;
 
 public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 	
@@ -34,7 +38,7 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 		
 		//button1.addActionListener((e) -> EditConfirmation());
 		//button2.addActionListener((e) -> DeleteConfirmation());
-		
+
 		this.addTopSpace();
 		
 		JTextField societe=new JTextField(15);

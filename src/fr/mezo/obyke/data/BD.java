@@ -16,6 +16,7 @@ import fr.mezo.obyke.workclass.LigneCommande;
 import fr.mezo.obyke.workclass.MaterielNeuf;
 import fr.mezo.obyke.workclass.MaterielOccasion;
 import fr.mezo.obyke.workclass.PropositionAchat;
+import fr.mezo.obyke.workclass.Rdv;
 import fr.mezo.obyke.workclass.Service;
 import fr.mezo.obyke.workclass.Technicien;
 
@@ -31,6 +32,7 @@ public abstract class BD {
 		tablesAndId.put("Garantie","idGarantie");
 		tablesAndId.put("Service","idService");
 		tablesAndId.put("PropositionAchat","idProposition");
+		tablesAndId.put("Rdv","idRdv");
 		int id=0;
 		Random random = new Random();
 		boolean Autorise;
@@ -76,6 +78,10 @@ public abstract class BD {
 	
 	public static int newIDPropositionAchat() throws Exception {
 		return BD.newIDTable("PropositionAchat");
+	}
+	
+	public static int newIDRdv() throws Exception {
+		return BD.newIDTable("Rdv");
 	}
 	
 	public static void init() {
@@ -177,8 +183,21 @@ public abstract class BD {
 				+ "   FOREIGN KEY(idGarantie) REFERENCES Garantie(idGarantie)\r\n"
 				+ ");\r\n";
 			
+			String req10 = "CREATE TABLE IF NOT EXISTS Rdv("
+					+ "idRdv INTEGER,"
+					+ "denomination TEXT,"
+					+ "nomDir TEXT,"
+					+ "prenomDir TEXT,"
+					+ "telephone TEXT,"
+					+ "mail TEXT,"
+					+ "dateRdv REAL,"
+					+ "heureRdv TEXT,"
+					+ "motif TEXT,"
+					+ "techId INTEGER,"
+					+ "PRIMARY KEY(idRdv)"
+					+ "FOREIGN KEY(techId) REFERENCES Technicien(idTech));";
 			try {
-				String[] requetes = {req1,req2,req3,req4,req5,req6,req7,req8,req9};
+				String[] requetes = {req1,req2,req3,req4,req5,req6,req7,req8,req9,req10};
 				for(String requete : requetes) {
 					BD.executeREQ(requete);
 				}
@@ -936,6 +955,104 @@ public abstract class BD {
 		}
 		
 		
+	}
+	
+	public static abstract class RDVData{
+		public static ArrayList<Rdv> GetAll() throws SQLException{
+			ArrayList<Rdv> rdvList = new ArrayList<Rdv>();
+			String req = "select * from Rdv;";
+			ResultSet result = BD.resultREQ(req);
+			String deno, nomDir, prenomDir, mail, telephone, heureRdv, motif;
+			int id,tech;
+			DateSimp dateRdv;
+			while(result.next()) {
+				id = result.getInt("idRdv");
+				deno = result.getString("denomination");
+				nomDir = result.getString("nomDir");
+				prenomDir = result.getString("prenomDir");
+ 				mail = result.getString("mail");
+				telephone = result.getString("telephone");
+				heureRdv = result.getString("heureRdv");
+				motif = result.getString("motif");
+				dateRdv = DateSimp.of(result.getLong("dateRdv"));
+				tech = result.getInt("techId");
+				rdvList.add(new Rdv(id,deno,nomDir,prenomDir,telephone,mail,dateRdv,heureRdv,motif,tech));
+			}
+			return rdvList;
+		}
+		
+		public static Rdv Get(int id) throws SQLException{
+			Rdv rdv = null;
+			String req = "select * from Rdv where idRdv=?;";
+			PreparedStatement pstmt = BD.newPreparedSmt(req);
+			pstmt.setInt(1, id);
+			ResultSet result = BD.resultREQ(pstmt);
+			String deno, nomDir, prenomDir, mail, telephone, heureRdv, motif;
+			int tech;
+			DateSimp dateRdv;
+			if(result.next()) {
+				id = result.getInt("idRdv");
+				deno = result.getString("denomination");
+				nomDir = result.getString("nomDir");
+				prenomDir = result.getString("prenomDir");
+ 				mail = result.getString("mail");
+				telephone = result.getString("telephone");
+				heureRdv = result.getString("heureRdv");
+				motif = result.getString("motif");
+				dateRdv = DateSimp.of(result.getLong("dateRdv"));
+				tech = result.getInt("techId");
+				rdv = new Rdv(id,deno,nomDir,prenomDir,telephone,mail,dateRdv,heureRdv,motif,tech);
+			}
+			return rdv;
+		}
+		
+		public static void Add(String deno, String nomDir, String prenomDir, String mail, String telephone,DateSimp dateRdv,String heureRdv,String motif,int tech) throws SQLException {
+			String req = "INSERT INTO Rdv VALUES (?,?,?,?,?,?,?,?,?,?);";
+			PreparedStatement pstmt = BD.newPreparedSmt(req);
+			try {
+				pstmt.setInt(1, BD.newIDRdv());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			pstmt.setString(2,deno);
+			pstmt.setString(3,nomDir);
+			pstmt.setString(4,prenomDir);
+			pstmt.setString(5,telephone);
+			pstmt.setString(6,mail);
+			pstmt.setLong(7,dateRdv.getTimestamp());
+			pstmt.setString(8,heureRdv);
+			pstmt.setString(9,motif);
+			pstmt.setInt(10,tech);
+			BD.executeREQ(pstmt);
+		}
+		
+		public static void Set(int id,String deno,String nomDir,String prenomDir,String telephone,String mail,DateSimp dateRdv,String heureRdv,String motif) throws SQLException {
+			String req = "UPDATE Rdv SET "
+					+ "denomination=?,nomDir=?,prenomDir=?,telephone=?,mail=?,dateRdv=?,heureRdv=?,motif=? "
+					+ "WHERE idRdv=?;";
+			PreparedStatement pstmt = BD.newPreparedSmt(req);
+			pstmt.setString(1,deno);
+			pstmt.setString(2,nomDir);
+			pstmt.setString(3,prenomDir);
+			pstmt.setString(4,telephone);
+			pstmt.setString(5,mail);
+			pstmt.setLong(6,dateRdv.getTimestamp());
+			pstmt.setString(7,heureRdv);
+			pstmt.setString(8,motif);
+			pstmt.setInt(9, id);
+			BD.executeREQ(pstmt);
+		}
+		
+		public static void Delete(int id) throws SQLException {
+			String req = "DELETE FROM Rdv WHERE idRdv=?";
+			PreparedStatement pstmt = BD.newPreparedSmt(req);
+			pstmt.setInt(1, id);
+			BD.executeREQ(pstmt);
+		}
 	}
 	
 	public static abstract class LigneCommandeData{
