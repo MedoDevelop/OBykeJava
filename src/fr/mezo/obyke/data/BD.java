@@ -1030,9 +1030,9 @@ public abstract class BD {
 			BD.executeREQ(pstmt);
 		}
 		
-		public static void Set(int id,String deno,String nomDir,String prenomDir,String telephone,String mail,DateSimp dateRdv,String heureRdv,String motif) throws SQLException {
+		public static void Set(int id,String deno,String nomDir,String prenomDir,String telephone,String mail,DateSimp dateRdv,String heureRdv,String motif,int idTech) throws SQLException {
 			String req = "UPDATE Rdv SET "
-					+ "denomination=?,nomDir=?,prenomDir=?,telephone=?,mail=?,dateRdv=?,heureRdv=?,motif=? "
+					+ "denomination=?,nomDir=?,prenomDir=?,telephone=?,mail=?,dateRdv=?,heureRdv=?,motif=?,techId=? "
 					+ "WHERE idRdv=?;";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setString(1,deno);
@@ -1043,7 +1043,8 @@ public abstract class BD {
 			pstmt.setLong(6,dateRdv.getTimestamp());
 			pstmt.setString(7,heureRdv);
 			pstmt.setString(8,motif);
-			pstmt.setInt(9, id);
+			pstmt.setInt(9, idTech);
+			pstmt.setInt(10, id);
 			BD.executeREQ(pstmt);
 		}
 		
@@ -1137,6 +1138,11 @@ public abstract class BD {
 		}
 		rst.absolute(0);
 		return rowCount;
+	}
+	
+	public static String[] GetHeuresRdv() {
+		String[] heures = {"08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","14:00","14:30","15:00","15:30","16:00"};
+		return heures;
 	}
 	
 	public static String[] GetTypesCentre() {
