@@ -10,9 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import fr.mezo.obyke.data.BD;
+import fr.mezo.obyke.workclass.Centre;
 import fr.mezo.obyke.workclass.Garantie;
+import fr.mezo.obyke.workclass.MaterielNeuf;
 
 public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 	
@@ -23,15 +26,14 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 	private static final long serialVersionUID = 1L;
 
 	private JTable table;
+	private DefaultTableModel tableModel;
 
-	public MenuConsultationMaterielNeuf(int lineLeft,int lineRight) {	
+	public MenuConsultationMaterielNeuf(int lineLeft,int lineRight) throws SQLException {	
 		super(lineLeft,lineRight);
 	
-		String []entetesMatNeuf= {"Catégorie","Société","Année","Prix d'achat","Date d'achat","Coloris","Prix de vente","Date de mise en vente","Garantie"};
-		Object [][]matNeuf= {{"Aquabiking","Beauté Minceur","2020","574.95","20/06/2020","Rouge","520","11/04/2023","Normal"},{"Aquabiking","Body Minute","2020","574.95","20/06/2020","Rouge","520","11/04/2023","Normal"}};
-		this.table = new JTable(matNeuf,entetesMatNeuf);
-		MenuConsultation.addJTable(this.table);
 		
+		this.setTable();
+		MenuConsultation.addJTable(this.table);
 		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
 		JButton button2= new JButton("Supprimer");
@@ -91,24 +93,49 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 1) {
-			      this.table = (JTable)e.getSource();
-			      int row = this.table.getSelectedRow();
-			       int column = this.table.getSelectedColumn();
-			     
-			        
-			        categ.setSelectedItem(0);
-					societe.setText(table.getModel().getValueAt(row,1).toString());
-					annee.setText(table.getModel().getValueAt(row,2).toString());
-					prixAchat.setText(table.getModel().getValueAt(row,3).toString());
-					dateAchat.setText(table.getModel().getValueAt(row,4).toString());
-					coloris.setText(table.getModel().getValueAt(row,5).toString());
-					prixVente.setText(table.getModel().getValueAt(row,6).toString());
-					dateMiseVente.setText(table.getModel().getValueAt(row,7).toString());
-					garantie.setSelectedItem(0);
+			   this.table = (JTable)e.getSource();
+			   int row = this.table.getSelectedRow();
+			   int column = this.table.getSelectedColumn();
+			   
+			   societe.setText(table.getModel().getValueAt(row,2).toString());
+			   categ.getModel().setSelectedItem(table.getModel().getValueAt(row,1));
+			   annee.setText(table.getModel().getValueAt(row,3).toString());
+				prixAchat.setText(table.getModel().getValueAt(row,4).toString());
+				dateAchat.setText(table.getModel().getValueAt(row,5).toString());
+					coloris.setText(table.getModel().getValueAt(row,6).toString());
+					prixVente.setText(table.getModel().getValueAt(row,7).toString());
+					dateMiseVente.setText(table.getModel().getValueAt(row,8).toString());
 			     
 			    }
 			}
 		});
+	}
+
+	public void setTable() throws SQLException {
+		// TODO Auto-generated method stub
+		this.tableModel = new DefaultTableModel();
+		
+		ArrayList<MaterielNeuf> arrMatneuf = new ArrayList<MaterielNeuf>(BD.MaterielData.MaterielNeufData.GetAll());
+		
+		//Entêtes de la JTable
+		String[] entetesMatNeuf= {"Id","Catégorie","Société","Année","Prix d'achat","Date d'achat","Coloris","Prix de vente","Date de mise en vente"};
+		
+		//ajout des entêtes à la JTable
+		for(String uneEntete : entetesMatNeuf) {
+			this.tableModel.addColumn(uneEntete);
+		
+		}
+		//Compteur pour l'ajout des lignes
+		int i=0;
+		
+		//Récupération des données de la base que l'on ajoute dans une liste
+		//sArrayList<MaterielNeuf> matNeuf=new ArrayList<MaterielNeuf>(arrMatneuf);
+		for(MaterielNeuf m : arrMatneuf) {
+			this.tableModel.insertRow(i,new Object[]{m.getId(),m.getCateg(),m.getSociete(),m.getAnnee(),m.getPrixAchat(),m.getDateAchat(),m.getColoris(),m.getPrixVente(),m.getDateMisVente()});
+			i++;
+		}
+		//Initialisation de la JTable
+		this.table=new JTable(this.tableModel);
 	}
 	        
 }

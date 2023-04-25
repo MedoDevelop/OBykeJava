@@ -12,18 +12,27 @@ public abstract class Materiel {
 	private DateSimp dateMisVente;
 	private String categ;
 	private DateSimp dateVendus;
+	private String societe;
+	private String annee;
 	
-	public Materiel(int id,String coloris,double prixVente,DateSimp dateMisVente,String categ,DateSimp dateVendus) {
+	private DateSimp dateAchat;
+	private double prixAchat;
+	
+	public Materiel(int id,String coloris,double prixVente,DateSimp dateMisVente,String categ,DateSimp dateVendus,String societe,double prixAchat,DateSimp dateAchat,String annee) {
 		this.setId(id);
 		this.setColoris(coloris);
 		this.setPrixVente(prixVente);
 		this.setDateMisVente(dateMisVente);
 		this.setCateg(categ);
+		this.setAnnee(annee);
 		this.setDateVendus(dateVendus);
+		this.setSociete(societe);
+		this.setDateAchat(dateAchat);
+		this.setPrixAchat(prixAchat);
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	private void setId(int id) {
@@ -31,73 +40,74 @@ public abstract class Materiel {
 	}
 
 	public String getColoris() {
-		return coloris;
+		return this.coloris;
 	}
 
 	public void setColoris(String NVcoloris) {
 		this.coloris = NVcoloris;
-		try {
-			BD.MaterielData.Set(this.id,NVcoloris, this.prixVente, this.dateMisVente, this.categ, this.dateVendus);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public double getPrixVente() {
-		return prixVente;
+		return this.prixVente;
 	}
 
 	public void setPrixVente(double NVprixVente) {
 		this.prixVente = NVprixVente;
-		try {
-			BD.MaterielData.Set(this.id,this.coloris, NVprixVente, this.dateMisVente, this.categ, this.dateVendus);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public DateSimp getDateMisVente() {
-		return dateMisVente;
+		return this.dateMisVente;
 	}
 
 	public void setDateMisVente(DateSimp NVdateMisVente) {
 		this.dateMisVente = NVdateMisVente;
-		try {
-			BD.MaterielData.Set(this.id,this.coloris, this.prixVente, NVdateMisVente, this.categ, this.dateVendus);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public String getCateg() {
-		return categ;
+		return this.categ;
 	}
 
 	public void setCateg(String NVcateg) {
 		this.categ = NVcateg;
-		try {
-			BD.MaterielData.Set(this.id,this.coloris, this.prixVente, this.dateMisVente, NVcateg, this.dateVendus);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public DateSimp getDateVendus() {
-		return dateVendus;
+		return this.dateVendus;
 	}
 
 	public void setDateVendus(DateSimp NVdateVendus) {
 		this.dateVendus = NVdateVendus;
-		try {
-			BD.MaterielData.Set(this.id,this.coloris, this.prixVente, this.dateMisVente, this.categ, NVdateVendus);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	}
+
+	public String getSociete() {
+		return societe;
+	}
+
+	public void setSociete(String NVsociete) {
+		this.societe = NVsociete;
+	}
+
+	public String getAnnee() {
+		return this.annee;
+	}
+
+	public void setAnnee(String NVannee) {
+		this.annee = NVannee;
+	}
+
+	public double getPrixAchat() {
+		return this.prixAchat;
+	}
+
+	public void setPrixAchat(double prixAchat) {
+		this.prixAchat = prixAchat;
 	}
 	
+	public DateSimp getDateAchat() {
+		return this.dateAchat;
+	}
+
+	public void setDateAchat(DateSimp dateAchat) {
+		this.dateAchat = dateAchat;
+	}	
 }

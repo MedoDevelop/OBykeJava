@@ -23,6 +23,14 @@ import fr.mezo.obyke.workclass.Technicien;
 public abstract class BD {
 	private static Connection c = null;
 	
+	public static void Close() {
+		try {
+			BD.c.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	private static int newIDTable(String tableName) throws Exception{
 		Hashtable<String, String> tablesAndId = new Hashtable<String, String>();
@@ -104,6 +112,10 @@ public abstract class BD {
 				+ "   dateMisVente REAL,\r\n"
 				+ "   categ TEXT,\r\n"
 				+ "   dateVendus REAL,\r\n"
+				+ "   societe TEXT,"
+				+ "   dateAchat REAL,\r\n"
+				+ "   prixAchat REAL,\r\n"
+				+ "   annee TEXT,"
 				+ "   PRIMARY KEY(idMateriel)\r\n"
 				+ ");\r\n";
 			String req2 = "CREATE TABLE IF NOT EXISTS Centre(\r\n"
@@ -119,16 +131,14 @@ public abstract class BD {
 				+ ");\r\n";
 			String req3 = "\r\n"
 				+ "CREATE TABLE IF NOT EXISTS MaterielOccasion(\r\n"
-				+ "   idMateriel INTEGER,\r\n"
-				+ "   dateAchat REAL,\r\n"
-				+ "   prixAchat REAL,\r\n"
-				+ "   PRIMARY KEY(idMateriel),\r\n"
-				+ "   FOREIGN KEY(idMateriel) REFERENCES MATERIEL(idMateriel)\r\n"
+				+ "   idMaterielO INTEGER,\r\n"
+				+ "   PRIMARY KEY(idMaterielO),\r\n"
+				+ "   FOREIGN KEY(idMaterielO) REFERENCES MATERIEL(idMateriel)\r\n"
 				+ ");\r\n";
 			String req4 = "CREATE TABLE IF NOT EXISTS MaterielNeuf(\r\n"
-				+ "   idMateriel INTEGER,\r\n"
-				+ "   PRIMARY KEY(idMateriel),\r\n"
-				+ "   FOREIGN KEY(idMateriel) REFERENCES MATERIEL(idMateriel)\r\n"
+				+ "   idMaterielN INTEGER,\r\n"
+				+ "   PRIMARY KEY(idMaterielN),\r\n"
+				+ "   FOREIGN KEY(idMaterielN) REFERENCES MATERIEL(idMateriel)\r\n"
 				+ ");\r\n";
 			String req5 = "CREATE TABLE IF NOT EXISTS Technicien(\r\n"
 				+ "   idTech INTEGER,\r\n"
@@ -213,9 +223,9 @@ public abstract class BD {
 	public static abstract class MaterielData{
 		
 		//recupere un new ID
-		public static void Set(int id,String coloris, double prixVente, DateSimp dateMisVente, String categ, DateSimp dateVendus) throws SQLException {
+		public static void Set(int id,String coloris, double prixVente, DateSimp dateMisVente, String categ, DateSimp dateVendus,String societe,double prixAchat,DateSimp dateAchat,String annee) throws SQLException {
 			String req = "UPDATE Materiel"
-					+ "SET coloris=?,prixVente=?,dateMisVente=?,categ=?,dateVendus=? WHERE idMateriel=?;";
+					+ "SET coloris=?,prixVente=?,dateMisVente=?,categ=?,dateVendus=?,societe=?,prixAchat=?,dateAchat=?,annee=? WHERE idMateriel=?;";
 			
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setString(1, coloris);
@@ -223,7 +233,11 @@ public abstract class BD {
 			pstmt.setLong(3, dateMisVente.getTimestamp());
 			pstmt.setString(4,categ);
 			pstmt.setLong(5,dateVendus.getTimestamp());
-			pstmt.setInt(6, id);
+			pstmt.setString(6,societe);
+			pstmt.setDouble(7, prixAchat);
+			pstmt.setLong(8, dateAchat.getTimestamp());
+			pstmt.setString(9, annee);
+			pstmt.setInt(10, id);
 			
 			BD.executeREQ(pstmt);
 
@@ -241,13 +255,13 @@ public abstract class BD {
 			 * suprimmer un materiel neuf 
 			 */
 			
-			public ArrayList<MaterielNeuf> GetAll() {
+			public static ArrayList<MaterielNeuf> GetAll() {
 				
-				String req = "SELECT * FROM Materiel m JOIN MaterielNeuf mn ON m.idMateriel=mn.idMateriel";
+				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee FROM Materiel m JOIN MaterielNeuf mn ON idMateriel=idMaterielN";
 				int id;
-				String coloris, categ;
-				double prixVente;
-				long dateMisVente, dateVendus;
+				String coloris, categ,societe,annee;
+				double prixVente,prixAchat;
+				long dateMisVente, dateVendus,dateAchat;
 				ResultSet result = BD.resultREQ(req);
 				ArrayList<MaterielNeuf> res = new ArrayList<MaterielNeuf>();
 				try {
@@ -258,7 +272,11 @@ public abstract class BD {
 						dateMisVente = result.getLong("dateMisVente");
 						categ = result.getString("categ");
 						dateVendus = result.getLong("dateVendus");
-						res.add(new MaterielNeuf(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus)));
+						societe = result.getString("societe");
+						prixAchat = result.getDouble("prixAchat");
+						dateAchat = result.getLong("dateAchat");
+						annee = result.getString("annee");
+						res.add(new MaterielNeuf(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),societe,prixAchat,DateSimp.of(dateAchat),annee));
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -267,10 +285,10 @@ public abstract class BD {
 			}
 			
 			public static MaterielNeuf Get(int id) throws SQLException {
-				String req = "SELECT * FROM Materiel m JOIN MaterielNeuf mn ON m.idMateriel=mn.idMateriel WHERE m.idMateriel=?";
-				String coloris, categ;
-				double prixVente;
-				long dateMisVente, dateVendus;
+				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat FROM Materiel m JOIN MaterielNeuf mn ON idMateriel=idMaterielN WHERE m.idMateriel=?";
+				String coloris, categ,societe,annee;
+				double prixVente,prixAchat;
+				long dateMisVente, dateVendus,dateAchat;
 				PreparedStatement pstmt = BD.newPreparedSmt(req);
 				
 				pstmt.setInt(1, id);
@@ -282,15 +300,20 @@ public abstract class BD {
 					dateMisVente = result.getLong("dateMisVente");
 					categ = result.getString("categ");
 					dateVendus = result.getLong("dateVendus");
-					return new MaterielNeuf(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus));
+					societe = result.getString("societe");
+					prixAchat = result.getDouble("prixAchat");
+					dateAchat = result.getLong("dateAchat");
+					annee = result.getString("annee");
+					return new MaterielNeuf(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),societe,prixAchat,DateSimp.of(dateAchat),annee);
+					
 				}else {
 					return null;
 				}
 			}
 			
-			public static void Add(String coloris, double prixVente, DateSimp dateMisVente, String categ, DateSimp dateVendus) throws SQLException {
-				String req = "INSERT INTO Materiel (idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus) VALUES (?,?,?,?,?,?);";
-				String req2 = "INSERT INTO MaterielNeuf (idMateriel) VALUES (?);";
+			public static void Add(String coloris, double prixVente, DateSimp dateMisVente, String categ, DateSimp dateVendus,String societe, double prixAchat,DateSimp dateAchat,String annee) throws SQLException {
+				String req = "INSERT INTO Materiel (idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee) VALUES (?,?,?,?,?,?,?,?,?,?);";
+				String req2 = "INSERT INTO MaterielNeuf (idMaterielN) VALUES (?);";
 				int id = 0;
 				try {
 					id = BD.newIDMateriel();
@@ -304,6 +327,10 @@ public abstract class BD {
 				pstmt.setLong(4, dateMisVente.getTimestamp());
 				pstmt.setString(5, categ);
 				pstmt.setLong(6, dateVendus.getTimestamp());
+				pstmt.setString(7, societe);
+				pstmt.setDouble(8, prixAchat);
+				pstmt.setLong(9, dateAchat.getTimestamp());
+				pstmt.setString(10, annee);
 				PreparedStatement pstmt2 = BD.newPreparedSmt(req2);
 				pstmt2.setInt(1, id);
 				
@@ -339,9 +366,9 @@ public abstract class BD {
 			public static ArrayList<MaterielOccasion> GetAll() {
 				
 				
-				String req = "SELECT * FROM Materiel m JOIN MaterielOccasion mn ON m.idMateriel=mn.idMateriel";
+				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee FROM Materiel m JOIN MaterielOccasion mn ON idMateriel=idMaterielO";
 				int id;
-				String coloris, categ;
+				String coloris, categ, societe,annee;
 				double prixVente,prixAchat;
 				long dateMisVente, dateVendus, dateAchat;
 				ResultSet result = BD.resultREQ(req);
@@ -356,7 +383,11 @@ public abstract class BD {
 						dateVendus = result.getLong("dateVendus");
 						dateAchat = result.getLong("dateAchat");
 						prixAchat = result.getDouble("prixAchat");
-						res.add(new MaterielOccasion(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),DateSimp.of(dateAchat),prixAchat));
+						societe = result.getString("societe");
+						prixAchat = result.getDouble("prixAchat");
+						dateAchat = result.getLong("dateAchat");
+						annee = result.getString("annee");
+						res.add(new MaterielOccasion(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),DateSimp.of(dateAchat),prixAchat,societe,annee));
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -365,8 +396,8 @@ public abstract class BD {
 			}
 			
 			public static MaterielOccasion Get(int id) throws SQLException {
-				String req = "SELECT * FROM Materiel m JOIN MaterielNeuf mn ON m.idMateriel=mn.idMateriel WHERE m.idMateriel=?";
-				String coloris, categ;
+				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat FROM Materiel m JOIN MaterielNeuf mn ON idMateriel=idMaterielO WHERE m.idMateriel=?";
+				String coloris, categ,societe,annee;
 				double prixVente;
 				long dateMisVente, dateVendus, dateAchat, prixAchat;
 				PreparedStatement pstmt = BD.newPreparedSmt(req);
@@ -381,16 +412,18 @@ public abstract class BD {
 					categ = result.getString("categ");
 					dateVendus = result.getLong("dateVendus");
 					dateAchat = result.getLong("dateAchat");
+					annee = result.getString("annee");
 					prixAchat = result.getLong("prixAchat");
-					return new MaterielOccasion(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),DateSimp.of(dateAchat),prixAchat);
+					societe = result.getString("societe");
+					return new MaterielOccasion(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),DateSimp.of(dateAchat),prixAchat,societe,annee);
 				}else {
 					return null;
 				}
 			}
-			
-			public static void Add(String coloris, double prixVente, DateSimp dateMisVente, String categ, DateSimp dateVendus,DateSimp dateAchat,double prixAchat) throws SQLException {
-				String req = "INSERT INTO Materiel (idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus) VALUES (?,?,?,?,?,?);";
-				String req2 = "INSERT INTO MaterielOccasion (idMateriel,dateAchat,prixAchat) VALUES (?,?,?);";
+
+			public static void Add(String coloris, double prixVente, DateSimp dateMisVente, String categ, DateSimp dateVendus,DateSimp dateAchat,double prixAchat,String societe,String annee) throws SQLException {
+				String req = "INSERT INTO Materiel (idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee) VALUES (?,?,?,?,?,?,?,?,?,?);";
+				String req2 = "INSERT INTO MaterielOccasion (idMaterielO) VALUES (?);";
 				int id = 0;
 				try {
 					id = BD.newIDMateriel();
@@ -404,34 +437,15 @@ public abstract class BD {
 				pstmt.setLong(4, dateMisVente.getTimestamp());
 				pstmt.setString(5, categ);
 				pstmt.setLong(6, dateVendus.getTimestamp());
+				pstmt.setString(7, societe);
+				pstmt.setDouble(8, prixAchat);
+				pstmt.setLong(9,dateAchat.getTimestamp());
+				pstmt.setString(10,annee);
 				PreparedStatement pstmt2 = BD.newPreparedSmt(req2);
 				pstmt2.setInt(1, id);
-				pstmt2.setLong(2,dateAchat.getTimestamp());
-				pstmt2.setDouble(3, prixAchat);
+				
 				
 				BD.executeREQ(pstmt);
-				BD.executeREQ(pstmt2);
-			}
-			
-			public static void Set(int id/*,String coloris, double prixVente, DateSimp dateMisVente, String categ, DateSimp dateVendus*/,DateSimp dateAchat,double prixAchat) throws SQLException {
-				/*String req = "UPDATE Materiel"
-						+ "SET coloris=?,prixVente=?,dateMisVente=?,categ=?,dateVendus=? WHERE idMateriel=?;";*/
-				String req2 = "UPDATE MaterielOccasion"
-						+ "SET dateAchat=?,prixAchat=? WHERE idMateriel=?;";
-				
-				/*PreparedStatement pstmt = BD.newPreparedSmt(req);
-				pstmt.setString(0, coloris);
-				pstmt.setDouble(1, prixAchat);
-				pstmt.setLong(2, dateMisVente.getTimestamp());
-				pstmt.setString(3,categ);
-				pstmt.setLong(4,dateVendus.getTimestamp());
-				pstmt.setInt(5, id);*/
-				PreparedStatement pstmt2 = BD.newPreparedSmt(req2);
-				pstmt2.setLong(1, dateAchat.getTimestamp());
-				pstmt2.setDouble(2, prixAchat);
-				pstmt2.setInt(3, id);
-				
-				//BD.executeREQ(pstmt);
 				BD.executeREQ(pstmt2);
 			}
 			
@@ -448,10 +462,6 @@ public abstract class BD {
 				BD.executeREQ(pstmt2);
 			}
 		}
-		
-		
-		
-		
 	}
 	
 	public static abstract class CentreData{
@@ -1054,6 +1064,15 @@ public abstract class BD {
 			pstmt.setInt(1, id);
 			BD.executeREQ(pstmt);
 		}
+
+		public static int getNbRow(ResultSet rst) throws SQLException {
+			int rowCount = 0;
+			while (rst.next()) {
+			    rowCount = rst.getRow();
+			}
+			rst.absolute(0);
+			return rowCount;
+		}
 	}
 	
 	public static abstract class LigneCommandeData{
@@ -1129,15 +1148,6 @@ public abstract class BD {
 			BD.executeREQ(pstmt);
 		}
 		
-	}
-	
-	public static int getNbRow(ResultSet rst) throws SQLException {
-		int rowCount = 0;
-		while (rst.next()) {
-		    rowCount = rst.getRow();
-		}
-		rst.absolute(0);
-		return rowCount;
 	}
 	
 	public static String[] GetHeuresRdv() {

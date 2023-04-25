@@ -1,6 +1,7 @@
 package fr.mezo.obyke.graphics;
 
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -66,6 +67,12 @@ public class MenuConsultationServices extends MenuConsultationDroit {
 		this.addSecondBottomSpace();
 	
 		
+		
+	}
+
+	@Override
+	public void setTable() throws SQLException {
+		// TODO Auto-generated method stub
 		
 	}
 

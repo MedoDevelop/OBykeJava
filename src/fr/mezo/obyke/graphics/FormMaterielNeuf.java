@@ -92,7 +92,7 @@ public class FormMaterielNeuf extends Formulaire {
 		double prixA = Double.parseDouble(prixAchat);
 		try {
 			//coloris, prixV, DateSimp.of(dateMiseVente), categ, DateSimp.of(20, 2, 2000), DateSimp.of(dateAchat), prixA
-			BD.MaterielData.MaterielNeufData.Add(coloris,prixV,DateSimp.of(dateMiseVente),categ,DateSimp.now());
+			BD.MaterielData.MaterielNeufData.Add(coloris,prixV,DateSimp.of(dateMiseVente),categ,DateSimp.now(),societe,prixA,DateSimp.of(dateAchat),annee);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -12,7 +12,7 @@ import fr.mezo.obyke.data.BD;
 
 public class Main {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException{
 		// TODO Auto-generated method stub
 		
 		try {
@@ -23,6 +23,8 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+			
+		
 		BD.init();
 		Default d =new Default();
 		System.out.println(d);

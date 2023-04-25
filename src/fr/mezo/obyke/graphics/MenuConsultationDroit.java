@@ -3,6 +3,7 @@ package fr.mezo.obyke.graphics;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -96,8 +97,16 @@ public abstract class MenuConsultationDroit extends JPanel{
 			this.top.add(component);
 		}
 	
+	public abstract void setTable() throws SQLException;
 	
-	
+	public void update() {
+		try {
+			this.setTable();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
