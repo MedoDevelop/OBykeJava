@@ -635,7 +635,7 @@ public abstract class BD {
 		}
 		
 		public static void Set(int id, String nom, String prenom, String mail, String telephone, String mdp) throws SQLException {
-			String req = "UPDATE Technicien nom=?,prenom=?,mail=?,telephone=?,mdp=? WHERE idTech=?;";
+			String req = "UPDATE Technicien SET nom=?,prenom=?,mail=?,telephone=?,mdp=? WHERE idTech=?;";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
 			pstmt.setString(1, nom);
 			pstmt.setString(2, prenom);
