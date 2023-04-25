@@ -35,7 +35,7 @@ public class FormGarantie extends Formulaire {
 		
 		this.addLeft(new InputField("Libellé de la garantie : ",lib));
 		this.addLeft(new InputField("Prix de la garantie : ",prix));
-		this.addLeft(new InputField("Duréee de la garantie : ",duree));
+		this.addLeft(new InputField("Duréee de la garantie (en mois) : ",duree));
 		
 		this.addFirstBottomSpace();
 		this.addFirstBottomSpace();

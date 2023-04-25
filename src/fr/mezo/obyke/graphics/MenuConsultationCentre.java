@@ -30,8 +30,6 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 	public MenuConsultationCentre(int lineLeft,int lineRight) throws SQLException {
 		super(lineLeft,lineRight);
 		
-		this.table=new JTable();
-		
 		//Initialisation de la JTable
 		setTable();
 		
@@ -128,7 +126,7 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 		
 		public void EditConfirmation(JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail,JComboBox<String> type) throws SQLException {
 			JTextField[] tab = {deno,nomDir,prenomDir,tel,mail};
-			if(Main.AllFieldFilled(tab)) {//On vérifie qu'il n'a pas de champs vident
+			if(Main.AllFieldFilled(tab)) {//On vérifie qu'il n'a pas de champs vides
 				int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir modifier cette ligne?");
 			    
 			    if(res == JOptionPane.YES_OPTION)

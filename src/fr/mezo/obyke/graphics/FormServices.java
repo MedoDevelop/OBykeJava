@@ -3,6 +3,7 @@ package fr.mezo.obyke.graphics;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import Controller.MailKeyLister;
 import Controller.NamesKeyLister;
 import Controller.TelephoneKeyListerner;
 import fr.mezo.obyke.data.BD;
+import fr.mezo.obyke.data.DateSimp;
 
 public class FormServices extends Formulaire {
 	
@@ -77,22 +79,32 @@ public class FormServices extends Formulaire {
 		
 		//Ajout des évènements sur les boutons
 		button1.addActionListener((e) -> {
-			this.Cancel(type,deno,nomDir,prenomDir,tel,categ,marque,fournisseur,dateAchat,dateDepot);
+			this.Cancel(type,deno,nomDir,prenomDir,tel,mail,categ,marque,fournisseur,dateAchat,dateDepot);
 		
 		});
 		
 		button2.addActionListener((e) -> {
 			JTextField[] tab = {deno,nomDir,prenomDir,tel,marque,fournisseur,dateAchat,dateDepot};
 			if(Main.AllFieldFilled(tab)) {
-				this.SaveData(type.getSelectedItem(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),categ.getSelectedItem(),marque.getText(),fournisseur.getText(),dateAchat.getText(),dateDepot.getText());
-				this.Cancel(type,deno,nomDir,prenomDir,tel,categ,marque,fournisseur,dateAchat,dateDepot);
+				try {
+					this.SaveData(type.getItemAt(type.getSelectedIndex()),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText(),categ.getItemAt(categ.getSelectedIndex()),marque.getText(),fournisseur.getText(),dateAchat.getText(),dateDepot.getText());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				this.Cancel(type,deno,nomDir,prenomDir,tel,mail,categ,marque,fournisseur,dateAchat,dateDepot);
 			}
 		});
 		
 		button3.addActionListener((e) -> {
 			JTextField[] tab = {deno,nomDir,prenomDir,tel,marque,fournisseur,dateAchat,dateDepot};
 			if(Main.AllFieldFilled(tab)) {
-				this.SaveData(type.getSelectedItem(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),categ.getSelectedItem(),marque.getText(),fournisseur.getText(),dateAchat.getText(),dateDepot.getText());
+				try {
+					this.SaveData(type.getItemAt(type.getSelectedIndex()),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText(),categ.getItemAt(categ.getSelectedIndex()),marque.getText(),fournisseur.getText(),dateAchat.getText(),dateDepot.getText());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				this.Clear();
 			}
 		});
@@ -106,20 +118,20 @@ public class FormServices extends Formulaire {
 	}
 	
 	//Fonction de sauvegardes des données
-	public void SaveData(Object type,String deno,String nomDir,String prenomDir,String tel,Object categ,String marque,String fournisseur,String dateAchat,String dateDepot) {
+	public void SaveData(String type,String deno,String nomDir,String prenomDir,String tel,String mail,String categ,String marque,String fournisseur,String dateAchat,String dateDepot) throws SQLException {
 		
-		
-		
+		BD.ServiceData.Add(type,deno, nomDir, prenomDir, tel, mail,categ,marque, fournisseur,DateSimp.of(dateAchat),DateSimp.of(dateDepot));
 		this.Messages();
 	}
 	
 	//Fonction qui supprime la valeur des champs
-	public void Cancel(JComboBox type,JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JComboBox categ,JTextField marque,JTextField fournisseur,JTextField dateAchat,JTextField dateDepot) {
+	public void Cancel(JComboBox<String> type,JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail,JComboBox<String> categ,JTextField marque,JTextField fournisseur,JTextField dateAchat,JTextField dateDepot) {
 		type.setSelectedItem(0);
 		deno.setText("");
 		nomDir.setText("");
 		prenomDir.setText("");
 		tel.setText("");
+		mail.setText("");
 		categ.setSelectedItem(0);
 		marque.setText("");
 		fournisseur.setText("");

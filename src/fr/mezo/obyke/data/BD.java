@@ -782,7 +782,8 @@ public abstract class BD {
 			ResultSet result = resultREQ(req);
 			int id;
 			String typeService, denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur;
-			long dateAchat,dateDepot;
+			DateSimp dateAchat;
+			DateSimp dateDepot;
 			ArrayList<Service> res = new ArrayList<Service>();
 			while(result.next()) {
 				id = result.getInt("idService");
@@ -795,9 +796,9 @@ public abstract class BD {
 				categ = result.getString("categ");
 				marque = result.getString("marque");
 				fournisseur = result.getString("fournisseur");
-				dateAchat = result.getLong("dateAchat");
-				dateDepot = result.getLong("dateDepot");
-				res.add(new Service(id,typeService,denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur,DateSimp.of(dateAchat),DateSimp.of(dateDepot)));
+				dateAchat = DateSimp.of(result.getLong("dateAchat"));
+				dateDepot = DateSimp.of(result.getLong("dateDepot"));
+				res.add(new Service(id,typeService,denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur,dateAchat,dateDepot));
 			}
 			return res;
 		}
@@ -808,7 +809,8 @@ public abstract class BD {
 			pstmt.setInt(1,id);
 			ResultSet result = BD.resultREQ(pstmt);
 			String typeService, denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur;
-			long dateAchat,dateDepot;
+			DateSimp dateAchat;
+			DateSimp dateDepot;
 			Service res = null;
 			if(result.next()) {
 				typeService = result.getString("typeService");
@@ -820,9 +822,9 @@ public abstract class BD {
 				categ = result.getString("categ");
 				marque = result.getString("marque");
 				fournisseur = result.getString("fournisseur");
-				dateAchat = result.getLong("dateAchat");
-				dateDepot = result.getLong("dateDepot");
-				res = new Service(id,typeService,denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur,DateSimp.of(dateAchat),DateSimp.of(dateDepot));
+				dateAchat = DateSimp.of(result.getLong("dateAchat"));
+				dateDepot = DateSimp.of(result.getLong("dateDepot"));
+				res = new Service(id,typeService,denomination,nomDir,prenomDir,telephone,mail,categ,marque,fournisseur,dateAchat,dateDepot);
 			}
 			return res;
 		}

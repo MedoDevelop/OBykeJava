@@ -98,4 +98,8 @@ public class Technicien {
 			e.printStackTrace();
 		}
 	}
+	
+	public String toString() {
+		return (this.nom+" "+this.prenom);
+	}
 }
