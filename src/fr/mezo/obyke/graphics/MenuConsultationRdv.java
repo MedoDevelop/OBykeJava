@@ -34,7 +34,7 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 		
 		//Initialisation de la JTable
 		setTable();
-				
+
 		//Ajout de la JTable au menu
 		MenuConsultation.addJTable(this.table);
 		
@@ -44,16 +44,15 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 		
 		this.addTopSpace();
 		
-		//button1.addActionListener((e) -> EditConfirmation());
-		//button2.addActionListener((e) -> DeleteConfirmation());
-		
 		JTextField deno=new JTextField(15);
 		JTextField nomDir=new JTextField(15);
 		JTextField prenomDir=new JTextField(15);
 		JTextField tel=new JTextField(15);
 		JTextField mail=new JTextField(15);
 		JTextField date=new JTextField(15);
-		JTextField heure=new JTextField(15);
+		
+		JComboBox<String>heure=new JComboBox<String>(BD.GetHeuresRdv());
+		
 		JComboBox<String> motif=new JComboBox<String>(BD.GetTypeService());
 		
 		ArrayList<Technicien>lesTech=new ArrayList<Technicien>(BD.TechnicienData.GetAll());
@@ -65,10 +64,10 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 		}
 		JComboBox<Technicien> tech=new JComboBox<Technicien>(lesTechArray);
 		
-		
+		heure.setPreferredSize(new Dimension(162,28));
 		motif.setPreferredSize(new Dimension(162,28));
 		tech.setPreferredSize(new Dimension(162,28));
-		heure.setText("00:00");
+		
 		
 		this.addLeft(new InputField("Dénomination : ",deno));
 		this.addLeft(new InputField("Nom du Directeur : ",nomDir));
@@ -116,7 +115,7 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 	}
 	
 	//Fonction qui permet d'ajouter les données de la ligne sélectionnée dans les champs
-			public void setInput(JTextField deno,JTextField nomDir, JTextField prenomDir,JTextField tel,JTextField mail,JTextField date,JTextField heure,JComboBox<String> motif,JComboBox<Technicien>tech) {
+			public void setInput(JTextField deno,JTextField nomDir, JTextField prenomDir,JTextField tel,JTextField mail,JTextField date,JComboBox<String> heure,JComboBox<String> motif,JComboBox<Technicien>tech) {
 				
 				this.table.addMouseListener(new MouseAdapter() {
 				private JTable table;
@@ -133,13 +132,15 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 					       	setId(newId);
 					       	
 					       	//On récupére la valeur de chaque colonnes de la ligne pour les insérer dans les champs correspondants
-							deno.setText(table.getModel().getValueAt(row,2).toString());
-							nomDir.setText(table.getModel().getValueAt(row,3).toString());
-							prenomDir.setText(table.getModel().getValueAt(row,4).toString());
-							mail.setText(table.getModel().getValueAt(row,5).toString());
-							tel.setText(table.getModel().getValueAt(row,6).toString());
-							motif.getModel().setSelectedItem(table.getModel().getValueAt(row,1));
-							tech.getModel().setSelectedItem(table.getModel().getValueAt(row,1));
+							deno.setText(table.getModel().getValueAt(row,1).toString());
+							nomDir.setText(table.getModel().getValueAt(row,2).toString());
+							prenomDir.setText(table.getModel().getValueAt(row,3).toString());
+							mail.setText(table.getModel().getValueAt(row,4).toString());
+							tel.setText(table.getModel().getValueAt(row,5).toString());
+							date.setText(table.getModel().getValueAt(row,6).toString());
+							heure.getModel().setSelectedItem(table.getModel().getValueAt(row,7));
+							motif.getModel().setSelectedItem(table.getModel().getValueAt(row,8));
+							tech.getModel().setSelectedItem(table.getModel().getValueAt(row,9));
 					     
 					    }
 					}
@@ -147,14 +148,15 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 				
 			}
 			
-			public void EditConfirmation(JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail,JTextField date,JTextField heure,JComboBox<String>motif,JComboBox<Technicien>tech) throws SQLException {
-				JTextField[] tab = {deno,nomDir,prenomDir,tel,mail};
+			public void EditConfirmation(JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail,JTextField date,JComboBox<String> heure,JComboBox<String>motif,JComboBox<Technicien>tech) throws SQLException {
+				JTextField[] tab = {deno,nomDir,prenomDir,tel,mail,date};
 				if(Main.AllFieldFilled(tab)) {//On vérifie qu'il n'a pas de champs vides
 					int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir modifier cette ligne?");
 				    
 				    if(res == JOptionPane.YES_OPTION)
 				    {
-				      //BD.RDVData.Set(this.getId(),deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText(),type.getItemAt(type.getSelectedIndex()).toString(),"");
+				    	Technicien leTech=(Technicien) tech.getSelectedItem();
+				      BD.RDVData.Set(this.id,deno.getText(),nomDir.getText(),prenomDir.getText(),tel.getText(),mail.getText(),DateSimp.of(date.getText()),heure.getItemAt(heure.getSelectedIndex()).toString(),motif.getItemAt(motif.getSelectedIndex()).toString(),leTech.getId());
 				      updateTable();
 				    }
 				}
@@ -165,7 +167,7 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 			    
 			    if(res == JOptionPane.YES_OPTION)
 			    {
-			    	BD.CentreData.Delete(this.getId());
+			    	BD.RDVData.Delete(this.getId());
 			    	updateTable();
 			    }
 			}
@@ -183,7 +185,7 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 				this.tableModel = new DefaultTableModel();
 				
 				//Entêtes de la JTable
-				String []entetesRdv= {"Id","Dénomination","Nom Directeur","Prénom Directeur","Mail","Téléphone","Motif","Technicien"};
+				String []entetesRdv= {"Id","Dénomination","Nom Directeur","Prénom Directeur","Mail","Téléphone","Date","Heure","Motif","Technicien"};
 				
 				//ajout des entêtes à la JTable
 				for(String uneEntete : entetesRdv) {
@@ -196,7 +198,7 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 				//Récupération des données de la base que l'on ajoute dans une liste
 				ArrayList<Rdv>rdv=new ArrayList<Rdv>(BD.RDVData.GetAll());
 				for(Rdv r : rdv) {
-					this.tableModel.insertRow(i,new Object[]{r.getId(),r.getDenomination(),r.getNomDir(),r.getPrenomDir(),r.getMail(),r.getTelepone(),r.getMotif(),r.getTechId()});
+					this.tableModel.insertRow(i,new Object[]{r.getId(),r.getDenomination(),r.getNomDir(),r.getPrenomDir(),r.getMail(),r.getTelepone(),r.getDateRdv(),r.getHeureRdv(),r.getMotif(),BD.TechnicienData.Get(r.getTechId())});
 					i++;
 				}
 				//Initialisation de la JTable
@@ -213,7 +215,7 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 				//Récupération des données de la base que l'on ajoute dans une liste
 				ArrayList<Rdv>rdv=new ArrayList<Rdv>(BD.RDVData.GetAll());
 				for(Rdv r : rdv) {
-					this.tableModel.insertRow(i,new Object[]{r.getId(),r.getDenomination(),r.getNomDir(),r.getPrenomDir(),r.getMail(),r.getTelepone(),r.getMotif(),r.getTechId()});
+					this.tableModel.insertRow(i,new Object[]{r.getId(),r.getDenomination(),r.getNomDir(),r.getPrenomDir(),r.getMail(),r.getTelepone(),r.getDateRdv(),r.getHeureRdv(),r.getMotif(),BD.TechnicienData.Get(r.getTechId())});
 					i++;
 				}
 				//Initialisation de la JTable

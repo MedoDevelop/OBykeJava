@@ -45,132 +45,67 @@ public class Service {
 	}
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, this.nomDir, this.prenomDir, telephone, this.mail, this.categ, this.marque, this.fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
-		try {
-			BD.ServiceData.Set(this.idService,type, this.denomination, this.nomDir, this.prenomDir, this.telephone, this.mail, this.categ, this.marque, this.fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public String getDenomination() {
 		return denomination;
 	}
 	public void setDenomination(String denomination) {
 		this.denomination = denomination;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, denomination, this.nomDir, this.prenomDir, this.telephone, this.mail, this.categ, this.marque, this.fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public String getPrenomDir() {
 		return prenomDir;
 	}
 	public void setPrenomDir(String prenomDir) {
 		this.prenomDir = prenomDir;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, this.nomDir, prenomDir, this.telephone, this.mail, this.categ, this.marque, this.fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public String getNomDir() {
 		return nomDir;
 	}
 	public void setNomDir(String nomDir) {
 		this.nomDir = nomDir;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, nomDir, this.prenomDir, this.telephone, this.mail, this.categ, this.marque, this.fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public String getMail() {
 		return mail;
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, this.nomDir, this.prenomDir, this.telephone, mail, this.categ, this.marque, this.fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public String getCateg() {
 		return categ;
 	}
 	public void setCateg(String categ) {
 		this.categ = categ;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, this.nomDir, this.prenomDir, this.telephone, this.mail, categ, this.marque, this.fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public String getMarque() {
 		return marque;
 	}
 	public void setMarque(String marque) {
 		this.marque = marque;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, this.nomDir, this.prenomDir, this.telephone, this.mail, this.categ, marque, this.fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public String getFournisseur() {
 		return fournisseur;
 	}
 	public void setFournisseur(String fournisseur) {
 		this.fournisseur = fournisseur;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, this.nomDir, this.prenomDir, this.telephone, this.mail, this.categ, this.marque, fournisseur, this.dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public DateSimp getDateAchat() {
 		return dateAchat;
 	}
 	public void setDateAchat(DateSimp dateAchat) {
 		this.dateAchat = dateAchat;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, this.nomDir, this.prenomDir, this.telephone, this.mail, this.categ, this.marque, this.fournisseur, dateAchat, this.dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public DateSimp getDateDepot() {
 		return dateDepot;
 	}
 	public void setDateDepot(DateSimp dateDepot) {
 		this.dateDepot = dateDepot;
-		try {
-			BD.ServiceData.Set(this.idService,this.type, this.denomination, this.nomDir, this.prenomDir, this.telephone, this.mail, this.categ, this.marque, this.fournisseur, this.dateAchat, dateDepot);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 	}
 	
 	

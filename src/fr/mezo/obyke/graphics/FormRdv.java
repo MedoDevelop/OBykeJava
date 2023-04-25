@@ -33,7 +33,8 @@ public class FormRdv extends Formulaire {
 		JTextField tel=new JTextField(20);
 		JTextField mail=new JTextField(20);
 		JTextField date=new JTextField(20);
-		JTextField heure=new JTextField(20);
+		
+		JComboBox<String>heure=new JComboBox<String>(BD.GetHeuresRdv());
 		
 		JComboBox<String> motif=new JComboBox<String>(BD.GetTypeService());
 		
@@ -47,11 +48,9 @@ public class FormRdv extends Formulaire {
 		}
 		JComboBox<Technicien> tech=new JComboBox<Technicien>(lesTechArray);
 		
+		heure.setPreferredSize(new Dimension(212,28));
 		motif.setPreferredSize(new Dimension(212,28));
 		tech.setPreferredSize(new Dimension(212,28));
-		
-		heure.setText("00:00");
-		
 	
 		this.addTopSpace();
 		this.addTopSpace();
@@ -82,10 +81,10 @@ public class FormRdv extends Formulaire {
 		});
 		
 		button2.addActionListener((e) -> {
-			JTextField[] tab = {deno,nomDir,prenomDir,tel,mail,date,heure};
+			JTextField[] tab = {deno,nomDir,prenomDir,tel,mail,date};
 			try {
 				if(Main.AllFieldFilled(tab)) {
-					this.SaveData(deno.getText(),nomDir.getText(),prenomDir.getText(),mail.getText(),tel.getText(),date.getText(),heure.getText(),motif.getItemAt(motif.getSelectedIndex()),tech.getItemAt(tech.getSelectedIndex()).getId());
+					this.SaveData(deno.getText(),nomDir.getText(),prenomDir.getText(),mail.getText(),tel.getText(),date.getText(),heure.getItemAt(motif.getSelectedIndex()),motif.getItemAt(motif.getSelectedIndex()),tech.getItemAt(tech.getSelectedIndex()).getId());
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -95,10 +94,10 @@ public class FormRdv extends Formulaire {
 		});
 		
 		button3.addActionListener((e) -> {
-			JTextField[] tab = {deno,nomDir,prenomDir,tel,mail,date,heure};
+			JTextField[] tab = {deno,nomDir,prenomDir,tel,mail,date};
 			try {
 				if(Main.AllFieldFilled(tab)) {
-					this.SaveData(deno.getText(),nomDir.getText(),prenomDir.getText(),mail.getText(),tel.getText(),date.getText(),heure.getText(),motif.getItemAt(motif.getSelectedIndex()),tech.getItemAt(tech.getSelectedIndex()).getId());
+					this.SaveData(deno.getText(),nomDir.getText(),prenomDir.getText(),mail.getText(),tel.getText(),date.getText(),heure.getItemAt(motif.getSelectedIndex()),motif.getItemAt(motif.getSelectedIndex()),tech.getItemAt(tech.getSelectedIndex()).getId());
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -118,19 +117,18 @@ public class FormRdv extends Formulaire {
 	//Fonction de sauvegardes des données
 	public void SaveData(String deno,String nomDir,String prenomDir,String tel,String mail,String date,String heure,String motif,int idTech) throws SQLException {
 		this.Messages();
-		
 		BD.RDVData.Add(deno, nomDir, prenomDir, mail, tel, DateSimp.of(date),heure, motif, idTech);
 	}
 	
 	//Fonction qui supprime la valeur des champs
-	public void Cancel(JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail,JTextField date,JTextField heure,JComboBox<String> motif,JComboBox<Technicien> tech) {
+	public void Cancel(JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail,JTextField date,JComboBox<String> heure,JComboBox<String> motif,JComboBox<Technicien> tech) {
 		deno.setText("");
 		nomDir.setText("");
 		prenomDir.setText("");
 		tel.setText("");
 		mail.setText("");
 		date.setText("");
-		heure.setText("00:00");
+		heure.setSelectedItem(0);
 		motif.setSelectedItem(0);
 		tech.setSelectedItem(0);
 	}
