@@ -1,13 +1,19 @@
 package fr.mezo.obyke.graphics;
 
 import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import fr.mezo.obyke.data.BD;
+import fr.mezo.obyke.workclass.Garantie;
 
 public class MenuConsultationGarantie extends MenuConsultationDroit {
 	
@@ -25,6 +31,28 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 		
 		//button1.addActionListener((e) -> EditConfirmation());
 		//button2.addActionListener((e) -> DeleteConfirmation());
+		
+		//Mise ajour de la table 
+		String[] entete = {"Id","Libelle","Prix","Duree en mois"};
+		ArrayList<Garantie> lesGaranties = new ArrayList<Garantie>();
+		try {
+			lesGaranties = BD.GarantieData.GetAll();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String[][] datas = new String[lesGaranties.size()][4];
+		for(int i=0;i<lesGaranties.size();i++) {
+			datas[i][0] = String.valueOf(lesGaranties.get(i).getId());
+			datas[i][1] = lesGaranties.get(i).getLibelle();
+			datas[i][2] = String.valueOf(lesGaranties.get(i).getPrix());
+			datas[i][3] = String.valueOf(lesGaranties.get(i).getDuree());
+		}
+		
+		JTable table = new JTable(datas,entete);
+		MenuConsultation.addJTable(table);
+		//Fin mise ajour table
 		
 		this.addTopSpace();
 		
