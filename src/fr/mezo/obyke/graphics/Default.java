@@ -48,7 +48,15 @@ public class Default extends JFrame {
         JMenuItem consulCentre= new JMenuItem("Consultation");
         
         centre.add(enregCentre);
-        centre.add(consulCentre);
+        centre.add(consulCentre);   
+        
+        JMenu tech = new JMenu("TECHNICIEN");
+       
+        JMenuItem enregTech= new JMenuItem("Enregistrement");
+        JMenuItem consulTech= new JMenuItem("Consultation");
+        
+        tech.add(enregTech);
+        tech.add(consulTech);
         
         JMenu rdv = new JMenu("RDV");
         
@@ -116,17 +124,15 @@ public class Default extends JFrame {
         vente.add(venteMatNeuf);
         
         mb.add(centre);
+        mb.add(tech);
         mb.add(rdv);
         mb.add(materiel);
         mb.add(vente);
-        
-        Object [][] j= {
-				{"element1","test"},{"element2","test"}
-		};
-		String []entetes= {"TEST1","test2"};
 		
 		//Ajout des évènements
 		enregCentre.addActionListener((e) -> this.addForm(new FormCentre(3,3,"Enregistrement du Centre")));
+		
+		enregTech.addActionListener((e) -> this.addForm(new FormTechnicien(4,0,"Enregistrement d'un Technicien")));
 		
 		enregRdv.addActionListener((e) -> this.addForm(new FormRdv(5,5,"Enregistrement d'un RDV")));
 		
@@ -155,7 +161,10 @@ public class Default extends JFrame {
 		MenuConsultation menuCentre = new MenuConsultation("Liste des Centres","Centre");
 		menuCentre.addMenuDroit(new MenuConsultationCentre(3,3));
 		consulCentre.addActionListener((e) -> this.addMenuConsultation(menuCentre));
-
+		
+		MenuConsultation menuTech = new MenuConsultation("Liste des Techniciens","Technicien");
+		menuTech.addMenuDroit(new MenuConsultationTechnicien(4,0));
+		consulTech.addActionListener((e) -> this.addMenuConsultation(menuTech));
 
 		MenuConsultation menuRdv = new MenuConsultation("Liste des RDV","Rendez-vous");
 		menuRdv.addMenuDroit(new MenuConsultationRdv(5,5));

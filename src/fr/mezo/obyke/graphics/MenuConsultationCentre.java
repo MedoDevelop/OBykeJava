@@ -30,6 +30,8 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 	public MenuConsultationCentre(int lineLeft,int lineRight) throws SQLException {
 		super(lineLeft,lineRight);
 		
+		this.table=new JTable();
+		
 		//Initialisation de la JTable
 		setTable();
 		
@@ -93,7 +95,7 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 		
 	}
 	
-	//Focntion qui permet d'ajouter les données de la ligne sélectionnée dans les champs
+	//Fonction qui permet d'ajouter les données de la ligne sélectionnée dans les champs
 		public void setInput(JTextField deno,JTextField nomDir, JTextField prenomDir,JTextField tel,JTextField mail,JComboBox<String> type) {
 			
 			this.table.addMouseListener(new MouseAdapter() {
