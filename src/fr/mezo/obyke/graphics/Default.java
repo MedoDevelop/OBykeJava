@@ -134,7 +134,14 @@ public class Default extends JFrame {
 		
 		enregTech.addActionListener((e) -> this.addForm(new FormTechnicien(4,0,"Enregistrement d'un Technicien")));
 		
-		enregRdv.addActionListener((e) -> this.addForm(new FormRdv(5,5,"Enregistrement d'un RDV")));
+		enregRdv.addActionListener((e) -> {
+			try {
+				this.addForm(new FormRdv(5,5,"Enregistrement d'un RDV"));
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		
 		enregMatOccas.addActionListener((e) -> this.addForm(new FormMaterielOccasion(4,4,"Enregistrement Matériel d'Occasion")));
 		enregMatNeufs.addActionListener((e) -> this.addForm(new FormMaterielNeuf(4,4,"Enregistrement Matériel Neuf")));
