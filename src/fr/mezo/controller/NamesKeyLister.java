@@ -1,14 +1,14 @@
-package Controller;
+package fr.mezo.controller;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-import fr.mezo.obyke.graphics.Main;
+public class NamesKeyLister extends MainKeyListener{
 
-public class PrixKeyListener extends MainKeyListener {
-
-	public PrixKeyListener(JTextField j) {
+	//Controle les nom et prenom, pas de chifre pas d'espaces pas de tiret du 8
+	
+	public NamesKeyLister(JTextField j) {
 		super(j);
 		// TODO Auto-generated constructor stub
 	}
@@ -18,11 +18,8 @@ public class PrixKeyListener extends MainKeyListener {
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
 		
-		if(!Character.isDigit(c) && c != '.') {
-			e.consume();
-		}
-		
-		if(c == '.' && this.contains(".")) {
+		// Si c n'est pas une lettre && n'est pas un - et n'est pas un espace alors e.consume()
+		if(!Character.isLetter(c) && c != '-' && c != ' ') {
 			e.consume();
 		}
 	}
@@ -38,7 +35,5 @@ public class PrixKeyListener extends MainKeyListener {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 	
 }

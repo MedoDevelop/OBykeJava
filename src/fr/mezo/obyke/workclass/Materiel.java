@@ -30,6 +30,10 @@ public abstract class Materiel {
 		this.setDateAchat(dateAchat);
 		this.setPrixAchat(prixAchat);
 	}
+	
+	public String toString() {
+		return "Id "+this.id+" Categorie : "+this.categ+" Annee: "+this.annee;
+	}
 
 	public int getId() {
 		return this.id;

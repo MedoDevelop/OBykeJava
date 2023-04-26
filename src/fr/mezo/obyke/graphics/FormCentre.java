@@ -11,9 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import Controller.MailKeyLister;
-import Controller.NamesKeyLister;
-import Controller.TelephoneKeyListerner;
+import fr.mezo.controller.MailKeyLister;
+import fr.mezo.controller.NamesKeyLister;
+import fr.mezo.controller.TelephoneKeyListerner;
 import fr.mezo.obyke.data.BD;
 
 public class FormCentre extends Formulaire {

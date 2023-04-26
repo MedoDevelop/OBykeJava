@@ -67,6 +67,8 @@ public class Garantie {
 		}
 	}
 	
-	
+	public String toString() {
+		return "lib: "+this.libelle+", prix en €: "+this.prix+", durée :"+this.duree+" mois"; 
+	}
 	
 }

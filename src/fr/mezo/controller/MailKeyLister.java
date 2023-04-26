@@ -1,39 +1,27 @@
-package Controller;
+package fr.mezo.controller;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-public class DateKeyListener extends MainKeyListener{
-
-	public DateKeyListener(JTextField j) {
+public class MailKeyLister extends MainKeyListener{
+	
+	//Controlle un champ de mail, le mail doit contenir un @
+	
+	public MailKeyLister(JTextField j) {
 		super(j);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-		//Date au format jj/mm/aaaa 
-		
 		char c = e.getKeyChar();
-		
-		if(!Character.isDigit(c) && c != '/') {
+		//On controle qu'il est un seul @, si il a déja on ne le met pas
+		if(c == '@' && this.contains("@")) {
 			e.consume();
 		}
 		
-		if(c == '/' && !(this.getTextSize() == 2 || this.getTextSize() == 5)) {
-			e.consume();
-		}
-		
-		if(c != '/' && (this.getTextSize() == 2 || this.getTextSize() == 5)) {
-			e.consume();
-		}
-		
-		if(this.getTextSize() == 10) {
-			e.consume();
-		}
 	}
 
 	@Override
@@ -48,6 +36,4 @@ public class DateKeyListener extends MainKeyListener{
 		
 	}
 
-	
-	
 }

@@ -1,4 +1,4 @@
-package Controller;
+package fr.mezo.controller;
 
 import java.awt.event.KeyEvent;
 

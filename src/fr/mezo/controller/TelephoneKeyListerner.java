@@ -1,27 +1,28 @@
-package Controller;
+package fr.mezo.controller;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 
-public class MailKeyLister extends MainKeyListener{
+public class TelephoneKeyListerner extends MainKeyListener{
+	//Le champs doit etre de 10 chiffre
 	
-	//Controlle un champ de mail, le mail doit contenir un @
-	
-	public MailKeyLister(JTextField j) {
+	public TelephoneKeyListerner(JTextField j) {
 		super(j);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
-		//On controle qu'il est un seul @, si il a déja on ne le met pas
-		if(c == '@' && this.contains("@")) {
+		if(!Character.isDigit(c)) {
 			e.consume();
 		}
 		
+		if(this.getTextSize() == 10) {
+			e.consume();
+		}
 	}
 
 	@Override
@@ -35,5 +36,5 @@ public class MailKeyLister extends MainKeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

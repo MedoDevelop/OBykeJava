@@ -52,6 +52,36 @@ public abstract class MenuConsultationDroit extends JPanel{
 		
 	}
 	
+	public MenuConsultationDroit(int lineCentrale) {
+		
+		this.principal=new JPanel(new GridLayout(1,2));
+		this.top=new JPanel(new GridLayout(1,1));
+		this.centralBottom=new JPanel(new GridLayout(2,1));
+		this.firstBottom=new JPanel(new GridLayout(1,3));
+		this.secondBottom=new JPanel(new GridLayout(1,3));
+		
+		this.left=new JPanel(new GridLayout(1,1));
+		this.right=new JPanel(new GridLayout(lineCentrale,1));
+		
+		this.setOpaque(false);
+		this.principal.setOpaque(false);
+		this.top.setOpaque(false);
+		this.left.setOpaque(false);
+		this.right.setOpaque(false);
+		this.centralBottom.setOpaque(false);
+		this.firstBottom.setOpaque(false);
+		this.secondBottom.setOpaque(false);
+		
+		this.principal.add(right);
+		
+		this.add(this.top,BorderLayout.NORTH);
+		this.add(this.principal,BorderLayout.CENTER);
+		this.add(this.centralBottom,BorderLayout.SOUTH);
+		centralBottom.add(this.firstBottom,BorderLayout.CENTER);
+		centralBottom.add(this.secondBottom,BorderLayout.CENTER);
+
+	}
+	
 	//Ajout d'une ligne de formulaire à gauche
 		public void addLeft(Component component) {
 			this.left.add(component);
@@ -60,6 +90,16 @@ public abstract class MenuConsultationDroit extends JPanel{
 	//Ajout d'une ligne de formulaire à droite
 	public void addRight(Component component) {
 		this.right.add(component);
+	}
+	
+	public void addCentrale(Component component) {
+		this.right.add(component);
+	}
+	
+	public void addEspaceCentrale() {
+		JPanel jp = new JPanel();
+		jp.setOpaque(false);
+		this.right.add(jp);
 	}
 	//Ajout d'une ligne de formulaire en bas
 	public void addFirstBottom(Component component) {

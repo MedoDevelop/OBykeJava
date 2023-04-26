@@ -1,26 +1,23 @@
-package Controller;
+package fr.mezo.controller;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 
-public class TelephoneKeyListerner extends MainKeyListener{
-	//Le champs doit etre de 10 chiffre
-	
-	public TelephoneKeyListerner(JTextField j) {
+public class DureeMoisKeyListener extends MainKeyListener{
+
+	public DureeMoisKeyListener(JTextField j) {
 		super(j);
+		// TODO Auto-generated constructor stub
 	}
+
+	//Duree en nombre d'années, ne peut etre que des nomnbre et de longueur 2 max 
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
-		if(!Character.isDigit(c)) {
-			e.consume();
-		}
-		
-		if(this.getTextSize() == 10) {
+		if(!Character.isDigit(c) || this.getTextSize() == 2) {
 			e.consume();
 		}
 	}
@@ -36,5 +33,7 @@ public class TelephoneKeyListerner extends MainKeyListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 }

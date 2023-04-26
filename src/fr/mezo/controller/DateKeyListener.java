@@ -1,23 +1,37 @@
-package Controller;
+package fr.mezo.controller;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-public class DureeAnsKeyListener extends MainKeyListener{
+public class DateKeyListener extends MainKeyListener{
 
-	public DureeAnsKeyListener(JTextField j) {
+	public DateKeyListener(JTextField j) {
 		super(j);
 		// TODO Auto-generated constructor stub
 	}
 
-	//Duree en nombre d'années, ne peut etre que des nomnbre et de longueur 2 max 
-	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+		//Date au format jj/mm/aaaa 
+		
 		char c = e.getKeyChar();
-		if(!Character.isDigit(c) || this.getTextSize() == 2) {
+		
+		if(!Character.isDigit(c) && c != '/') {
+			e.consume();
+		}
+		
+		if(c == '/' && !(this.getTextSize() == 2 || this.getTextSize() == 5)) {
+			e.consume();
+		}
+		
+		if(c != '/' && (this.getTextSize() == 2 || this.getTextSize() == 5)) {
+			e.consume();
+		}
+		
+		if(this.getTextSize() == 10) {
 			e.consume();
 		}
 	}

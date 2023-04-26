@@ -255,6 +255,7 @@ public abstract class BD {
 			 * suprimmer un materiel neuf 
 			 */
 			
+			
 			public static ArrayList<MaterielNeuf> GetAll() {
 				
 				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee FROM Materiel m JOIN MaterielNeuf mn ON idMateriel=idMaterielN";
@@ -284,8 +285,38 @@ public abstract class BD {
 				return res;
 			}
 			
+			public static ArrayList<MaterielNeuf> GetAllAVentre() {
+				
+				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee FROM Materiel m JOIN MaterielNeuf mn ON idMateriel=idMaterielN"
+						+ " WHERE idMateriel NOT IN (SELECT idMateriel FROM LigneCommande)";
+				int id;
+				String coloris, categ,societe,annee;
+				double prixVente,prixAchat;
+				long dateMisVente, dateVendus,dateAchat;
+				ResultSet result = BD.resultREQ(req);
+				ArrayList<MaterielNeuf> res = new ArrayList<MaterielNeuf>();
+				try {
+					while(result.next()) {
+						id = result.getInt("idMateriel");
+						coloris = result.getString("coloris");
+						prixVente = result.getDouble("prixVente");
+						dateMisVente = result.getLong("dateMisVente");
+						categ = result.getString("categ");
+						dateVendus = result.getLong("dateVendus");
+						societe = result.getString("societe");
+						prixAchat = result.getDouble("prixAchat");
+						dateAchat = result.getLong("dateAchat");
+						annee = result.getString("annee");
+						res.add(new MaterielNeuf(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),societe,prixAchat,DateSimp.of(dateAchat),annee));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return res;
+			}
+			
 			public static MaterielNeuf Get(int id) throws SQLException {
-				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat FROM Materiel m JOIN MaterielNeuf mn ON idMateriel=idMaterielN WHERE m.idMateriel=?";
+				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee FROM Materiel m JOIN MaterielNeuf mn ON idMateriel=idMaterielN WHERE m.idMateriel=?";
 				String coloris, categ,societe,annee;
 				double prixVente,prixAchat;
 				long dateMisVente, dateVendus,dateAchat;
@@ -395,8 +426,40 @@ public abstract class BD {
 				return res;
 			}
 			
+			public static ArrayList<MaterielOccasion> GetAllAVentre() {
+				
+				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee FROM Materiel m JOIN MaterielOccasion mn ON idMateriel=idMaterielO"
+						+ " WHERE idMateriel NOT IN (SELECT idMateriel FROM LigneCommande)";
+				int id;
+				String coloris, categ, societe,annee;
+				double prixVente,prixAchat;
+				long dateMisVente, dateVendus, dateAchat;
+				ResultSet result = BD.resultREQ(req);
+				ArrayList<MaterielOccasion> res = new ArrayList<MaterielOccasion>();
+				try {
+					while(result.next()) {
+						id = result.getInt("idMateriel");
+						coloris = result.getString("coloris");
+						prixVente = result.getDouble("prixVente");
+						dateMisVente = result.getLong("dateMisVente");
+						categ = result.getString("categ");
+						dateVendus = result.getLong("dateVendus");
+						dateAchat = result.getLong("dateAchat");
+						prixAchat = result.getDouble("prixAchat");
+						societe = result.getString("societe");
+						prixAchat = result.getDouble("prixAchat");
+						dateAchat = result.getLong("dateAchat");
+						annee = result.getString("annee");
+						res.add(new MaterielOccasion(id,coloris,prixVente,DateSimp.of(dateMisVente),categ,DateSimp.of(dateVendus),DateSimp.of(dateAchat),prixAchat,societe,annee));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return res;
+			}
+			
 			public static MaterielOccasion Get(int id) throws SQLException {
-				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat FROM Materiel m JOIN MaterielNeuf mn ON idMateriel=idMaterielO WHERE m.idMateriel=?";
+				String req = "SELECT idMateriel,coloris,prixVente,dateMisVente,categ,dateVendus,societe,prixAchat,dateAchat,annee FROM Materiel m JOIN MaterielOccasion mn ON idMateriel=idMaterielO WHERE m.idMateriel=?";
 				String coloris, categ,societe,annee;
 				double prixVente;
 				long dateMisVente, dateVendus, dateAchat, prixAchat;
