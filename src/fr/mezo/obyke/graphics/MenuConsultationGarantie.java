@@ -15,6 +15,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.DureeKeyListener;
+import Controller.NamesKeyListener;
+import Controller.PrixKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.workclass.Centre;
 import fr.mezo.obyke.workclass.Garantie;
@@ -32,7 +35,7 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 	public MenuConsultationGarantie(int lineLeft,int lineRight) throws SQLException {
 		super(lineLeft,lineRight);
 		//Initialisation de la JTable
-		setTable();
+		//setTable();
 				
 		//Ajout de la JTable au menu
 		MenuConsultation.addJTable(this.table);
@@ -44,28 +47,24 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 		//button1.addActionListener((e) -> EditConfirmation());
 		//button2.addActionListener((e) -> DeleteConfirmation());
 		
-		//Mise ajour de la table 
-		try {
-			this.setTable();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//Fin mise ajour table
+		//Mise a jour de la table 
+		this.setTable();
+	
 		
 		this.addTopSpace();
 		
-		JTextField lib=new JTextField(20);
-		JTextField prix=new JTextField(20);
-		JTextField duree=new JTextField(20);
+		JTextField lib=new JTextField(15);
+		//lib.addKeyListener(new NamesKeyListener(lib));
+		
+		JTextField prix=new JTextField(15);
+		prix.addKeyListener(new PrixKeyListener(prix));
+		
+		JTextField duree=new JTextField(15);
+		duree.addKeyListener(new DureeKeyListener(duree));
 	
 		this.addLeft(new InputField("Libellé de la garantie : ",lib));
 		this.addLeft(new InputField("Prix de la garantie : ",prix));
-		this.addLeft(new InputField("Duréee de la garantie (en mois) : ",duree));
-		
-		this.addFirstBottomSpace();
-		this.addFirstBottomSpace();
-		this.addFirstBottomSpace();
+		this.addLeft(new InputField("Durée (en mois) : ",duree));
 		
 		this.addFirstBottomSpace();
 		this.addFirstBottomSpace();
@@ -151,7 +150,7 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 			    if(res == JOptionPane.YES_OPTION)
 			    {
 			    	BD.GarantieData.Delete(this.getId());
-			    	updateTable();
+			    	this.updateTable();
 			    }
 			}
 		
@@ -186,6 +185,8 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 				}
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
+				MenuConsultation.addJTable(this.table);
+				
 			}
 			
 			public void updateTable() throws SQLException {
@@ -203,6 +204,7 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 				}
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
+				
 			}
 
 }

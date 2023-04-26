@@ -224,7 +224,7 @@ public abstract class BD {
 		
 		//recupere un new ID
 		public static void Set(int id,String coloris, double prixVente, DateSimp dateMisVente, String categ, DateSimp dateVendus,String societe,double prixAchat,DateSimp dateAchat,String annee) throws SQLException {
-			String req = "UPDATE Materiel"
+			String req = "UPDATE Materiel "
 					+ "SET coloris=?,prixVente=?,dateMisVente=?,categ=?,dateVendus=?,societe=?,prixAchat=?,dateAchat=?,annee=? WHERE idMateriel=?;";
 			
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
@@ -340,7 +340,7 @@ public abstract class BD {
 			
 			public static void Delete(int id) throws SQLException {
 				String req = "DELETE FROM Materiel WHERE idMateriel=?";
-				String req2 = "DELETE FROM MaterielNeuf WHERE idMateriel=?";
+				String req2 = "DELETE FROM MaterielNeuf WHERE idMaterielN=?";
 				PreparedStatement pstmt = BD.newPreparedSmt(req);
 				PreparedStatement pstmt2 = BD.newPreparedSmt(req2);
 				pstmt.setInt(1, id);
@@ -451,7 +451,7 @@ public abstract class BD {
 			
 			public static void Delete(int id) throws SQLException {
 				String req2 = "DELETE FROM Materiel WHERE idMateriel=?";
-				String req = "DELETE FROM MaterielOccasion WHERE idMateriel=?";
+				String req = "DELETE FROM MaterielOccasion WHERE idMaterielO=?";
 				
 				PreparedStatement pstmt = BD.newPreparedSmt(req);
 				pstmt.setInt(1, id);

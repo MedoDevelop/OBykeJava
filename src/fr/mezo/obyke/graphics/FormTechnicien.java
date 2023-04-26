@@ -1,19 +1,17 @@
 package fr.mezo.obyke.graphics;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Controller.MailKeyListener;
+import Controller.NamesKeyListener;
+import Controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
-import fr.mezo.obyke.data.DateSimp;
 
 public class FormTechnicien extends Formulaire {
 	
@@ -26,9 +24,16 @@ public class FormTechnicien extends Formulaire {
 		this.addTopSpace();
 		
 		JTextField nom=new JTextField(20);
+		//nom.addKeyListener(new NamesKeyListener(nom));
+		
 		JTextField prenom=new JTextField(20);
+		prenom.addKeyListener(new NamesKeyListener(prenom));
+		
 		JTextField mail=new JTextField(20);
+		mail.addKeyListener(new MailKeyListener(mail));
+		
 		JTextField telephone=new JTextField(20);
+		telephone.addKeyListener(new TelephoneKeyListener(telephone));
 		
 		this.addLeft(new InputField("Nom : ",nom));
 		this.addLeft(new InputField("Prénom : ",prenom));

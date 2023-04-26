@@ -14,6 +14,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.MailKeyListener;
+import Controller.NamesKeyListener;
+import Controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.workclass.Centre;
 
@@ -43,10 +46,18 @@ public class MenuConsultationCentre extends MenuConsultationDroit {
 		this.addTopSpace();
 		
 		JTextField deno=new JTextField(15);
+		
 		JTextField nomDir=new JTextField(15);
+		//nomDir.addKeyListener(new NamesKeyListener(nomDir));
+		
 		JTextField prenomDir=new JTextField(15);
+		prenomDir.addKeyListener(new NamesKeyListener(prenomDir));
+		
 		JTextField tel=new JTextField(15);
+		tel.addKeyListener(new TelephoneKeyListener(tel));
+		
 		JTextField mail=new JTextField(15);
+		mail.addKeyListener(new MailKeyListener(mail));
 		
 		JComboBox<String> type=new JComboBox<String>(BD.GetTypesCentre());
 		type.setPreferredSize(new Dimension(162,28));

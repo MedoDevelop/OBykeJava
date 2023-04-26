@@ -27,6 +27,7 @@ public class MenuConsultation extends JPanel {
 	private JPanel rightBottom;
 	private JLabel labelLeft;
 	private JLabel labelRight;
+	private MenuConsultationDroit menu;
 	
 	
 	public MenuConsultation(String leftTitle, String rightTitle) {
@@ -115,8 +116,12 @@ public class MenuConsultation extends JPanel {
 		}
 		
 		//Ajout du formulaire correspondant dans la partie droite du panneau
-		public void addMenuDroit(MenuConsultationDroit menu) {
-			this.rightBottom.add(menu);
+		public void addMenuDroit(MenuConsultationDroit unMenu) {
+			this.rightBottom.add(this.menu=unMenu);
+		}
+		
+		public MenuConsultationDroit getMenuDroit() {
+			return this.menu;
 		}
 		
 	

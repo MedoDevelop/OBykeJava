@@ -1,14 +1,13 @@
 package Controller;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 
-public class TelephoneKeyListerner extends MainKeyListener{
+public class TelephoneKeyListener extends MainKeyListener{
 	//Le champs doit etre de 10 chiffre
 	
-	public TelephoneKeyListerner(JTextField j) {
+	public TelephoneKeyListener(JTextField j) {
 		super(j);
 	}
 	

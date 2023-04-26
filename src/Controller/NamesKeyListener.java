@@ -4,20 +4,22 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-public class DureeAnsKeyListener extends MainKeyListener{
+public class NamesKeyListener extends MainKeyListener{
 
-	public DureeAnsKeyListener(JTextField j) {
+	//Controle les nom et prenom, pas de chifre pas d'espaces pas de tiret du 8
+	
+	public NamesKeyListener(JTextField j) {
 		super(j);
 		// TODO Auto-generated constructor stub
 	}
 
-	//Duree en nombre d'années, ne peut etre que des nomnbre et de longueur 2 max 
-	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
-		if(!Character.isDigit(c) || this.getTextSize() == 2) {
+		
+		// Si c n'est pas une lettre && n'est pas un - alors e.consume()
+		if(!Character.isLetter(c) && c != '-') {
 			e.consume();
 		}
 	}
@@ -33,7 +35,5 @@ public class DureeAnsKeyListener extends MainKeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 	
 }

@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import Controller.DateKeyListener;
-import Controller.MailKeyLister;
-import Controller.NamesKeyLister;
-import Controller.TelephoneKeyListerner;
+import Controller.MailKeyListener;
+import Controller.NamesKeyListener;
+import Controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 
@@ -35,20 +35,23 @@ public class FormServices extends Formulaire {
 		this.addTopSpace();
 		
 		JTextField deno=new JTextField(20);
+		
 		JTextField nomDir=new JTextField(20);
-		nomDir.addKeyListener(new NamesKeyLister(nomDir));
+		//nomDir.addKeyListener(new NamesKeyListener(nomDir));
 		
 		JTextField prenomDir=new JTextField(20);
-		prenomDir.addKeyListener(new NamesKeyLister(prenomDir));
+		prenomDir.addKeyListener(new NamesKeyListener(prenomDir));
 		
 		JTextField tel=new JTextField(20);
-		tel.addKeyListener(new TelephoneKeyListerner(tel));
+		tel.addKeyListener(new TelephoneKeyListener(tel));
 		
 		JComboBox<String> categ=new JComboBox<String>(BD.GetMaterielCategorie());
 		categ.setPreferredSize(new Dimension(212,28));
 		
 		JTextField marque=new JTextField(20);
+		
 		JTextField fournisseur=new JTextField(20);
+		
 		JTextField dateAchat=new JTextField(20);
 		dateAchat.addKeyListener(new DateKeyListener(dateAchat));
 		
@@ -67,7 +70,7 @@ public class FormServices extends Formulaire {
 		this.addRight(new InputField("Date Dépôt : ",dateDepot));
 		
 		JTextField mail=new JTextField(20);
-		mail.addKeyListener(new MailKeyLister(mail));
+		mail.addKeyListener(new MailKeyListener(mail));
 		
 		this.addFirstBottomSpace();
 		this.addFirstBottom(new InputField("Mail : ",mail));

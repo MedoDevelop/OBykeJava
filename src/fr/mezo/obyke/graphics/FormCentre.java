@@ -11,9 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import Controller.MailKeyLister;
-import Controller.NamesKeyLister;
-import Controller.TelephoneKeyListerner;
+import Controller.MailKeyListener;
+import Controller.NamesKeyListener;
+import Controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 
 public class FormCentre extends Formulaire {
@@ -26,16 +26,16 @@ public class FormCentre extends Formulaire {
 		JTextField deno=new JTextField(20);
 		
 		JTextField nomDir=new JTextField(20);
-		nomDir.addKeyListener(new NamesKeyLister(nomDir));
+		//nomDir.addKeyListener(new NamesKeyListener(nomDir));
 		
 		JTextField prenomDir=new JTextField(20);
-		prenomDir.addKeyListener(new NamesKeyLister(prenomDir));
+		prenomDir.addKeyListener(new NamesKeyListener(prenomDir));
 		
 		JTextField tel=new JTextField(20);
-		tel.addKeyListener(new TelephoneKeyListerner(tel));
+		tel.addKeyListener(new TelephoneKeyListener(tel));
 		
 		JTextField mail=new JTextField(20);
-		mail.addKeyListener(new MailKeyLister(mail));
+		mail.addKeyListener(new MailKeyListener(mail));
 		
 		JComboBox<String> type=new JComboBox<String>(BD.GetTypesCentre());
 		type.setPreferredSize(new Dimension(212,28));

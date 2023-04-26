@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 public abstract class MenuConsultationDroit extends JPanel{
 	
@@ -97,17 +98,7 @@ public abstract class MenuConsultationDroit extends JPanel{
 			this.top.add(component);
 		}
 	
-	public abstract void setTable() throws SQLException;
-	
-	public void update() {
-		try {
-			this.setTable();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+
 	
 	
 

@@ -42,10 +42,8 @@ public class FormMaterielOccasion extends Formulaire {
 		JComboBox<String> categ=new JComboBox<String>(BD.GetMaterielCategorie());
 		categ.setPreferredSize(new Dimension(212,28));
 		
-		/*JComboBox garantie=new JComboBox();
-		garantie.setPreferredSize(new Dimension(212,28));*/
-		
 		JTextField coloris=new JTextField(20);
+		
 		JTextField prixVente=new JTextField(20);
 		prixVente.addKeyListener(new PrixKeyListener(prixVente));
 		

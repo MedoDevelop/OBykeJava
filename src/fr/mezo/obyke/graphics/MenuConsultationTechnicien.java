@@ -11,6 +11,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.MailKeyListener;
+import Controller.NamesKeyListener;
+import Controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.workclass.Centre;
 import fr.mezo.obyke.workclass.Technicien;
@@ -38,15 +41,19 @@ public class MenuConsultationTechnicien extends MenuConsultationDroit {
 		JButton button1= new JButton("Modifier");
 		JButton button2= new JButton("Supprimer");
 		
-		//button1.addActionListener((e) -> EditConfirmation());
-		//button2.addActionListener((e) -> DeleteConfirmation());
-		
 		this.addTopSpace();
 		
-		JTextField nom=new JTextField(40);
-		JTextField prenom=new JTextField(40);
-		JTextField mail=new JTextField(40);
-		JTextField tel=new JTextField(40);
+		JTextField nom=new JTextField(15);
+		//nom.addKeyListener(new NamesKeyListener(nom));
+		
+		JTextField prenom=new JTextField(15);
+		prenom.addKeyListener(new NamesKeyListener(prenom));
+		
+		JTextField mail=new JTextField(15);
+		mail.addKeyListener(new MailKeyListener(mail));
+		
+		JTextField tel=new JTextField(15);
+		tel.addKeyListener(new TelephoneKeyListener(tel));
 	
 		this.addLeft(new InputField("Nom : ",nom));
 		this.addLeft(new InputField("Prénom : ",prenom));

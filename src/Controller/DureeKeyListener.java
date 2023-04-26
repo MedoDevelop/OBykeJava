@@ -4,24 +4,22 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-public class MailKeyLister extends MainKeyListener{
-	
-	//Controlle un champ de mail, le mail doit contenir un @
-	
-	public MailKeyLister(JTextField j) {
+public class DureeKeyListener extends MainKeyListener{
+
+	public DureeKeyListener(JTextField j) {
 		super(j);
 		// TODO Auto-generated constructor stub
 	}
+
+	//Duree en nombre d'années, ne peut etre que des nomnbre et de longueur 2 max 
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
-		//On controle qu'il est un seul @, si il a déja on ne le met pas
-		if(c == '@' && this.contains("@")) {
+		if(!Character.isDigit(c) || this.getTextSize() == 2) {
 			e.consume();
 		}
-		
 	}
 
 	@Override
@@ -36,4 +34,6 @@ public class MailKeyLister extends MainKeyListener{
 		
 	}
 
+	
+	
 }
