@@ -11,6 +11,10 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import fr.mezo.controller.DateKeyListener;
+import fr.mezo.controller.MailKeyListener;
+import fr.mezo.controller.NamesKeyListener;
+import fr.mezo.controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 import fr.mezo.obyke.workclass.Technicien;
@@ -28,11 +32,21 @@ public class FormRdv extends Formulaire {
 		
 		//Mise en place formulaire
 		JTextField deno=new JTextField(20);
+		
 		JTextField nomDir=new JTextField(20);
+		//nomDir.addKeyListener(new NamesKeyListener(nomDir));
+		
 		JTextField prenomDir=new JTextField(20);
+		prenomDir.addKeyListener(new NamesKeyListener(prenomDir));
+		
 		JTextField tel=new JTextField(20);
+		tel.addKeyListener(new TelephoneKeyListener(tel));
+		
 		JTextField mail=new JTextField(20);
+		mail.addKeyListener(new MailKeyListener(mail));
+		
 		JTextField date=new JTextField(20);
+		date.addKeyListener(new DateKeyListener(date));
 		
 		JComboBox<String>heure=new JComboBox<String>(BD.GetHeuresRdv());
 		

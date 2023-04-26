@@ -1,26 +1,25 @@
 package fr.mezo.controller;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 
-public class TelephoneKeyListerner extends MainKeyListener{
-	//Le champs doit etre de 10 chiffre
+public class NamesKeyListener extends MainKeyListener{
+
+	//Controle les nom et prenom, pas de chifre pas d'espaces pas de tiret du 8
 	
-	public TelephoneKeyListerner(JTextField j) {
+	public NamesKeyListener(JTextField j) {
 		super(j);
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
-		if(!Character.isDigit(c)) {
-			e.consume();
-		}
 		
-		if(this.getTextSize() == 10) {
+		// Si c n'est pas une lettre && n'est pas un - et n'est pas un espace alors e.consume()
+		if(!Character.isLetter(c) && c != '-' && c != ' ') {
 			e.consume();
 		}
 	}

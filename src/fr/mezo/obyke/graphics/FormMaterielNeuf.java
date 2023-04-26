@@ -1,6 +1,5 @@
 package fr.mezo.obyke.graphics;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.SQLException;
@@ -9,14 +8,21 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import fr.mezo.controller.AnneeKeyListener;
+import fr.mezo.controller.DateKeyListener;
+import fr.mezo.controller.PrixKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 
 public class FormMaterielNeuf extends Formulaire {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FormMaterielNeuf(int lineLeft,int lineRight,String title) {
 		
 		super(lineLeft,lineRight,title);
@@ -26,9 +32,15 @@ public class FormMaterielNeuf extends Formulaire {
 		this.addTopSpace();
 		
 		JTextField societe=new JTextField(20);
+		
 		JTextField annee=new JTextField(20);
+		annee.addKeyListener(new AnneeKeyListener(annee));
+		
 		JTextField prixAchat=new JTextField(20);
+		prixAchat.addKeyListener(new PrixKeyListener(prixAchat));
+		
 		JTextField dateAchat=new JTextField(20);
+		dateAchat.addKeyListener(new DateKeyListener(dateAchat));
 		
 		JComboBox<String> categ=new JComboBox<String>(BD.GetMaterielCategorie());
 		categ.setPreferredSize(new Dimension(212,28));
@@ -36,8 +48,12 @@ public class FormMaterielNeuf extends Formulaire {
 		
 		
 		JTextField coloris=new JTextField(20);
+		
 		JTextField prixVente=new JTextField(20);
+		prixVente.addKeyListener(new PrixKeyListener(prixVente));
+		
 		JTextField dateMiseVente=new JTextField(20);
+		dateMiseVente.addKeyListener(new DateKeyListener(dateMiseVente));
 		
 		this.addLeft(new InputField("Société : ",societe));
 		this.addLeft(new InputField("Année : ",annee));
@@ -48,10 +64,6 @@ public class FormMaterielNeuf extends Formulaire {
 		this.addRight(new InputField("Coloris : ",coloris));
 		this.addRight(new InputField("Prix Vente : ",prixVente));
 		this.addRight(new InputField("Date Mise en Vente : ",dateMiseVente));
-		
-		/*this.addFirstBottomSpace();
-		this.addFirstBottom(new InputField("Garantie : ",garantie));
-		this.addFirstBottomSpace();*/
 		
 		JButton button1= new JButton("Annuler");
 		JButton button2= new JButton("Autre Matériel");

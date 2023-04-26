@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 public abstract class MenuConsultationDroit extends JPanel{
 	
@@ -147,7 +148,7 @@ public abstract class MenuConsultationDroit extends JPanel{
 			e.printStackTrace();
 		}
 	}
-	
+
 	
 	
 

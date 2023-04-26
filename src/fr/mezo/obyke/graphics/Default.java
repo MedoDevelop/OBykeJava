@@ -12,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import fr.mezo.obyke.workclass.Garantie;
+
 public class Default extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -37,6 +39,7 @@ public class Default extends JFrame {
         this.setVisible(true);
 	}
 	
+	@SuppressWarnings("static-access")
 	public void createMenu() throws SQLException {
 		
 		//Création du menu et de ses différents sous-menu

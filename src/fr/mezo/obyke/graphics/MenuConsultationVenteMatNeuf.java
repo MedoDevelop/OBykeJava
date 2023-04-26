@@ -1,4 +1,4 @@
-+package fr.mezo.obyke.graphics;
+package fr.mezo.obyke.graphics;
 
 import java.awt.Dimension;
 import java.sql.SQLException;
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.workclass.Centre;

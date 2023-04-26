@@ -1,7 +1,6 @@
 package fr.mezo.obyke.graphics;
 
 import java.awt.Dimension;
-import java.sql.SQLException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -14,9 +13,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import fr.mezo.controller.DateKeyListener;
+import fr.mezo.controller.MailKeyListener;
+import fr.mezo.controller.NamesKeyListener;
+import fr.mezo.controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
-import fr.mezo.obyke.workclass.Centre;
 import fr.mezo.obyke.workclass.Rdv;
 import fr.mezo.obyke.workclass.Technicien;
 
@@ -46,11 +48,21 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 		this.addTopSpace();
 		
 		JTextField deno=new JTextField(15);
+		
 		JTextField nomDir=new JTextField(15);
+		nomDir.addKeyListener(new NamesKeyListener(nomDir));
+		
 		JTextField prenomDir=new JTextField(15);
+		prenomDir.addKeyListener(new NamesKeyListener(prenomDir));
+		
 		JTextField tel=new JTextField(15);
+		tel.addKeyListener(new TelephoneKeyListener(tel));
+		
 		JTextField mail=new JTextField(15);
+		mail.addKeyListener(new MailKeyListener(mail));
+		
 		JTextField date=new JTextField(15);
+		date.addKeyListener(new DateKeyListener(date));
 		
 		JComboBox<String>heure=new JComboBox<String>(BD.GetHeuresRdv());
 		

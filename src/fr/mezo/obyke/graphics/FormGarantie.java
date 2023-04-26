@@ -1,17 +1,15 @@
 package fr.mezo.obyke.graphics;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import fr.mezo.controller.DureeMoisKeyListener;
+import fr.mezo.controller.PrixKeyListener;
 import fr.mezo.obyke.data.BD;
 
 public class FormGarantie extends Formulaire {
@@ -27,8 +25,13 @@ public class FormGarantie extends Formulaire {
 		
 		//Mise en place formulaire
 		JTextField lib=new JTextField(20);
+		//lib.addKeyListener(new NamesKeyListener(lib));
+		
 		JTextField prix=new JTextField(20);
+		prix.addKeyListener(new PrixKeyListener(prix));
+		
 		JTextField duree=new JTextField(20);
+		duree.addKeyListener(new DureeMoisKeyListener(duree));
 	
 		this.addTopSpace();
 		this.addTopSpace();

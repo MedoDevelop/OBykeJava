@@ -4,24 +4,24 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-public class NamesKeyLister extends MainKeyListener{
-
-	//Controle les nom et prenom, pas de chifre pas d'espaces pas de tiret du 8
+public class MailKeyListener extends MainKeyListener{
 	
-	public NamesKeyLister(JTextField j) {
+	//Controlle un champ de mail, le mail doit contenir un @
+	
+	public MailKeyListener(JTextField j) {
 		super(j);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char c = e.getKeyChar();
-		
-		// Si c n'est pas une lettre && n'est pas un - et n'est pas un espace alors e.consume()
-		if(!Character.isLetter(c) && c != '-' && c != ' ') {
+		//On controle qu'il est un seul @, si il a déja on ne le met pas
+		if(c == '@' && this.contains("@")) {
 			e.consume();
 		}
+		
 	}
 
 	@Override
@@ -35,5 +35,5 @@ public class NamesKeyLister extends MainKeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

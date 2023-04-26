@@ -8,13 +8,16 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import fr.mezo.controller.AnneeKeyListener;
+import fr.mezo.controller.DateKeyListener;
+import fr.mezo.controller.PrixKeyListener;
 import fr.mezo.obyke.data.BD;
-import fr.mezo.obyke.workclass.Centre;
-import fr.mezo.obyke.workclass.Garantie;
+import fr.mezo.obyke.data.DateSimp;
 import fr.mezo.obyke.workclass.MaterielNeuf;
 
 public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
@@ -27,6 +30,7 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 
 	private JTable table;
 	private DefaultTableModel tableModel;
+	private int id;
 
 	public MenuConsultationMaterielNeuf(int lineLeft,int lineRight) throws SQLException {	
 		super(lineLeft,lineRight);
@@ -44,27 +48,33 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 		this.addTopSpace();
 		
 		JTextField societe=new JTextField(15);
-		//String value = table.getModel().getValueAt(row,0).toString();
-		//societe.setText(value);
-		JTextField annee=new JTextField(15);
-		JTextField prixAchat=new JTextField(15);
-		JTextField dateAchat=new JTextField(15);
 		
-		JComboBox categ=new JComboBox();
+		JTextField annee=new JTextField(15);
+		annee.addKeyListener(new AnneeKeyListener(annee));
+		
+		JTextField prixAchat=new JTextField(15);
+		prixAchat.addKeyListener(new PrixKeyListener(prixAchat));
+		
+		JTextField dateAchat=new JTextField(15);
+		dateAchat.addKeyListener(new DateKeyListener(dateAchat));
+		
+		JComboBox<String> categ=new JComboBox<String>(BD.GetMaterielCategorie());
 		categ.setPreferredSize(new Dimension(162,28));
 		
-		JComboBox garantie=new JComboBox();
-		garantie.setPreferredSize(new Dimension(162,28));
+		
 		
 		JTextField coloris=new JTextField(15);
+		
 		JTextField prixVente=new JTextField(15);
+		prixVente.addKeyListener(new PrixKeyListener(prixVente));
+		
 		JTextField dateMiseVente=new JTextField(15);
+		dateMiseVente.addKeyListener(new DateKeyListener(dateMiseVente));
 		
 		this.addLeft(new InputField("Société : ",societe));
 		this.addLeft(new InputField("Année : ",annee));
 		this.addLeft(new InputField("Prix Achat : ",prixAchat));
 		this.addLeft(new InputField("Date Achat : ",dateAchat));
-		this.addLeft(new InputField("Garantie : ",garantie));
 		
 		this.addRight(new InputField("Catégorie : ",categ));
 		this.addRight(new InputField("Coloris : ",coloris));
@@ -81,12 +91,31 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 		this.addSecondBottom(button2);
 		this.addSecondBottomSpace();
 		
-		setInput(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente,garantie);
+		button1.addActionListener((e) -> {
+			try {
+				EditConfirmation(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+		
+		button2.addActionListener((e) -> {
+			try {
+				DeleteConfirmation(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+		setInput(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente);
 
 	}
 	
 	//Focntion qui permet d'ajouter les données de la ligne sélectionnée dans les champs
-	public void setInput(JComboBox categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente,JComboBox garantie) {
+	public void setInput(JComboBox<String> categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
 		
 		this.table.addMouseListener(new MouseAdapter() {
 		private JTable table;
@@ -97,14 +126,19 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 			   int row = this.table.getSelectedRow();
 			   int column = this.table.getSelectedColumn();
 			   
+			   //On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
+		       String id=(table.getModel().getValueAt(row,0).toString());
+		       int newId =Integer.parseInt(id);
+		       setId(newId);
+		       
 			   societe.setText(table.getModel().getValueAt(row,2).toString());
 			   categ.getModel().setSelectedItem(table.getModel().getValueAt(row,1));
 			   annee.setText(table.getModel().getValueAt(row,3).toString());
-				prixAchat.setText(table.getModel().getValueAt(row,4).toString());
-				dateAchat.setText(table.getModel().getValueAt(row,5).toString());
-					coloris.setText(table.getModel().getValueAt(row,6).toString());
-					prixVente.setText(table.getModel().getValueAt(row,7).toString());
-					dateMiseVente.setText(table.getModel().getValueAt(row,8).toString());
+			   prixAchat.setText(table.getModel().getValueAt(row,4).toString());
+			   dateAchat.setText(table.getModel().getValueAt(row,5).toString());
+			   coloris.setText(table.getModel().getValueAt(row,6).toString());
+			   prixVente.setText(table.getModel().getValueAt(row,7).toString());
+			   dateMiseVente.setText(table.getModel().getValueAt(row,8).toString());
 			     
 			    }
 			}
@@ -137,5 +171,71 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 		//Initialisation de la JTable
 		this.table=new JTable(this.tableModel);
 	}
+	
+	public void updateTable() throws SQLException {
+		//On enlève toutes les lignes du tableau
+		this.tableModel.setRowCount(0);
+		 
+		//Compteur pour l'ajout des lignes
+		int i=0;
+		
+		//Récupération des données de la base que l'on ajoute dans une liste
+		ArrayList<MaterielNeuf> arrMatneuf = new ArrayList<MaterielNeuf>(BD.MaterielData.MaterielNeufData.GetAll());
+		for(MaterielNeuf m : arrMatneuf) {
+			this.tableModel.insertRow(i,new Object[]{m.getId(),m.getCateg(),m.getSociete(),m.getAnnee(),m.getPrixAchat(),m.getDateAchat(),m.getColoris(),m.getPrixVente(),m.getDateMisVente()});
+			i++;
+		}
+		//Initialisation de la JTable
+		this.table=new JTable(this.tableModel);
+	}
+	
+	public void EditConfirmation(JComboBox<String> categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) throws SQLException {
+		
+		JTextField[] tab = {societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente};
+		if(Main.AllFieldFilled(tab)) {//On vérifie qu'il n'a pas de champs vides
+			int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir modifier cette ligne?");
+		    
+		    if(res == JOptionPane.YES_OPTION)
+		    {
+		    	double newPrixVente=Double.parseDouble(prixVente.getText());
+		    	double newPrixAchat=Double.parseDouble(prixAchat.getText());
+		    	
+		      BD.MaterielData.Set(this.id,coloris.getText(),newPrixVente,DateSimp.of(dateMiseVente.getText()),categ.getItemAt(categ.getSelectedIndex()).toString(),DateSimp.now(),societe.getText(),newPrixAchat,DateSimp.of(dateAchat.getText()),annee.getText());
+		      updateTable();
+		    }
+		}
+	}
+	
+	public void DeleteConfirmation(JComboBox<String> categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) throws SQLException {
+		int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir supprimer cette ligne?");
+	    
+	    if(res == JOptionPane.YES_OPTION)
+	    {
+	    	BD.MaterielData.MaterielNeufData.Delete(this.getId());
+	    	updateTable();
+	    	Cancel(categ,societe,annee,prixAchat,dateAchat,coloris,prixVente,dateMiseVente);
+	    }
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int unId) {
+		this.id=unId;
+	}
+	
+	//Fonction qui supprime la valeur des champs
+		public void Cancel(JComboBox categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
+			categ.setSelectedItem(0);
+			societe.setText("");
+			annee.setText("");
+			prixAchat.setText("");
+			dateAchat.setText("");
+			coloris.setText("");
+			prixVente.setText("");
+			dateMiseVente.setText("");
+			
+		}
 	        
 }

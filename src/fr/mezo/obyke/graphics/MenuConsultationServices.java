@@ -13,6 +13,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import fr.mezo.controller.DateKeyListener;
+import fr.mezo.controller.MailKeyListener;
+import fr.mezo.controller.NamesKeyListener;
+import fr.mezo.controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 import fr.mezo.obyke.workclass.Service;
@@ -43,18 +47,31 @@ public class MenuConsultationServices extends MenuConsultationDroit {
 		this.addTop(new InputField("Type Service : ",type));
 
 		JTextField deno=new JTextField(15);
+		
 		JTextField nomDir=new JTextField(15);
+		//nomDir.addKeyListener(new NamesKeyListener(nomDir));
+		
 		JTextField prenomDir=new JTextField(15);
+		prenomDir.addKeyListener(new NamesKeyListener(prenomDir));
+		
 		JTextField tel=new JTextField(15);
+		tel.addKeyListener(new TelephoneKeyListener(tel));
 		
 		JComboBox<String> categ=new JComboBox<String>(BD.GetMaterielCategorie());
 		categ.setPreferredSize(new Dimension(162,28));
 		
 		JTextField marque=new JTextField(15);
+		
 		JTextField fournisseur=new JTextField(15);
+		
 		JTextField dateAchat=new JTextField(15);
+		dateAchat.addKeyListener(new DateKeyListener(dateAchat));
+		
 		JTextField dateDepot=new JTextField(15);
+		dateDepot.addKeyListener(new DateKeyListener(dateDepot));
+		
 		JTextField mail=new JTextField(15);
+		mail.addKeyListener(new MailKeyListener(mail));
 
 		this.addLeft(new InputField("Dénomination : ",deno));
 		this.addLeft(new InputField("Nom du Directeur : ",nomDir));
