@@ -240,6 +240,12 @@ public class Default extends JFrame {
 	//Méthode d'ajout de formulaire à la fenêtre
 	public void addMenuConsultation(MenuConsultation menuConsultation) {
 		this.getContentPane().removeAll();
+		try {
+			menuConsultation.getMenuDroit().update();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.add(menuConsultation,BorderLayout.CENTER);
 		this.invalidate();
 		this.validate();

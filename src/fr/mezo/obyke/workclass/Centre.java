@@ -31,7 +31,7 @@ public class Centre {
 	}
 	
 	public String toString() {
-		return "Id: "+this.idCentre+" denom: "+this.denomination+" type: "+this.typeCentre;
+		return "denom: "+this.denomination+" type: "+this.typeCentre;
 	}
 
 	private void setIdCentre(int idCentre) {

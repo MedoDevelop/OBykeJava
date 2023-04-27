@@ -34,7 +34,6 @@ public class MenuConsultationTechnicien extends MenuConsultationDroit {
 		setTable();
 				
 		//Ajout de la JTable au menu
-		MenuConsultation.addJTable(this.table);
 		
 		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
@@ -180,6 +179,8 @@ public class MenuConsultationTechnicien extends MenuConsultationDroit {
 				}
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
+
+				MenuConsultation.addJTable(this.table);
 			}
 			
 			public void updateTable() throws SQLException {
@@ -200,5 +201,23 @@ public class MenuConsultationTechnicien extends MenuConsultationDroit {
 				this.table=new JTable(this.tableModel);
 			}
 
+			@Override
+			public void update() throws SQLException {
+				// TODO Auto-generated method stub
+				this.tableModel.setRowCount(0);
+				 
+				//Compteur pour l'ajout des lignes
+				int i=0;
+				
+				//Récupération des données de la base que l'on ajoute dans une liste
+				ArrayList<Technicien> arr = new ArrayList<Technicien>(BD.TechnicienData.GetAll());
+				for(Technicien t : arr) {
+					this.tableModel.insertRow(i,new Object[]{t.getId(),t.getNom(),t.getPrenom(),t.getMail(),t.getTelephone()});
+					i++;
+				}
+				//Initialisation de la JTable
+				this.table=new JTable(this.tableModel);
+				
+			}
 
 }

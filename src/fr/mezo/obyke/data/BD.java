@@ -776,10 +776,10 @@ public abstract class BD {
 		}
 		
 		public static Garantie Get(int id) throws SQLException {
-			String req = "SELECT * FROM Garantie WHERE id=?;";
+			String req = "SELECT * FROM Garantie WHERE idGarantie=?;";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
-			ResultSet result = BD.resultREQ(pstmt);
 			pstmt.setInt(1, id);
+			ResultSet result = BD.resultREQ(pstmt);
 			int idGarantie,duree;//Duree en mois
 			String libelle;
 			double prix;
@@ -1168,6 +1168,40 @@ public abstract class BD {
 			return res;
 		}
 		
+		public static ArrayList<LigneCommande> GetAllOcas() throws SQLException {
+			String req = "SELECT * FROM LigneCommande"
+					+ " WHERE idMateriel IN (SELECT idMaterielO FROM MaterielOccasion);";
+			ResultSet result = BD.resultREQ(req);
+			ArrayList<LigneCommande> res = new ArrayList<LigneCommande>();
+			int idMateriel,idCentre,idGarantie;
+			Long dateCommande;
+			while(result.next()) {
+				idMateriel = result.getInt("idMateriel");
+				idCentre = result.getInt("idCentre");
+				idGarantie = result.getInt("idGarantie");
+				dateCommande = result.getLong("dateCommande");
+				res.add(new LigneCommande(idMateriel,idCentre,idGarantie,DateSimp.of(dateCommande)));
+			}
+			return res;
+		}
+		
+		public static ArrayList<LigneCommande> GetAllNeuf() throws SQLException {
+			String req = "SELECT * FROM LigneCommande"
+					+ " WHERE idMateriel IN (SELECT idMaterielN FROM MaterielNeuf);";
+			ResultSet result = BD.resultREQ(req);
+			ArrayList<LigneCommande> res = new ArrayList<LigneCommande>();
+			int idMateriel,idCentre,idGarantie;
+			Long dateCommande;
+			while(result.next()) {
+				idMateriel = result.getInt("idMateriel");
+				idCentre = result.getInt("idCentre");
+				idGarantie = result.getInt("idGarantie");
+				dateCommande = result.getLong("dateCommande");
+				res.add(new LigneCommande(idMateriel,idCentre,idGarantie,DateSimp.of(dateCommande)));
+			}
+			return res;
+		}
+		
 		public static LigneCommande Get(int id) throws SQLException {
 			String req = "SELECT * FROM LigneCommande WHERE idMateriel=?;";
 			PreparedStatement pstmt = BD.newPreparedSmt(req);
@@ -1328,8 +1362,7 @@ public abstract class BD {
 	      System.out.println("Année : " + annee);*/
 		BD.init();
 		try {
-			ArrayList<Centre> centres = BD.CentreData.GetAll();
-			System.out.println(centres.toString());
+			System.out.println(BD.GarantieData.Get(225970));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -223,5 +223,12 @@ public class MenuVenteMatNeuf extends MenuConsultationDroit {
 		});
 			
 	}
+	
+	@Override
+	public void update() throws SQLException {
+		// TODO Auto-generated method stub
+		
+		
+	}
 
 }

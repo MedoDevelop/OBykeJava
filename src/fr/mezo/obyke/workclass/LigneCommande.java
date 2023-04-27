@@ -29,7 +29,7 @@ public class LigneCommande {
 	}
 
 	public int getIdCentre() {
-		return idCentre;
+		return this.idCentre;
 	}
 
 	private void setIdCentre(int idCentre) {
@@ -37,7 +37,7 @@ public class LigneCommande {
 	}
 
 	public int getIdGarantie() {
-		return idGarantie;
+		return this.idGarantie;
 	}
 
 	private void setIdGarantie(int idGarantie) {
@@ -45,7 +45,7 @@ public class LigneCommande {
 	}
 
 	public DateSimp getDateCommande() {
-		return dateCommande;
+		return this.dateCommande;
 	}
 
 	private void setDateCommande(DateSimp NVdateCommande) {

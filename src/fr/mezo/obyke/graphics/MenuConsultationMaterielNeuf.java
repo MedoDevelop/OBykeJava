@@ -37,7 +37,6 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 	
 		
 		this.setTable();
-		MenuConsultation.addJTable(this.table);
 		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
 		JButton button2= new JButton("Supprimer");
@@ -170,6 +169,7 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 		}
 		//Initialisation de la JTable
 		this.table=new JTable(this.tableModel);
+		MenuConsultation.addJTable(this.table);
 	}
 	
 	public void updateTable() throws SQLException {
@@ -235,6 +235,25 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 			coloris.setText("");
 			prixVente.setText("");
 			dateMiseVente.setText("");
+			
+		}
+		
+		@Override
+		public void update() throws SQLException{
+			// TODO Auto-generated method stub
+			this.tableModel.setRowCount(0);
+			 
+			//Compteur pour l'ajout des lignes
+			int i=0;
+			
+			//Récupération des données de la base que l'on ajoute dans une liste
+			ArrayList<MaterielNeuf> arr = new ArrayList<MaterielNeuf>(BD.MaterielData.MaterielNeufData.GetAll());
+			for(MaterielNeuf m : arr) {
+				this.tableModel.insertRow(i,new Object[]{m.getId(),m.getCateg(),m.getSociete(),m.getAnnee(),m.getPrixAchat(),m.getDateAchat(),m.getColoris(),m.getPrixVente(),m.getDateMisVente()});
+				i++;
+			}
+			//Initialisation de la JTable
+			this.table=new JTable(this.tableModel);
 			
 		}
 	        

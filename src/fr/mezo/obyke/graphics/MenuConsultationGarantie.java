@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import fr.mezo.controller.DureeMoisKeyListener;
 import fr.mezo.controller.PrixKeyListener;
 import fr.mezo.obyke.data.BD;
+import fr.mezo.obyke.data.BD.GarantieData;
 import fr.mezo.obyke.workclass.Garantie;
 
 public class MenuConsultationGarantie extends MenuConsultationDroit {
@@ -32,7 +33,7 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 		//setTable();
 				
 		//Ajout de la JTable au menu
-		MenuConsultation.addJTable(this.table);
+		
 				
 		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
@@ -194,6 +195,25 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 				ArrayList<Garantie>garanties=new ArrayList<Garantie>(BD.GarantieData.GetAll());
 				for(Garantie g : garanties) {
 					this.tableModel.insertRow(i,new Object[]{g.getId(),g.getLibelle(),g.getPrix(),g.getDuree()});
+					i++;
+				}
+				//Initialisation de la JTable
+				this.table=new JTable(this.tableModel);
+				
+			}
+
+			@Override
+			public void update() throws SQLException {
+				// TODO Auto-generated method stub
+				this.tableModel.setRowCount(0);
+				 
+				//Compteur pour l'ajout des lignes
+				int i=0;
+				
+				//Récupération des données de la base que l'on ajoute dans une liste
+				ArrayList<Garantie> arr = new ArrayList<Garantie>(BD.GarantieData.GetAll());
+				for(Garantie e : arr) {
+					this.tableModel.insertRow(i,new Object[]{e.getId(),e.getLibelle(),e.getPrix(),e.getDuree()});
 					i++;
 				}
 				//Initialisation de la JTable

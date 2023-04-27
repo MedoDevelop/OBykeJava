@@ -19,6 +19,7 @@ import fr.mezo.controller.NamesKeyListener;
 import fr.mezo.controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
+import fr.mezo.obyke.workclass.Garantie;
 import fr.mezo.obyke.workclass.Rdv;
 import fr.mezo.obyke.workclass.Technicien;
 
@@ -39,7 +40,6 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 		setTable();
 
 		//Ajout de la JTable au menu
-		MenuConsultation.addJTable(this.table);
 		
 		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
@@ -216,6 +216,8 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 				}
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
+
+				MenuConsultation.addJTable(this.table);
 			}
 			
 			public void updateTable() throws SQLException {
@@ -233,6 +235,25 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 				}
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
+			}
+
+			@Override
+			public void update() throws SQLException {
+				// TODO Auto-generated method stub
+				this.tableModel.setRowCount(0);
+				 
+				//Compteur pour l'ajout des lignes
+				int i=0;
+				
+				//Récupération des données de la base que l'on ajoute dans une liste
+				ArrayList<Rdv> arr = new ArrayList<Rdv>(BD.RDVData.GetAll());
+				for(Rdv e : arr) {
+					this.tableModel.insertRow(i,new Object[]{e.getId(),e.getDenomination(),e.getNomDir(),e.getPrenomDir(),e.getMail(),e.getTelepone(),e.getDateRdv(),e.getHeureRdv(),e.getMotif(),BD.TechnicienData.Get(e.getTechId())});
+					i++;
+				}
+				//Initialisation de la JTable
+				this.table=new JTable(this.tableModel);
+				
 			}
 
 

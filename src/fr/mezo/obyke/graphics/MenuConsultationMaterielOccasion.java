@@ -19,6 +19,7 @@ import fr.mezo.controller.PrixKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 import fr.mezo.obyke.workclass.LigneCommande;
+import fr.mezo.obyke.workclass.MaterielNeuf;
 import fr.mezo.obyke.workclass.MaterielOccasion;
 
 public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
@@ -38,7 +39,6 @@ public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
 	
 		
 		this.setTable();
-		MenuConsultation.addJTable(this.table);
 		//Mise en place formulaire
 		JButton button1= new JButton("Modifier");
 		JButton button2= new JButton("Supprimer");
@@ -149,10 +149,9 @@ public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
 		this.tableModel = new DefaultTableModel();
 		
 
-		ArrayList<LigneCommande> arrMat = new ArrayList<LigneCommande>(BD.LigneCommandeData.GetAll());
+		
 		
 		//Entêtes de la JTable
-		String[] entetesMat= {"Id materiel","Id centre","Id garantie","dateCommande"};
 
 		//Entêtes de la JTable
 		String[] entetesMatOccas= {"Id","Catégorie","Société","Année","Prix d'achat","Date d'achat","Coloris","Prix de vente","Date de mise en vente"};
@@ -168,11 +167,9 @@ public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
 		//Récupération des données de la base que l'on ajoute dans une liste
 
 		//sArrayList<MaterielNeuf> matNeuf=new ArrayList<MaterielNeuf>(arrMatneuf);
-		for(LigneCommande l : arrMat) {
-			this.tableModel.insertRow(i,new Object[]{l.getIdMateriel(),l.getIdCentre(),l.getIdGarantie(),l.getDateCommande()});
-		}
-		ArrayList<MaterielOccasion> arrMatOccas = new ArrayList<MaterielOccasion>(BD.MaterielData.MaterielOccasionData.GetAll());
-		for(MaterielOccasion m : arrMatOccas) {
+		
+		ArrayList<MaterielOccasion> arrMat = new ArrayList<MaterielOccasion>(BD.MaterielData.MaterielOccasionData.GetAll());
+		for(MaterielOccasion m : arrMat) {
 			this.tableModel.insertRow(i,new Object[]{m.getId(),m.getCateg(),m.getSociete(),m.getAnnee(),m.getPrixAchat(),m.getDateAchat(),m.getColoris(),m.getPrixVente(),m.getDateMisVente()});
 			i++;
 		}
@@ -262,5 +259,23 @@ public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
 			prixVente.setText("");
 			dateMiseVente.setText("");
 			
+		}
+
+		@Override
+		public void update() throws SQLException {
+			// TODO Auto-generated method stub
+			this.tableModel.setRowCount(0);
+			 
+			//Compteur pour l'ajout des lignes
+			int i=0;
+			
+			//Récupération des données de la base que l'on ajoute dans une liste
+			ArrayList<MaterielOccasion> arr = new ArrayList<MaterielOccasion>(BD.MaterielData.MaterielOccasionData.GetAll());
+			for(MaterielOccasion m : arr) {
+				this.tableModel.insertRow(i,new Object[]{m.getId(),m.getCateg(),m.getSociete(),m.getAnnee(),m.getPrixAchat(),m.getDateAchat(),m.getColoris(),m.getPrixVente(),m.getDateMisVente()});
+				i++;
+			}
+			//Initialisation de la JTable
+			this.table=new JTable(this.tableModel);
 		}
 }

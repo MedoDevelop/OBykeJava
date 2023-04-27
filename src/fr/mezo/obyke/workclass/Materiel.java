@@ -32,7 +32,7 @@ public abstract class Materiel {
 	}
 	
 	public String toString() {
-		return "Id "+this.id+" Categorie : "+this.categ+" Annee: "+this.annee;
+		return "Categorie : "+this.categ+" Annee: "+this.annee;
 	}
 
 	public int getId() {

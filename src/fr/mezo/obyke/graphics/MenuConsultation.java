@@ -112,6 +112,7 @@ public class MenuConsultation extends JPanel {
 	
 		
 		public static void addJTable(JTable table) {
+			leftBottom.removeAll();
 			leftBottom.add(new JScrollPane(table), BorderLayout.CENTER);
 		}
 		

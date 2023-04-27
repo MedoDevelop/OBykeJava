@@ -140,14 +140,7 @@ public abstract class MenuConsultationDroit extends JPanel{
 	
 	public abstract void setTable() throws SQLException;
 	
-	public void update() {
-		try {
-			this.setTable();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	public abstract void update() throws SQLException;
 
 	
 	

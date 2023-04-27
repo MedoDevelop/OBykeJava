@@ -38,7 +38,6 @@ public class MenuConsultationServices extends MenuConsultationDroit {
 		setTable();
 				
 		//Ajout de la JTable au menu
-		MenuConsultation.addJTable(this.table);
 		
 		//Mise en place formulaire
 		JComboBox<String> type=new JComboBox<String>(BD.GetTypeService());
@@ -213,6 +212,8 @@ public class MenuConsultationServices extends MenuConsultationDroit {
 				}
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
+
+				MenuConsultation.addJTable(this.table);
 			}
 			
 			public void updateTable() throws SQLException {
@@ -230,6 +231,25 @@ public class MenuConsultationServices extends MenuConsultationDroit {
 				}
 				//Initialisation de la JTable
 				this.table=new JTable(this.tableModel);
+			}
+			
+			@Override
+			public void update() throws SQLException {
+				// TODO Auto-generated method stub
+				this.tableModel.setRowCount(0);
+				 
+				//Compteur pour l'ajout des lignes
+				int i=0;
+				
+				//Récupération des données de la base que l'on ajoute dans une liste
+				ArrayList<Service> arr = new ArrayList<Service>(BD.ServiceData.GetAll());
+				for(Service e : arr) {
+					this.tableModel.insertRow(i,new Object[]{e.getIdService(),e.getType(),e.getDenomination(),e.getNomDir(),e.getPrenomDir(),e.getTelephone(),e.getMail(),e.getCateg(),e.getMarque(),e.getFournisseur(),e.getDateAchat(),e.getDateDepot()});
+					i++;
+				}
+				//Initialisation de la JTable
+				this.table=new JTable(this.tableModel);
+				
 			}
 
 }
