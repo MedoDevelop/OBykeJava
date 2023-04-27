@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -88,22 +89,28 @@ public class MenuVenteMatOccas extends MenuConsultationDroit {
 		this.addCentrale(new InputField("Prix total : ", resumeFacuture));
 		
 		button1.addActionListener((e)->{
-			//Action du buton valider
-			//Vendre le materiel et qui le formulaire 
-			JTextField[] jtf = {labPrixGarantie,labPrixMat,resumeFacuture};
-			if(Main.AllFieldFilled(jtf)) {
-				int idMateriel = this.Id;
-				int idGarantie = ((Garantie) this.garanties.getSelectedItem()).getId();
-				int idCentre = ((Centre) centres.getSelectedItem()).getIdCentre();
-				DateSimp today = DateSimp.now();
-				try {
-					BD.LigneCommandeData.Add(idMateriel, today, idCentre, idGarantie);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				erase(labPrixMat, labPrixGarantie, resumeFacuture);
-			}
+				int res = JOptionPane.showConfirmDialog(this,"Êtes-vous sûr de vouloir enregistrer cette vente?");
+			    
+			    if(res == JOptionPane.YES_OPTION)
+			    {
+			    	//Action du buton valider
+					//Vendre le materiel et qui le formulaire 
+					JTextField[] jtf = {labPrixGarantie,labPrixMat,resumeFacuture};
+					if(Main.AllFieldFilled(jtf)) {
+						int idMateriel = this.Id;
+						int idGarantie = ((Garantie) this.garanties.getSelectedItem()).getId();
+						int idCentre = ((Centre) centres.getSelectedItem()).getIdCentre();
+						DateSimp today = DateSimp.now();
+						try {
+							BD.LigneCommandeData.Add(idMateriel, today, idCentre, idGarantie);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						erase(labPrixMat, labPrixGarantie, resumeFacuture);
+					}
+			      
+			    }
 		});
 		
 		button2.addActionListener((e)->{
