@@ -139,7 +139,7 @@ public class MenuConsultationVenteMatNeuf extends MenuConsultationDroit {
 	@Override
 	public void update() throws SQLException {
 		// TODO Auto-generated method stub
-		/*this.tableModel.setRowCount(0);
+		this.tableModel.setRowCount(0);
 		 
 		//Compteur pour l'ajout des lignes
 		int i=0;
@@ -152,7 +152,7 @@ public class MenuConsultationVenteMatNeuf extends MenuConsultationDroit {
 		}
 		//Initialisation de la JTable
 		this.table=new JTable(this.tableModel);
-		*/
+		
 	}
 
 }

@@ -24,6 +24,8 @@ import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 import fr.mezo.obyke.workclass.Centre;
 import fr.mezo.obyke.workclass.Garantie;
+import fr.mezo.obyke.workclass.LigneCommande;
+import fr.mezo.obyke.workclass.MaterielNeuf;
 import fr.mezo.obyke.workclass.MaterielOccasion;
 
 public class MenuVenteMatOccas extends MenuConsultationDroit {
@@ -233,6 +235,19 @@ public class MenuVenteMatOccas extends MenuConsultationDroit {
 	@Override
 	public void update() throws SQLException {
 		// TODO Auto-generated method stub
+		this.tableModel.setRowCount(0);
+		 
+		//Compteur pour l'ajout des lignes
+		int i=0;
+		
+		//Récupération des données de la base que l'on ajoute dans une liste
+		ArrayList<MaterielOccasion> arr = new ArrayList<MaterielOccasion>(BD.MaterielData.MaterielOccasionData.GetAllAVentre());
+		for(MaterielOccasion m : arr) {
+			this.tableModel.insertRow(i,new Object[]{m.getId(),m.getCateg(),m.getColoris(),m.getAnnee(),m.getPrixAchat(),m.getPrixVente()});
+			i++;
+		}
+		//Initialisation de la JTable
+		this.table=new JTable(this.tableModel);
 		
 		
 	}
