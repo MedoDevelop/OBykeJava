@@ -17,6 +17,11 @@ import fr.mezo.obyke.data.BD;
 
 public class FormCentre extends Formulaire {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FormCentre(int lineLeft,int lineRight,String title) {
 		
 		super(lineLeft,lineRight,title);
@@ -105,7 +110,7 @@ public class FormCentre extends Formulaire {
 	}
 	
 	//Fonction qui supprime la valeur des champs
-	public void Cancel(JComboBox type,JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail) {
+	public void Cancel(JComboBox<String> type,JTextField deno,JTextField nomDir,JTextField prenomDir,JTextField tel,JTextField mail) {
 		type.setSelectedIndex(0);
 		JTextField[] jtf = {deno,nomDir,prenomDir,tel,mail};
 		for(JTextField j : jtf) {

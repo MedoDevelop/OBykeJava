@@ -1,8 +1,5 @@
 package fr.mezo.obyke.workclass;
 
-import java.sql.SQLException;
-
-import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 
 public abstract class Materiel {

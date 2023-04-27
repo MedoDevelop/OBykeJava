@@ -15,6 +15,11 @@ import fr.mezo.obyke.data.BD;
 
 public class FormTechnicien extends Formulaire {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FormTechnicien(int lineLeft,int lineRight,String title) {
 		
 		super(lineLeft,lineRight,title);

@@ -106,9 +106,7 @@ public class MenuConsultationTechnicien extends MenuConsultationDroit {
 					if (e.getClickCount() == 1) {
 					      this.table = (JTable)e.getSource();
 					      int row = this.table.getSelectedRow();
-					       int column = this.table.getSelectedColumn();
-					       
-					       	//On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
+					       //On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
 					       	String id=(table.getModel().getValueAt(row,0).toString());
 					       	int newId =Integer.parseInt(id);
 					       	setId(newId);

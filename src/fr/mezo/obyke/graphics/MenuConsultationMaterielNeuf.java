@@ -123,7 +123,6 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 			if (e.getClickCount() == 1) {
 			   this.table = (JTable)e.getSource();
 			   int row = this.table.getSelectedRow();
-			   int column = this.table.getSelectedColumn();
 			   
 			   //On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
 		       String id=(table.getModel().getValueAt(row,0).toString());
@@ -226,7 +225,7 @@ public class MenuConsultationMaterielNeuf extends MenuConsultationDroit {
 	}
 	
 	//Fonction qui supprime la valeur des champs
-		public void Cancel(JComboBox categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
+		public void Cancel(JComboBox<String> categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
 			categ.setSelectedItem(0);
 			societe.setText("");
 			annee.setText("");

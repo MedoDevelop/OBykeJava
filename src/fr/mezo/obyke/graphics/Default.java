@@ -12,8 +12,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import fr.mezo.obyke.workclass.Garantie;
-
 public class Default extends JFrame {
 	
 	private static final long serialVersionUID = 1L;

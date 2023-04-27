@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import fr.mezo.controller.DureeMoisKeyListener;
 import fr.mezo.controller.PrixKeyListener;
 import fr.mezo.obyke.data.BD;
-import fr.mezo.obyke.data.BD.GarantieData;
 import fr.mezo.obyke.workclass.Garantie;
 
 public class MenuConsultationGarantie extends MenuConsultationDroit {
@@ -105,7 +104,6 @@ public class MenuConsultationGarantie extends MenuConsultationDroit {
 					if (e.getClickCount() == 1) {
 					      this.table = (JTable)e.getSource();
 					      int row = this.table.getSelectedRow();
-					       int column = this.table.getSelectedColumn();
 					       
 					       	//On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
 					       	String id=(table.getModel().getValueAt(row,0).toString());

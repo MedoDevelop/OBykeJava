@@ -5,13 +5,14 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 
 public abstract class MenuConsultationDroit extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel principal;
 	private JPanel top;
 	private JPanel left;

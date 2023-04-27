@@ -1,6 +1,5 @@
 package fr.mezo.obyke.graphics;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.SQLException;
@@ -9,7 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import fr.mezo.controller.AnneeKeyListener;
@@ -20,6 +18,11 @@ import fr.mezo.obyke.data.DateSimp;
 
 public class FormMaterielOccasion extends Formulaire {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FormMaterielOccasion(int lineLeft,int lineRight,String title) {
 		
 		super(lineLeft,lineRight,title);
@@ -114,7 +117,7 @@ public class FormMaterielOccasion extends Formulaire {
 			}
 			
 			//Fonction qui supprime la valeur des champs
-			public void Cancel(JComboBox categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
+			public void Cancel(JComboBox<String> categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
 				categ.setSelectedItem(0);
 				societe.setText("");
 				annee.setText("");

@@ -18,8 +18,6 @@ import fr.mezo.controller.DateKeyListener;
 import fr.mezo.controller.PrixKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
-import fr.mezo.obyke.workclass.LigneCommande;
-import fr.mezo.obyke.workclass.MaterielNeuf;
 import fr.mezo.obyke.workclass.MaterielOccasion;
 
 public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
@@ -123,7 +121,6 @@ public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
 			if (e.getClickCount() == 1) {
 			   this.table = (JTable)e.getSource();
 			   int row = this.table.getSelectedRow();
-			   int column = this.table.getSelectedColumn();
 			   
 			   //On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
 		       String id=(table.getModel().getValueAt(row,0).toString());
@@ -178,23 +175,6 @@ public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
 		MenuConsultation.addJTable(this.table);
 	}
 	
-	//Focntion qui permet d'ajouter les données de la ligne sélectionnée dans les champs
-		public void setInput(JTextField jtf) {
-			
-			this.table.addMouseListener(new MouseAdapter() {
-			private JTable table;
-
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 1) {
-				   this.table = (JTable)e.getSource();
-				   int row = this.table.getSelectedRow();
-				   int column = this.table.getSelectedColumn();
-				   		
-				     
-				    }
-				}
-			});
-		}
 	public void updateTable() throws SQLException {
 		//On enlève toutes les lignes du tableau
 		this.tableModel.setRowCount(0);
@@ -249,7 +229,7 @@ public class MenuConsultationMaterielOccasion extends MenuConsultationDroit {
 	}
 	
 	//Fonction qui supprime la valeur des champs
-		public void Cancel(JComboBox categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
+		public void Cancel(JComboBox<String> categ,JTextField societe,JTextField annee,JTextField prixAchat,JTextField dateAchat,JTextField coloris,JTextField prixVente,JTextField dateMiseVente) {
 			categ.setSelectedItem(0);
 			societe.setText("");
 			annee.setText("");

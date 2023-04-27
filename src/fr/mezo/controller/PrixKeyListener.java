@@ -4,8 +4,6 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-import fr.mezo.obyke.graphics.Main;
-
 public class PrixKeyListener extends MainKeyListener {
 
 	public PrixKeyListener(JTextField j) {

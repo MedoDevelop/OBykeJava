@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 
 public class Formulaire extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel left;
 	private JPanel right;
 	private JPanel center;

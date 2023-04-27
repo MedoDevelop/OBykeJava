@@ -1,21 +1,13 @@
 package fr.mezo.obyke.graphics;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -24,8 +16,6 @@ import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 import fr.mezo.obyke.workclass.Centre;
 import fr.mezo.obyke.workclass.Garantie;
-import fr.mezo.obyke.workclass.LigneCommande;
-import fr.mezo.obyke.workclass.MaterielNeuf;
 import fr.mezo.obyke.workclass.MaterielOccasion;
 
 public class MenuVenteMatOccas extends MenuConsultationDroit {
@@ -69,9 +59,7 @@ public class MenuVenteMatOccas extends MenuConsultationDroit {
 		JTextField labPrixMat = new JTextField();
 		JTextField labPrixGarantie = new JTextField();
 		JTextField resumeFacuture = new JTextField();
-		JPanel p1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel p2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel p3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		
 		/*
 		p1.add(labPrixMat);
 		p2.add(labPrixGarantie);
@@ -190,9 +178,7 @@ public class MenuVenteMatOccas extends MenuConsultationDroit {
 				if (e.getClickCount() == 1) {
 				      this.table = (JTable)e.getSource();
 				      int row = this.table.getSelectedRow();
-				       int column = this.table.getSelectedColumn();
-				       
-				       	//On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
+				       //On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
 				       	String id=(table.getModel().getValueAt(row,0).toString());
 				       	int newId =Integer.parseInt(id);
 				       	setId(newId);
@@ -222,6 +208,7 @@ public class MenuVenteMatOccas extends MenuConsultationDroit {
 				}			
 				});*/
 		this.garanties.addActionListener((e)->{
+			@SuppressWarnings("unchecked")
 			JComboBox<Garantie> gC = (JComboBox<Garantie>)e.getSource();
 			Garantie g = gC.getItemAt(gC.getSelectedIndex());
 			prixGarantie = g.getPrix();

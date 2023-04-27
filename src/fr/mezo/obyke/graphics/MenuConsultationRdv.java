@@ -19,7 +19,6 @@ import fr.mezo.controller.NamesKeyListener;
 import fr.mezo.controller.TelephoneKeyListener;
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
-import fr.mezo.obyke.workclass.Garantie;
 import fr.mezo.obyke.workclass.Rdv;
 import fr.mezo.obyke.workclass.Technicien;
 
@@ -137,9 +136,7 @@ public class MenuConsultationRdv extends MenuConsultationDroit {
 					if (e.getClickCount() == 1) {
 					      this.table = (JTable)e.getSource();
 					      int row = this.table.getSelectedRow();
-					       int column = this.table.getSelectedColumn();
-					       
-					       	//On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
+					       //On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
 					       	String id=(table.getModel().getValueAt(row,0).toString());
 					       	int newId =Integer.parseInt(id);
 					       	setId(newId);

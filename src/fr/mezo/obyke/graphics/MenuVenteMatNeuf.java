@@ -1,7 +1,6 @@
 package fr.mezo.obyke.graphics;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +16,6 @@ import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
 import fr.mezo.obyke.workclass.Centre;
 import fr.mezo.obyke.workclass.Garantie;
-import fr.mezo.obyke.workclass.LigneCommande;
 import fr.mezo.obyke.workclass.MaterielNeuf;
 
 public class MenuVenteMatNeuf extends MenuConsultationDroit {
@@ -62,9 +59,6 @@ public class MenuVenteMatNeuf extends MenuConsultationDroit {
 		JTextField labPrixMat = new JTextField();
 		JTextField labPrixGarantie = new JTextField();
 		JTextField resumeFacuture = new JTextField();
-		JPanel p1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel p2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel p3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		/*
 		p1.add(labPrixMat);
 		p2.add(labPrixGarantie);
@@ -183,9 +177,7 @@ public class MenuVenteMatNeuf extends MenuConsultationDroit {
 				if (e.getClickCount() == 1) {
 				      this.table = (JTable)e.getSource();
 				      int row = this.table.getSelectedRow();
-				       int column = this.table.getSelectedColumn();
-				       
-				       	//On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
+				       //On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
 				       	String id=(table.getModel().getValueAt(row,0).toString());
 				       	int newId =Integer.parseInt(id);
 				       	setId(newId);
@@ -215,7 +207,9 @@ public class MenuVenteMatNeuf extends MenuConsultationDroit {
 				}			
 				});*/
 		this.garanties.addActionListener((e)->{
-			JComboBox<Garantie> gC = (JComboBox<Garantie>)e.getSource();
+			@SuppressWarnings("unchecked")
+			JComboBox<Garantie> jComboBox = (JComboBox<Garantie>)e.getSource();
+			JComboBox<Garantie> gC = jComboBox;
 			Garantie g = gC.getItemAt(gC.getSelectedIndex());
 			prixGarantie = g.getPrix();
 			System.out.println(g.getPrix());

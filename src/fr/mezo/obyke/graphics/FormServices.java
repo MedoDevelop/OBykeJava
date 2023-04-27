@@ -19,6 +19,11 @@ import fr.mezo.obyke.data.DateSimp;
 
 public class FormServices extends Formulaire {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FormServices(int lineLeft,int lineRight,String title) {
 		
 		super(lineLeft,lineRight,title);

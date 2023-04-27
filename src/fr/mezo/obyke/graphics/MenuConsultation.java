@@ -2,7 +2,6 @@ package fr.mezo.obyke.graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -52,7 +51,7 @@ public class MenuConsultation extends JPanel {
 		this.principal=new JPanel(new GridLayout(1,2));
 		this.leftCentral=new JPanel(new BorderLayout());
 		this.leftTop=new JPanel(new BorderLayout());
-		this.leftBottom=new JPanel(new BorderLayout());
+		MenuConsultation.leftBottom=new JPanel(new BorderLayout());
 		this.rightCentral=new JPanel(new BorderLayout());
 		this.rightTop=new JPanel(new BorderLayout());
 		this.rightBottom=new JPanel(new BorderLayout());
@@ -61,7 +60,7 @@ public class MenuConsultation extends JPanel {
 		this.principal.setOpaque(false);
 		this.leftCentral.setOpaque(false);
 		this.leftTop.setOpaque(false);
-		this.leftBottom.setOpaque(false);
+		MenuConsultation.leftBottom.setOpaque(false);
 		this.rightCentral.setOpaque(false);
 		this.rightTop.setOpaque(false);
 		this.rightBottom.setOpaque(false);
@@ -80,7 +79,7 @@ public class MenuConsultation extends JPanel {
 		
 		//Ajout des sous-panneaux gauches
 		this.leftCentral.add(this.leftTop,BorderLayout.NORTH);
-		this.leftCentral.add(this.leftBottom,BorderLayout.CENTER);
+		this.leftCentral.add(MenuConsultation.leftBottom,BorderLayout.CENTER);
 		
 		//Ajout du titre
 		this.leftTop.add(this.labelLeft);

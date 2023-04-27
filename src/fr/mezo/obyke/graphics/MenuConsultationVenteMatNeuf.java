@@ -6,16 +6,12 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import fr.mezo.obyke.data.BD;
 import fr.mezo.obyke.data.DateSimp;
-import fr.mezo.obyke.workclass.Centre;
-import fr.mezo.obyke.workclass.Garantie;
 import fr.mezo.obyke.workclass.LigneCommande;
 
 public class MenuConsultationVenteMatNeuf extends MenuConsultationDroit {
@@ -111,9 +107,7 @@ public class MenuConsultationVenteMatNeuf extends MenuConsultationDroit {
 					if (e.getClickCount() == 1) {
 					      this.table = (JTable)e.getSource();
 					      int row = this.table.getSelectedRow();
-					       int column = this.table.getSelectedColumn();
-					       
-					       	//On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
+					       //On récupère l'id de l'objet sélectionné, il sera utilisé pour la modification en base de donées
 					       	int idMat,idCentre,idGarantie;
 					       	idMat = (int) (table.getModel().getValueAt(row,0));
 					       	idCentre = (int) (table.getModel().getValueAt(row,1));
